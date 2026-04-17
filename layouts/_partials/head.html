@@ -1,1 +1,46 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+  
+    {{/* Favicons and Touch Icons */}}
+    {{ $appleTouch := resources.Get "apple-touch-icon.png" }}
+    {{ if $appleTouch }}
+      <link rel="apple-touch-icon" sizes="180x180" href="{{ $appleTouch.RelPermalink }}">
+    {{ end }}
+  
+    {{ $fav32 := resources.Get "favicon-32x32.png" }}
+    {{ if $fav32 }}
+      <link rel="icon" type="image/png" sizes="32x32" href="{{ $fav32.RelPermalink }}">
+    {{ end }}
+  
+    {{ $fav16 := resources.Get "favicon-16x16.png" }}
+    {{ if $fav16 }}
+      <link rel="icon" type="image/png" sizes="16x16" href="{{ $fav16.RelPermalink }}">
+    {{ end }}
+  
+    {{ $favicon := resources.Get "favicon.ico" }}
+    {{ if $favicon }}
+      <link rel="shortcut icon" href="{{ $favicon.RelPermalink }}">
+    {{ end }}
+  
+    {{/* Web Manifest */}}
+    {{ $manifest := resources.Get "site.webmanifest" }}
+    {{ if $manifest }}
+      <link rel="manifest" href="{{ $manifest.RelPermalink }}">
+    {{ end }}
+  
+    {{/* Logo and SVG Assets (Can be used for OpenGraph or Schema) */}}
+    {{ $logo := resources.Get "logo_full.svg" }}
+    {{ $meeting := resources.Get "meeting.svg" }}
+  
+    {{/* Metadata for Android/Chrome */}}
+    <meta name="theme-color" content="#ffffff">
+    
+    {{/* CSS / JS (Example of bundling SCSS from assets) */}}
+    {{/* $style := resources.Get "scss/main.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}"> */}}
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  
+
