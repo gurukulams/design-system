@@ -1,0 +1,21 @@
+[module]
+[module.hugoVersion]
+  extended = true
+  min = "0.146.0"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [['\[', '\]'], ['$$', '$$']]
+          inline = [['\(', '\)']]
+[params]
+  math = true
+
+
+[security]
+enableInlineShortcodes = true
+[security.funcs]
+getenv = ['^HUGO_','CONTEXT','BUILD_PRODUCTION']

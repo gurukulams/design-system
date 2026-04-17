@@ -1,0 +1,24 @@
+- id: Search
+  translation: Search
+
+- id: Edit this page
+  translation: Edit this page
+
+- id: Last modified by
+  translation: Last modified by
+
+- id: bookSearchConfig
+  translation: '{ cache: true }'
+
+- id: Practices
+  translation: பயிற்சி
+
+- id: References
+  translation: மேற்கோள்கள்
+
+- id: Videos
+  translation: காணொளிகள்
+
+- id: Books
+  translation: புத்தகங்கள்
+

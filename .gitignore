@@ -1,0 +1,11 @@
+public/
+exampleSite/public/
+.DS_Store
+.hugo_build.lock
+resources/
+node_modules/
+
+assets/js
+assets/css
+static/data
+package-lock.json
