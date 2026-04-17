@@ -29,7 +29,11 @@
     {{ if $manifest }}
       <link rel="manifest" href="{{ $manifest.RelPermalink }}">
     {{ end }}
-  
+
+    {{- range .Translations }}
+      <link rel="alternate" hreflang="{{ default .Site.LanguageCode .Language.Lang }}" href="{{ .Permalink }}" title="{{ partial "docs/title" . }}">
+    {{- end -}}
+    
     {{/* Logo and SVG Assets (Can be used for OpenGraph or Schema) */}}
     {{ $logo := resources.Get "logo_full.svg" }}
     {{ $meeting := resources.Get "meeting.svg" }}
