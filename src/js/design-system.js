@@ -1,6 +1,6 @@
 
 import Dropdown from 'bootstrap/js/dist/dropdown';
-import { Collapse } from 'bootstrap';
+import Collapse from 'bootstrap/js/dist/collapse'; // Change this path
 
 class DesignSystem {
     constructor() {
