@@ -1,0 +1,18 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      {{/* Get ancestors and reverse them to go from root -> current */}}
+      {{ $ancestors := .Ancestors.Reverse }}
+      
+      {{/* 1. Loop through ancestors but skip the first one (docs/) */}}
+      {{ range after 2 $ancestors }}
+        <li class="breadcrumb-item">
+          <a href="{{ .RelPermalink }}" class="text-decoration-none">{{ partial "utils/title" . }}</a>
+        </li>
+      {{ end }}
+  
+      {{/* 2. Add the current page as the active item */}}
+      <li class="breadcrumb-item active" aria-current="page">
+        {{ partial "utils/title" . }}
+      </li>
+    </ol>
+  </nav>
