@@ -1,5 +1,6 @@
 
 import Dropdown from 'bootstrap/js/dist/dropdown';
+import { Collapse } from 'bootstrap';
 
 class DesignSystem {
     constructor() {

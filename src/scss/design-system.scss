@@ -46,3 +46,17 @@ ul, ol {
     margin-left: 0;
     margin-right: 0;
 }
+
+/* Rotate chevron when the collapse is shown */
+[aria-expanded="true"] .toggle-icon {
+    transform: rotate(90deg);
+    transition: transform 0.2s ease-in-out;
+}
+
+.toggle-icon {
+    transition: transform 0.2s ease-in-out;
+}
+
+.cursor-pointer {
+    user-select: none;
+}
