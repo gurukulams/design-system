@@ -29,6 +29,7 @@
     "sass": "^1.99.0"
   },
   "dependencies": {
-    "practice-js": "github:gurukulams/practice-js"
+    "practice-js": "github:gurukulams/practice-js",
+    "bootstrap": "^5.3.8"
   }
 }
