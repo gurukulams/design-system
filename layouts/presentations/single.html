@@ -1,38 +1,58 @@
-<!doctype html>
-<html lang="{{ .Site.LanguageCode }}">
-<head>
-    <meta charset="utf-8">
-    <title>{{ .Title }} | {{ .Site.Title }}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/white.css" id="theme">
-    
-    <style>
-        /* Custom Gurukulams branding for slides */
-        .reveal .slides section { text-align: left; }
-        .reveal .progress { color: #0d6efd; }
-    </style>
-</head>
-<body>
-    <div class="reveal">
-        <div class="slides">
-            {{/* The dash before the closing brackets is important for whitespace control */}}
-            <section data-markdown 
-                     data-separator="^\r?\n---\r?\n" 
-                     data-separator-vertical="^\r?\n--\r?\n">
-                <script type="text/template">
-    {{ .RawContent | safeHTML }}
-                </script>
-            </section>
-        </div>
+{{ define "main" }}
+<div class="presentation-container my-4">
+    <div class="d-flex align-items-center mb-3">
+        <h2 class="h4 mb-0 me-auto">{{ .Title }}</h2>
+        <button class="btn btn-sm btn-outline-primary" onclick="toggleFullScreen()">
+            <i class="bi bi-arrows-fullscreen"></i> Fullscreen
+        </button>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/markdown/markdown.js"></script>
-    <script>
-        Reveal.initialize({
+    <div class="reveal-wrapper shadow-sm border rounded" style="height: 600px; position: relative; overflow: hidden;">
+        <div class="reveal">
+            <div class="slides">
+                <section data-markdown 
+                         data-separator="^\r?\n---\r?\n" 
+                         data-separator-vertical="^\r?\n--\r?\n">
+                    <script type="text/template">
+                        {{ .RawContent }}
+                    </script>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/white.css" id="theme">
+
+<style>
+    /* Ensure the reveal instance stays within our defined box */
+    .reveal-wrapper .reveal {
+        width: 100%;
+        height: 100%;
+    }
+    .reveal .slides section { text-align: left; font-size: 0.8em; }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/markdown/markdown.js"></script>
+
+<script>
+    // Initialize specifically for this container
+    document.addEventListener('DOMContentLoaded', function() {
+        let deck = new Reveal(document.querySelector('.reveal'), {
+            embedded: true, // Crucial: This keeps it inside the div, not fullscreen
             hash: true,
             plugins: [ RevealMarkdown ]
         });
-    </script>
-</body>
-</html>
+        deck.initialize();
+    });
+
+    function toggleFullScreen() {
+        const elem = document.querySelector('.reveal-wrapper');
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        }
+    }
+</script>
+{{ end }}
