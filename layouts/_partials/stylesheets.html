@@ -1,0 +1,4 @@
+{{ $style := resources.Get "css/design-system.css" | resources.Minify | resources.Fingerprint }}
+{{ if $style }}
+  <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous">
+{{ end }}

@@ -41,13 +41,6 @@
     {{/* Metadata for Android/Chrome */}}
     <meta name="theme-color" content="#ffffff">
     
-    {{/* CSS / JS (Example of bundling SCSS from assets) */}}
-    {{/* $style := resources.Get "scss/main.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
-    <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}"> */}}
+    {{ partial "stylesheets.html" . }}
 
-    {{ $style := resources.Get "css/design-system.css" | resources.Minify | resources.Fingerprint }}
-    {{ if $style }}
-      <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous">
-    {{ end }}
-  
 

@@ -1,0 +1,15 @@
+
+{{/* 1. Initialize the variable at the top level of the partial */}}
+{{ $js := "" }}
+
+{{/* 2. Assign the first resource */}}
+{{ $js = resources.Get "js/q-loader-bundle.js" | resources.Minify | resources.Fingerprint }}
+{{ with $js }}
+  <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
+{{ end }}
+
+{{/* 3. Reassign the second resource */}}
+{{ $js = resources.Get "js/design-system-bundle.js" | resources.Minify | resources.Fingerprint }}
+{{ with $js }}
+  <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
+{{ end }}
