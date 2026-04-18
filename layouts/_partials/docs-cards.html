@@ -20,9 +20,13 @@
                     </p>
                 </div>
                 
-                <div class="card-footer bg-white border-top-0 pb-4 d-flex justify-content-end">
-                    <a href="{{ .RelPermalink }}" class="btn btn-sm btn-outline-primary d-flex align-items-center">
-                        Go to <i class="bi bi-chevron-double-right ms-2"></i>
+                <div class="card-footer bg-transparent border-0 pb-3 d-flex align-items-center justify-content-between">
+                    <div class="slide-container">
+                        {{ partial "utils/slide-finder.html" . }}
+                    </div>
+            
+                    <a href="{{ .RelPermalink }}" class="btn btn-sm btn-link p-0 text-primary fw-bold text-decoration-none">
+                        View Details <i class="bi bi-arrow-right"></i>
                     </a>
                 </div>
             </div>

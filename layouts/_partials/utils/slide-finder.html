@@ -1,0 +1,29 @@
+{{ $slide_link := "" }}
+
+{{ with .File }}
+    {{/* 1. Get the path and strip "docs/" */}}
+    {{ $clean_path := replace .Path "docs/" "" }}
+    
+    {{/* 2. Determine Physical File Path for Disk Check */}}
+    {{ $physical_file := "" }}
+    {{ if eq .BaseFileName "_index" }}
+        {{ $dirName := path.Base .Dir }}
+        {{ $physical_file = print "presentations/" $dirName ".md" }}
+    {{ else }}
+        {{ $physical_file = print "presentations/" $clean_path }}
+    {{ end }}
+
+    {{ if os.FileExists $physical_file }}
+        {{/* 3. Construct the Logical URL Path */}}
+        {{/* IMPORTANT: No leading slash here so relLangURL can process it correctly */}}
+        {{ $url_fragment := replace $clean_path "_index.md" "" }}
+        {{ $url_fragment = replace $url_fragment ".md" "" }}
+        
+        {{/* 4. Use relLangURL to prepends /design-system/ and /ta/ or /en/ */}}
+        {{ $final_path := printf "presentations/%s" $url_fragment }}
+        
+        <a href="{{ $final_path | relLangURL }}" class="btn btn-outline-secondary btn-sm border-0" title="Presentation">
+            <i class="bi bi-play-btn fs-5"></i>
+        </a>
+    {{ end }}
+{{ end }}

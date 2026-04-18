@@ -5,8 +5,7 @@ categories: ["Training"]
 tags: ["Python", "Pytest", "Allure"]
 summary: "A deep dive into the Python-based automation ecosystem and reporting tools."
 ---
-# Automation at Scale
-Exploring our Python-based testing ecosystem.
+# Presentations
 
 ---
 
