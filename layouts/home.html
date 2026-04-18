@@ -2,7 +2,7 @@
 <div class="container">
     {{/* Grab the root docs folder */}}
     {{ with .Site.GetPage "section" "docs" }}
-    {{ partial "docs-tree.html" . }}
+    {{ partial "docs-cards.html" . }}
     {{ else }}
         <p class="p-3 text-muted">No documentation found in /content/docs/</p>
     {{ end }}
