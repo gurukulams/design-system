@@ -1,5 +1,6 @@
 {{ define "main" }}
 <div class="container">
+    {{ .Content }}
     {{/* Grab the root docs folder */}}
     {{ with .Site.GetPage "section" "docs" }}
     {{ partial "docs-cards.html" . }}
