@@ -3,15 +3,15 @@ import Dropdown from 'bootstrap/js/dist/dropdown';
 import Collapse from 'bootstrap/js/dist/collapse'; 
 import Offcanvas from 'bootstrap/js/dist/offcanvas';
 
-// Optional: Manual initialization if you want to trigger it via JS
-document.addEventListener('DOMContentLoaded', () => {
-    const offcanvasElementList = document.querySelectorAll('.offcanvas');
-    const offcanvasList = [...offcanvasElementList].map(offcanvasEl => new Offcanvas(offcanvasEl));
-});
+// // Optional: Manual initialization if you want to trigger it via JS
+// document.addEventListener('DOMContentLoaded', () => {
+//     const offcanvasElementList = document.querySelectorAll('.offcanvas');
+//     const offcanvasList = [...offcanvasElementList].map(offcanvasEl => new Offcanvas(offcanvasEl));
+// });
 
 class DesignSystem {
     constructor() {
-        // this.handleTheme();
+        this.handleTheme();
     }
 
     handleTheme() {
