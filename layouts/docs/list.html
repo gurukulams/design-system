@@ -1,9 +1,7 @@
 {{ define "main" }}
 
-{{ partial "breadcrumb.html" . }}
-
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
+  {{ partial "docs/docs-header" . }}
+  {{ partial "docs/docs-content" . }}
 
   <div class="list-container">
     {{/* 1. List immediate Sub-Sections (Folders) */}}
