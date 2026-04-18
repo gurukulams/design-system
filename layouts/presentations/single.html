@@ -6,7 +6,10 @@
             <div class="d-flex align-items-center mb-3">
                 <nav aria-label="breadcrumb" class="me-auto">
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="{{ "/presentations/" | relLangURL }}">{{ T "Presentations" | default "Presentations" }}</a></li>
+                        <li class="breadcrumb-item">
+                            {{ $presentationsURL := "presentations/" | relLangURL }}
+                            <a href="{{ $presentationsURL }}">{{ T "Presentations" | default "Presentations" }}</a>
+                        </li>
                         <li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
                     </ol>
                 </nav>

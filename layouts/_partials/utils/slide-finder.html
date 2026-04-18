@@ -1,10 +1,14 @@
 {{ $slide_link := "" }}
 
 {{ with .File }}
-    {{/* 1. Get the path and strip "docs/" */}}
-    {{ $clean_path := replace .Path "docs/" "" }}
+    {{/* 1. Normalize path to use forward slashes for URL safety */}}
+    {{ $normalized_path := replace .Path "\\" "/" }}
     
-    {{/* 2. Determine Physical File Path for Disk Check */}}
+    {{/* 2. Strip "docs/" using the normalized path */}}
+    {{ $clean_path := replace $normalized_path "docs/" "" }}
+    
+    {{/* 3. Determine Physical File Path for Disk Check */}}
+    {{/* Note: os.FileExists handles backslashes on Windows automatically */}}
     {{ $physical_file := "" }}
     {{ if eq .BaseFileName "_index" }}
         {{ $dirName := path.Base .Dir }}
@@ -14,14 +18,14 @@
     {{ end }}
 
     {{ if os.FileExists $physical_file }}
-        {{/* 3. Construct the Logical URL Path */}}
-        {{/* IMPORTANT: No leading slash here so relLangURL can process it correctly */}}
+        {{/* 4. Construct the Logical URL Path */}}
         {{ $url_fragment := replace $clean_path "_index.md" "" }}
         {{ $url_fragment = replace $url_fragment ".md" "" }}
         
-        {{/* 4. Use relLangURL to prepends /design-system/ and /ta/ or /en/ */}}
+        {{/* Ensure no double slashes or backslashes remain in the URL */}}
         {{ $final_path := printf "presentations/%s" $url_fragment }}
-        
+        {{ $final_path = replace $final_path "//" "/" }}
+
         <a href="{{ $final_path | relLangURL }}" class="btn btn-outline-secondary btn-sm border-0" title="Presentation">
             <i class="bi bi-play-btn fs-5"></i>
         </a>
