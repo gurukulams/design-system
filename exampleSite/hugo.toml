@@ -48,3 +48,7 @@ enableGitInfo = true
 enableInlineShortcodes = true
 [security.funcs]
 getenv = ['^HUGO_','CONTEXT','BUILD_PRODUCTION']
+
+
+[params]
+  IncludeFooter = true

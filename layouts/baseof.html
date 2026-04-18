@@ -3,6 +3,9 @@
 <html lang="{{ default .Site.Language.Lang .Site.LanguageCode }}" dir="{{ default " ltr"
   .Site.Language.LanguageDirection }}">
 <head>
+  {{ if .Param "math" }}
+    {{ partial "math.html" . }}
+  {{ end }}
   {{ partial "head.html" . }}
 </head>
 <body>
