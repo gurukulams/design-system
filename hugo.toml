@@ -1,3 +1,8 @@
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
 [module]
 [module.hugoVersion]
   extended = true

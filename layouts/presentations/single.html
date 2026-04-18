@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="{{ .Site.LanguageCode }}">
+<head>
+    <meta charset="utf-8">
+    <title>{{ .Title }} | {{ .Site.Title }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/white.css" id="theme">
+    
+    <style>
+        /* Custom Gurukulams branding for slides */
+        .reveal .slides section { text-align: left; }
+        .reveal .progress { color: #0d6efd; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            {{/* The dash before the closing brackets is important for whitespace control */}}
+            <section data-markdown 
+                     data-separator="^\r?\n---\r?\n" 
+                     data-separator-vertical="^\r?\n--\r?\n">
+                <script type="text/template">
+    {{ .RawContent | safeHTML }}
+                </script>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/markdown/markdown.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            plugins: [ RevealMarkdown ]
+        });
+    </script>
+</body>
+</html>
