@@ -1,21 +1,10 @@
 {{ define "main" }}
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-8 mx-auto">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Documentation Library</h5>
-                </div>
-                <div class="card-body p-0">
-                    {{/* Grab the root docs folder */}}
-                    {{ with .Site.GetPage "section" "docs" }}
-                        {{ partial "docs-tree.html" . }}
-                    {{ else }}
-                        <p class="p-3 text-muted">No documentation found in /content/docs/</p>
-                    {{ end }}
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container">
+    {{/* Grab the root docs folder */}}
+    {{ with .Site.GetPage "section" "docs" }}
+    {{ partial "docs-tree.html" . }}
+    {{ else }}
+        <p class="p-3 text-muted">No documentation found in /content/docs/</p>
+    {{ end }}
 </div>
 {{ end }}

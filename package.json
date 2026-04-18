@@ -7,6 +7,7 @@
   "license": "ISC",
   "type": "module",
   "scripts": {
+    "copy:fonts": "cp -R node_modules/bootstrap-icons/font/fonts static/fonts/bootstrap-icons",
     "watch:js": "rollup -c -w",
     "watch:questions": "node scripts/build-questions.js --watch --auto-fix",
     "build:css": "sass src/scss:assets/css",
@@ -29,7 +30,8 @@
     "sass": "^1.99.0"
   },
   "dependencies": {
-    "practice-js": "github:gurukulams/practice-js",
-    "bootstrap": "^5.3.8"
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
+    "practice-js": "github:gurukulams/practice-js"
   }
 }
