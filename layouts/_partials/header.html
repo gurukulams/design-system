@@ -16,13 +16,14 @@
         </div>
       </div>
   
-      <span class="navbar-brand lh-1"><a href="{{ site.Home.RelPermalink }}" class="h4 text-decoration-none"><strong>{{ .Site.Title }}</strong></a><br>
+      <span class="navbar-brand lh-1"><a href="{{ site.Home.RelPermalink }}" class="h4 text-decoration-none">
+        <strong>{{ .Site.Title }}</strong></a><br>
         <div class="text-muted text-end w-100 p-0 mb-0 dropdown border-0">
           <small data-code={{$.Site.Home.Language.Lang}} class="dropdown-toggle" type="button" id="languageBtn" data-bs-toggle="dropdown" aria-expanded="false">
             {{$.Site.Home.Language.LanguageName}}
           </small>
           <ul class="dropdown-menu" aria-labelledby="languageBtn">
-            {{ range $.Site.Home.Translations }}
+                  {{ range .Translations }}
             <li>
               <a class="dropdown-item" data-code="{{.Language.Lang}}" href="{{ .Permalink }}">
                 {{ .Language.LanguageName }}
