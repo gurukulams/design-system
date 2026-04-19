@@ -1,3 +1,5 @@
+
+{{ if .IsPage }}
 <script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/markdown/markdown.js"></script>
 
@@ -26,3 +28,7 @@
         }
     }
 </script>
+{{ else }}
+  {{/* This is a list/section page */}}
+{{ end }}
+

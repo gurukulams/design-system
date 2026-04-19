@@ -1,3 +1,4 @@
+{{ if .IsPage }}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/white.css" id="theme">
 
@@ -20,3 +21,7 @@
         right: 20px !important;
     }
 </style>
+{{ else }}
+  {{/* This is a list/section page */}}
+{{ end }}
+
