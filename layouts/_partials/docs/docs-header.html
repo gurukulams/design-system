@@ -26,7 +26,8 @@
           <span class="input-group-text bg-light border-end-0" id="search-icon">
               <i class="bi bi-search text-muted"></i>
           </span>
-          <input type="text" 
+          <input id="book-search-input" 
+                type="text" 
                  class="form-control bg-light border-start-0 ps-0" 
                  placeholder="Search documentation..." 
                  aria-label="Search" 
@@ -38,6 +39,7 @@
       
   </div>
     <div class="offcanvas-body">
+        <ul id="book-search-results"></ul>
       {{/* Grab the root docs folder */}}
     {{ with .Site.GetPage "section" "docs" }}
     {{ partial "docs/docs-tree.html" . }}
