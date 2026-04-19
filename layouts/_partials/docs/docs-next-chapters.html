@@ -1,0 +1,50 @@
+{{/* 3. "Next Chapters" - The Cards Section */}}
+{{ $entries := (union .Sections .RegularPages).ByWeight }}
+
+{{/* Logic: If no children, get siblings from the parent, excluding the current page */}}
+{{ if eq (len $entries) 0 }}
+    {{ $entries = where .Parent.RegularPages "Permalink" "!=" .Permalink }}
+{{ end }}
+
+{{ if gt (len $entries) 0 }}
+<section class="mt-5 pt-5 border-top">
+    <h4 class="text-uppercase small fw-bold text-muted mb-4 tracking-widest">
+        {{ if .IsSection }}Next Chapters{{ else }}Related Topics{{ end }}
+    </h4>
+    
+    <div class="row g-4">
+        {{ range $entries }}
+        <div class="col-md-6">
+            <a href="{{ .RelPermalink }}" class="text-decoration-none transition-up">
+                <div class="card h-100 border-0 shadow-sm border-hover">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary-subtle text-primary rounded p-2 me-3">
+                                {{ if .IsSection }}
+                                    <i class="bi bi-folder2-open fs-4"></i>
+                                {{ else }}
+                                    <i class="bi bi-file-earmark-text fs-4"></i>
+                                {{ end }}
+                            </div>
+                            <h5 class="card-title mb-0 text-dark fw-bold">
+                                {{ partial "utils/title" . }}
+                            </h5>
+                        </div>
+                        <p class="card-text text-muted small">
+                            {{ if .Summary }}
+                                {{ .Summary | truncate 100 }}
+                            {{ else }}
+                                Explore this section to learn more about {{ .LinkTitle }}.
+                            {{ end }}
+                        </p>
+                        <div class="text-primary small fw-bold mt-2">
+                            Read More <i class="bi bi-arrow-right ms-1"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {{ end }}
+    </div>
+</section>
+{{ end }}

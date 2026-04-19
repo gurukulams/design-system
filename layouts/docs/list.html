@@ -2,22 +2,6 @@
 
   {{ partial "docs/docs-header" . }}
   {{ partial "docs/docs-content" . }}
-
-  <div class="list-container">
-    {{/* 1. List immediate Sub-Sections (Folders) */}}
-    {{ range .Sections }}
-      <div class="section-item">
-        <h3>📂 <a href="{{ .RelPermalink }}">{{ partial "utils/title" . }}</a></h3>
-        <p>This folder contains {{ len .Pages }} items.</p>
-      </div>
-    {{ end }}
-
-    {{/* 2. List immediate Regular Pages (Files) */}}
-    {{ range .RegularPages }}
-      <div class="page-item">
-        <p>📄 <a href="{{ .RelPermalink }}">{{ partial "utils/title" . }}</a></p>
-      </div>
-    {{ end }}
-  </div>
+  {{ partial "docs/docs-next-chapters" . }}
 
 {{ end }}
