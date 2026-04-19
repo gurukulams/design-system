@@ -1,11 +1,11 @@
 {{ define "main" }}
-<div class="container">
-    {{ .Content }}
-    {{/* Grab the root docs folder */}}
-    {{ with .Site.GetPage "section" "docs" }}
-    {{ partial "docs/docs-cards.html" . }}
-    {{ else }}
-        <p class="p-3 text-muted">No documentation found in /content/docs/</p>
-    {{ end }}
-</div>
+    <div class="row py-3">
+        {{ .Content }}
+        {{/* Grab the root docs folder */}}
+        {{ with .Site.GetPage "section" "docs" }}
+        {{ partial "docs/docs-cards.html" . }}
+        {{ else }}
+            <p class="p-3 text-muted">No documentation found in /content/docs/</p>
+        {{ end }}
+    </div>
 {{ end }}
