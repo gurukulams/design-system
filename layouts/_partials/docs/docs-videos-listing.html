@@ -1,0 +1,70 @@
+{{ with .Params.references.videos }}
+<section class="docs-video-sequence mt-5 pt-5 border-top">
+    <h4 class="text-uppercase small fw-bold text-muted mb-4 tracking-widest">
+        <i class="bi bi-collection-play me-2"></i>Video Sequence
+    </h4>
+
+    <ol class="list-unstyled p-0 m-0">
+        {{ range $index, $element := . }}
+            {{/* Handle both Map and String formats */}}
+            {{ $ytId := "" }}
+            {{ if reflect.IsMap . }}{{ $ytId = .youtube }}{{ else }}{{ $ytId = replace . "youtube:" "" }}{{ end }}
+            
+            {{/* Clean the ID for the thumbnail */}}
+            {{ $ytIdClean := index (split $ytId "?") 0 }}
+
+            <li class="mb-4">
+                <a href="https://youtube.com/watch?v={{ $ytId }}" target="_blank" class="text-decoration-none group">
+                    <div class="card border-0 shadow-sm border-hover overflow-hidden">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-4 position-relative">
+                                <div class="badge bg-primary position-absolute top-0 start-0 m-2 z-1 shadow">
+                                    Step {{ add $index 1 }}
+                                </div>
+                                <img src="https://img.youtube.com/vi/{{ $ytIdClean }}/mqdefault.jpg" 
+                                     class="img-fluid w-100" 
+                                     style="aspect-ratio: 16/9; object-fit: cover;"
+                                     alt="Thumbnail">
+                                <div class="position-absolute top-50 start-50 translate-middle">
+                                    <i class="bi bi-play-circle-fill text-white fs-1 opacity-75 group-hover:opacity-100 transition-all"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-8">
+                                <div class="card-body py-3 px-4">
+                                    <h5 class="card-title text-dark fw-bold mb-1">Watch Tutorial Part {{ add $index 1 }}</h5>
+                                    <p class="card-text text-muted small mb-0">
+                                        Follow this video lesson to understand the implementation details of this section.
+                                    </p>
+                                    <div class="mt-2 text-primary small fw-bold">
+                                        Play on YouTube <i class="bi bi-arrow-right ms-1"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        {{ end }}
+    </ol>
+</section>
+
+<style>
+    .docs-video-sequence .border-hover {
+        transition: all 0.3s ease;
+        border: 1px solid transparent !important;
+    }
+    
+    .docs-video-sequence .border-hover:hover {
+        transform: translateY(-3px);
+        border-color: var(--bs-primary) !important;
+        box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1) !important;
+    }
+
+    /* Logic to show play button clearly on hover */
+    .group:hover .bi-play-circle-fill {
+        opacity: 1 !important;
+        transform: scale(1.1);
+    }
+</style>
+{{ end }}

@@ -1,0 +1,72 @@
+{{ with .Params.references.links }}
+<section class="docs-ref-sequence mt-5 pt-5 border-top">
+    <h4 class="text-uppercase small fw-bold text-muted mb-4 tracking-widest">
+        <i class="bi bi-link-45deg me-2"></i>External Resources
+    </h4>
+
+    <ol class="list-unstyled p-0 m-0">
+        {{ range $index, $element := . }}
+            {{/* Handle both Map (title/url) and String formats */}}
+            {{ $url := "" }}{{ $title := "" }}
+            {{ if reflect.IsMap . }}
+                {{ $url = .url }}{{ $title = .title }}
+            {{ else }}
+                {{ $url = . }}{{ $title = . }}
+            {{ end }}
+
+            <li class="mb-3">
+                <a href="{{ $url }}" target="_blank" class="text-decoration-none group">
+                    <div class="card border-0 shadow-sm border-hover h-100">
+                        <div class="card-body py-3 px-4">
+                            <div class="d-flex align-items-center">
+                                <div class="ref-number flex-shrink-0 me-3 d-flex align-items-center justify-content-center bg-light border rounded-circle text-primary fw-bold small" style="width: 32px; height: 32px;">
+                                    {{ add $index 1 }}
+                                </div>
+                                
+                                <div class="flex-grow-1 min-width-0">
+                                    <h6 class="mb-1 text-dark fw-bold text-truncate">
+                                        {{ $title }}
+                                    </h6>
+                                    <div class="d-flex align-items-center text-muted x-small">
+                                        <i class="bi bi-globe2 me-1"></i>
+                                        <span class="text-truncate">{{ $url }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="ms-auto ps-3 text-muted opacity-50">
+                                    <i class="bi bi-box-arrow-up-right fs-5"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        {{ end }}
+    </ol>
+</section>
+
+<style>
+    .docs-ref-sequence .border-hover {
+        transition: all 0.25s ease;
+        border-left: 3px solid transparent !important;
+    }
+    
+    .docs-ref-sequence .border-hover:hover {
+        background-color: #f8f9fa;
+        border-left-color: var(--bs-primary) !important;
+        transform: translateX(5px);
+    }
+
+    .x-small { font-size: 0.8rem; }
+    
+    .ref-number {
+        transition: all 0.25s ease;
+    }
+
+    .group:hover .ref-number {
+        background-color: var(--bs-primary) !important;
+        color: white !important;
+        border-color: var(--bs-primary) !important;
+    }
+</style>
+{{ end }}

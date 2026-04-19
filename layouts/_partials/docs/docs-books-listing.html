@@ -1,0 +1,62 @@
+{{ with .Params.references.books }}
+<section class="docs-book-sequence mt-5 pt-5 border-top">
+    <h4 class="text-uppercase small fw-bold text-muted mb-4 tracking-widest">
+        <i class="bi bi-book me-2"></i>Recommended Books
+    </h4>
+
+    <ol class="list-unstyled p-0 m-0">
+        {{ range $index, $element := . }}
+            {{ range $key, $book := . }}
+            <li class="mb-4">
+                <div class="card border-0 shadow-sm border-hover h-100 bg-white">
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <div class="d-flex flex-column align-items-center">
+                                    <span class="text-primary fw-bold mb-1">{{ add $index 1 }}</span>
+                                    <div class="bg-success-subtle text-success rounded-3 p-3 shadow-sm">
+                                        <i class="bi bi-journal-bookmark-fill fs-3"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col ms-2">
+                                <h5 class="card-title text-dark fw-bold mb-2" style="line-height: 1.4;">
+                                    {{ $book.title }}
+                                </h5>
+                                <div class="d-flex flex-wrap gap-2 mb-3">
+                                    <span class="badge bg-light text-muted border">Hardcover / PDF</span>
+                                    <span class="badge bg-light text-muted border">Reference Material</span>
+                                </div>
+                                {{ if $book.url }}
+                                <a href="{{ $book.url }}" target="_blank" class="btn btn-outline-success btn-sm rounded-pill px-4 transition-all">
+                                    <i class="bi bi-box-arrow-up-right me-2"></i>View Source
+                                </a>
+                                {{ end }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {{ end }}
+        {{ end }}
+    </ol>
+</section>
+
+<style>
+    .docs-book-sequence .border-hover {
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        border: 1px solid #eee !important;
+    }
+    
+    .docs-book-sequence .border-hover:hover {
+        transform: scale(1.02);
+        border-color: var(--bs-success) !important;
+        box-shadow: 0 1rem 2rem rgba(0,0,0,0.1) !important;
+    }
+
+    .bg-success-subtle {
+        background-color: #e8f5e9;
+    }
+</style>
+{{ end }}

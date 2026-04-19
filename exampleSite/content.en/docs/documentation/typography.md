@@ -1,7 +1,23 @@
 ---
-title: "Typography"
+title: "Advanced Typography Standards"
 weight: 1
-description: "Standard fonts and text styling for English and Tamil content."
+summary: "Guidelines for implementing modular type scales and bilingual support."
+references:
+    videos:
+        - youtube: BjJJW4QavOA?si=RTAasw_Jq-W4WQSQ
+        - youtube: dX8396ADdto
+    links:
+        - title: "Google Fonts Knowledge Base"
+          url: "https://fonts.google.com/knowledge"
+        - title: "W3C Typography Accessibility"
+          url: "https://www.w3.org/WAI/tutorials/page-structure/headings/"
+    books:
+        - b1:
+            title: "The Elements of Typographic Style by Robert Bringhurst"
+            url: "https://en.wikipedia.org/wiki/The_Elements_of_Typographic_Style"
+        - b2:
+            title: "Fundamentals of Sound and Vibration"
+            url: "http://people.bath.ac.uk/ensmjc/Notes/acoustics.pdf"
 ---
 
 Typography is the art and technique of arranging type to make written language **legible, readable, and appealing**. In a technical design system like ours, typography serves three main purposes:

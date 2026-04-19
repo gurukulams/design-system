@@ -2,6 +2,22 @@
 title: "எழுத்துருக்கள்"
 weight: 1
 description: "ஆங்கிலம் மற்றும் தமிழ் உள்ளடக்கத்திற்கான தரமான எழுத்துருக்கள் மற்றும் நடை."
+references:
+    videos:
+        - youtube: BjJJW4QavOA?si=RTAasw_Jq-W4WQSQ
+        - youtube: dX8396ADdto
+    links:
+        - title: "Google Fonts Knowledge Base"
+          url: "https://fonts.google.com/knowledge"
+        - title: "W3C Typography Accessibility"
+          url: "https://www.w3.org/WAI/tutorials/page-structure/headings/"
+    books:
+        - b1:
+            title: "The Elements of Typographic Style by Robert Bringhurst"
+            url: "https://en.wikipedia.org/wiki/The_Elements_of_Typographic_Style"
+        - b2:
+            title: "Fundamentals of Sound and Vibration"
+            url: "http://people.bath.ac.uk/ensmjc/Notes/acoustics.pdf"
 ---
 
 

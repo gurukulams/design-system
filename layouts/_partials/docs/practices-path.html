@@ -1,0 +1,24 @@
+{{- .Scratch.Set "fullPath" "" -}}
+{{- $root := . -}} {{/* Capture the original page context here */}}
+
+{{- define "get-path" -}}
+  {{- $p1 := .p1 -}}
+  {{- $rootScope := .scope -}} {{/* Keep track of the top-level scope */}}
+
+  {{- if $p1.Parent -}}
+    {{- template "get-path" (dict "p1" $p1.Parent "scope" $rootScope) -}}
+  {{- end -}}
+
+  {{- if $p1.Params.categories -}}
+    {{- range $p1.Params.categories -}}
+      {{- /* Use the saved $rootScope variable instead of trying to find .scope */ -}}
+      {{- $rootScope.Scratch.Add "fullPath" (print "/" .) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- template "get-path" (dict "p1" . "scope" $root) -}}
+
+{{- /* Output the final cleaned string */ -}}
+{{- $final := .Scratch.Get "fullPath" -}}
+{{- strings.TrimPrefix "/" $final -}}

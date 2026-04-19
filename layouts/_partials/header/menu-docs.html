@@ -1,20 +1,33 @@
 <li class="nav-item">
-    <a class="nav-link text-dark px-3" href="#" title="Books">
-        <i class="bi bi-book fs-3 fs-lg-5"></i>
+    <a class="nav-link text-dark px-3" 
+        href="javascript://" 
+        title="{{ partial "docs/text/i18n" "References" }}" 
+        data-bs-toggle="offcanvas"
+        data-bs-target="#referencepanel" aria-controls="referencepanel">
+        <i class="bi bi-link-45deg fs-3 fs-lg-5"></i>
     </a>
 </li>
 <li class="nav-item">
-    <a class="nav-link text-dark px-3" href="#" title="Slides">
-        <i class="bi bi-file-earmark-slides fs-3 fs-lg-5"></i>
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link text-dark px-3" href="#" title="Videos">
+    <a class="nav-link text-dark px-3" href="javascript://" 
+        title="{{ partial "docs/text/i18n" "Videos" }}" data-bs-toggle="offcanvas"
+        data-bs-target="#videopanel" aria-controls="videopanel">
         <i class="bi bi-play-circle fs-3 fs-lg-5"></i>
     </a>
 </li>
 <li class="nav-item">
-    <a class="nav-link text-dark px-3" href="#" title="Links">
-        <i class="bi bi-link-45deg fs-3 fs-lg-5"></i>
+    <a class="nav-link text-dark px-3" href="javascript://" 
+    title="{{ partial "docs/text/i18n" "Books" }}" data-bs-toggle="offcanvas"
+    data-bs-target="#bookspanel" aria-controls="bookspanel">
+        <i class="bi bi-book fs-3 fs-lg-5"></i>
     </a>
 </li>
+<li class="nav-item">
+    <a class="nav-link text-dark px-3" href="javascript://" 
+    title="{{ partial "docs/text/i18n" "Practices" }}"
+    data-bs-toggle="offcanvas"
+    data-bs-target="#practicepanel"
+    aria-controls="practicepanel">
+        <i class="bi bi-clipboard2-check fs-3 fs-lg-5"></i>
+    </a>
+</li>
+

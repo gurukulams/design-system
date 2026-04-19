@@ -18,3 +18,81 @@
 {{ if templates.Exists ( printf "_partials/scripts/scripts-%s.html" .Type ) }} {{
   $partialPath := printf "scripts/scripts-%s" .Type }} {{ partial $partialPath . }} {{ end
 }}
+
+
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="referencepanel"
+aria-labelledby="referencepanelLabel">
+<div class="offcanvas-header">
+  <h5 class="offcanvas-title" id="referencepanelLabel">{{ partial "docs/text/i18n" "References" }}</h5>
+  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body">
+  {{ partial "docs/docs-references-listing" . }}
+</div>
+</div>
+
+<div
+class="offcanvas offcanvas-end w-100"
+data-bs-scroll="true"
+data-bs-backdrop="false"
+tabindex="-1"
+id="practicepanel"
+aria-labelledby="practicepanelLabel"
+>
+<div class="offcanvas-header">
+<h5 class="offcanvas-title" id="practicepanelLabel">{{ partial "docs/text/i18n" "Practices" }}</h5>
+<button
+  type="button"
+  class="btn-close"
+  data-bs-dismiss="offcanvas"
+  aria-label="Close"
+></button>
+</div>
+    {{ $page := partial "docs/practices-path" . }}
+      {{- /* 1. Define the language path to strip (e.g., "/zh/") */ -}}
+      {{- $langPrefix := printf "/%s/" .Language.Lang -}}
+
+      {{- /* 2. Get Home URL and remove the language prefix if it's not the default "en" */ -}}
+      {{- $homeURL := .Site.Home.RelPermalink -}}
+      {{- if ne .Language.Lang "en" -}}
+          {{- $homeURL = replace $homeURL $langPrefix "/" -}}
+      {{- end -}}
+<div  id="main-container" data-practice-category="{{ (strings.TrimPrefix "/" $page) | safeURL }}" {{ if ne .Language.Lang "en" }}data-practice-lang="{{ .Language.Lang }}"{{ end }}  class="offcanvas-body">
+<p>Question and Options section</p>
+</div>
+</div>
+
+
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="videopanel"
+aria-labelledby="videopanelLabel">
+<div class="offcanvas-header">
+<h5 class="offcanvas-title" id="videopanelLabel">{{ partial "docs/text/i18n" "Videos" }}</h5>
+<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body">
+
+  {{ partial "docs/docs-videos-listing" . }}
+
+</div>
+</div>
+
+<div
+class="offcanvas offcanvas-end"
+tabindex="-1"
+id="bookspanel"
+data-bs-keyboard="false"
+data-bs-backdrop="false"
+aria-labelledby="bookspanelLabel">
+<div class="offcanvas-header">
+  <h5 class="offcanvas-title" id="bookspanelLabel">{{ partial "docs/text/i18n" "Books" }}</h5>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="offcanvas"
+    aria-label="Close"
+  ></button>
+</div>
+<div class="offcanvas-body">
+  {{ partial "docs/docs-books-listing" . }}
+</div>
+</div>
