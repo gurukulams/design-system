@@ -34,6 +34,15 @@
   input.addEventListener('focus', init);
   input.addEventListener('keyup', search);
 
+  input.addEventListener('input', (event) => {
+    // Use trim() to also detect strings that only contain spaces
+    if (event.target.value.trim() === "") {
+      clear();
+    }
+  });
+
+  // input.addEventListener('focusout', clear);
+
   document.addEventListener('keypress', focusSearchFieldOnKeyPress);
 
   /**
@@ -64,6 +73,11 @@
   function isHotkey(character) {
     const dataHotkeys = input.getAttribute('data-hotkeys') || '';
     return dataHotkeys.indexOf(character) >= 0;
+  }
+
+  function clear() {
+    results.innerHTML = '';
+    input.value = ''
   }
 
   function init() {
