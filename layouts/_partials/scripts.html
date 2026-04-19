@@ -13,3 +13,8 @@
 {{ with $js }}
   <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
 {{ end }}
+
+<!-- Load Content Type Specific Scripts-->
+{{ if templates.Exists ( printf "_partials/scripts/scripts-%s.html" .Type ) }} {{
+  $partialPath := printf "scripts/scripts-%s" .Type }} {{ partial $partialPath . }} {{ end
+}}

@@ -2,3 +2,8 @@
 {{ if $style }}
   <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous">
 {{ end }}
+
+<!-- Load Content Type Specific Style Sheets-->
+{{ if templates.Exists ( printf "_partials/stylesheets/stylesheets-%s.html" .Type ) }} {{
+  $partialPath := printf "stylesheets/stylesheets-%s" .Type }} {{ partial $partialPath . }} {{ end
+}}
