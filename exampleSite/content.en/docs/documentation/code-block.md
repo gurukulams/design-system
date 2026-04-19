@@ -1,5 +1,6 @@
 ---
 title: "Code Block"
+weight: 4
 description: "How to display automation scripts and config files."
 ---
 

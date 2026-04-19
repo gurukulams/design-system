@@ -1,5 +1,6 @@
 ---
 title: "Mathematical Expressions"
+weight: 2
 description: "Rendering equations using KaTeX or MathJax."
 ---
 

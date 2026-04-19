@@ -1,5 +1,6 @@
 ---
 title: "Images"
+weight: 3
 description: "Guidelines for responsive images and figures."
 ---
 

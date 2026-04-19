@@ -1,5 +1,6 @@
 ---
 title: "Typography"
+weight: 1
 description: "Standard fonts and text styling for English and Tamil content."
 ---
 
