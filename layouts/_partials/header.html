@@ -31,15 +31,10 @@
           
       <!-- Load Content Type Specific Menu Items-->
       {{ if templates.Exists ( printf "_partials/header/menu-%s.html" .Type ) }} 
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarIcons" aria-controls="navbarIcons" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarIcons">
-          <ul class="navbar-nav ms-auto d-flex flex-row justify-content-evenly justify-content-lg-end mt-3 mt-lg-0 pb-2 pb-lg-0">
+        
             {{ $partialPath := printf "header/menu-%s" .Type }} 
             {{ partial $partialPath . }} 
-          </ul>
-        </div>
+
       {{ end }}
 
          
