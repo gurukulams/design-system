@@ -27,6 +27,30 @@
             elem.webkitRequestFullscreen();
         }
     }
+
+
+    function updateRevealTheme() {
+        const isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+        const themeLink = document.getElementById('theme');
+        
+        const darkTheme = "https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/black.css";
+        const lightTheme = "https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/white.css";
+    
+        const newHref = isDark ? darkTheme : lightTheme;
+        
+        if (themeLink.getAttribute('href') !== newHref) {
+            themeLink.setAttribute('href', newHref);
+        }
+    }
+    
+    // Watch for Bootstrap Theme Changes
+    const themeObserver = new MutationObserver(() => updateRevealTheme());
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-bs-theme'] });
+    
+    // Initial check on load
+    updateRevealTheme();
+
+
 </script>
 {{ else }}
   {{/* This is a list/section page */}}
