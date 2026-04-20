@@ -5,7 +5,7 @@
         
         {{ range $entries }}
         <div class="col">
-            <div class="card h-100 shadow-sm border-0 bg-light">
+            <div class="card h-100 shadow-sm border-0">
                 <div class="card-header border-bottom-0 pt-4">
                     <h5 class="card-title fw-bold mb-0 text-primary">
                         {{/* Dynamic icon: folder for sections, text for files */}}
@@ -24,7 +24,7 @@
                     </p>
                 </div>
                 
-                <div class="card-footer bg-transparent border-0 pb-3 d-flex align-items-center justify-content-between">
+                <div class="card-footer border-0 pb-3 d-flex align-items-center justify-content-between">
                     <div class="slide-container">
                         {{ partial "utils/slide-finder.html" . }}
                     </div>
