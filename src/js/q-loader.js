@@ -15,7 +15,7 @@ class QuestionLoader {
         );
 
         let baseUrl = document
-        .querySelector("body > nav > div.container-fluid > span > div > a")
+        .querySelector("body > header > nav > div > div.d-flex.align-items-center > div > a")
         .href;
 
         const category = contentRoot.dataset.practiceCategory;
