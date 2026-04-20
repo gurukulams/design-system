@@ -38,6 +38,7 @@ jobs:
       run: |
         export QUESTIONS_FOLDER="$PWD/exampleSite/questions"
         export PUBLIC_FOLDER="$PWD/static" 
+        rm package-lock.json
         npm i
         npm run build --if-present
         cd exampleSite
