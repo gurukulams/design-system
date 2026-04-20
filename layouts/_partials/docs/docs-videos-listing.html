@@ -1,9 +1,6 @@
 {{ with .Params.references.videos }}
-<section class="docs-video-sequence mt-5 pt-5 border-top">
-    <h4 class="text-uppercase small fw-bold text-muted mb-4 tracking-widest">
-        <i class="bi bi-collection-play me-2"></i>Video Sequence
-    </h4>
-
+<section class="docs-video-sequence border-top">
+<br>
     <ol class="list-unstyled p-0 m-0">
         {{ range $index, $element := . }}
             {{/* Handle both Map and String formats */}}

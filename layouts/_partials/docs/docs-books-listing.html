@@ -1,9 +1,6 @@
 {{ with .Params.references.books }}
-<section class="docs-book-sequence mt-5 pt-5 border-top">
-    <h4 class="text-uppercase small fw-bold text-muted mb-4 tracking-widest">
-        <i class="bi bi-book me-2"></i>Recommended Books
-    </h4>
-
+<section class="docs-book-sequence border-top">
+<br>
     <ol class="list-unstyled p-0 m-0">
         {{ range $index, $element := . }}
             {{ range $key, $book := . }}

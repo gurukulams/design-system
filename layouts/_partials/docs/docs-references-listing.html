@@ -1,9 +1,6 @@
 {{ with .Params.references.links }}
-<section class="docs-ref-sequence mt-5 pt-5 border-top">
-    <h4 class="text-uppercase small fw-bold text-muted mb-4 tracking-widest">
-        <i class="bi bi-link-45deg me-2"></i>External Resources
-    </h4>
-
+<section class="docs-ref-sequence border-top">
+<br>
     <ol class="list-unstyled p-0 m-0">
         {{ range $index, $element := . }}
             {{/* Handle both Map (title/url) and String formats */}}
