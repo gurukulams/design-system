@@ -18,7 +18,11 @@ To display an image, use the following format:
 `![Alternative Text](Image URL)`
 
 **Example:**
-`![Gurukulams Science Lab](/images/lab-setup.jpg)`
+`![Guru](guru.jpeg)`
+
+![Guru](guru.jpeg)
+
+> In case if the language does not have this image it will be taken from default language ( `content.en` folder )
 
 ---
 
