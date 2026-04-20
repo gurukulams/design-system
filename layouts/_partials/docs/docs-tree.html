@@ -16,7 +16,7 @@
                        aria-expanded="false"
                        style="cursor: pointer;"></i>
                     <i class="bi bi-folder-fill me-2 text-warning"></i>
-                    <a href="{{ .RelPermalink }}" class="fw-bold text-decoration-none text-dark">
+                    <a href="{{ .RelPermalink }}" class="fw-bold text-decoration-none">
                        {{ partial "utils/title" . }}
                     </a>
                 </div>
@@ -28,7 +28,7 @@
             {{/* Render Files */}}
             <li class="list-group-item d-flex align-items-center border-0 py-1">
                 <i class="bi bi-file-earmark-text me-2 text-primary"></i>
-                <a href="{{ .RelPermalink }}" class="text-decoration-none text-dark small">
+                <a href="{{ .RelPermalink }}" class="text-decoration-none small">
                     {{ partial "utils/title" . }}
                 </a>
             </li>

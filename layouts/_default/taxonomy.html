@@ -26,7 +26,7 @@
                         <span class="badge bg-primary-subtle text-primary small fw-normal">{{ .Section | humanize }}</span>
                     </div>
                     <h5 class="card-title fw-bold">
-                        <a href="{{ .RelPermalink }}" class="text-decoration-none text-dark">{{ partial "utils/title" . }}</a>
+                        <a href="{{ .RelPermalink }}" class="text-decoration-none">{{ partial "utils/title" . }}</a>
                     </h5>
                     <p class="card-text text-muted small">{{ .Summary | truncate 100 }}</p>
                 </div>
