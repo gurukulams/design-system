@@ -33,13 +33,13 @@ enableGitInfo = true
 # And https://gohugo.io/content-management/multilingual/#translation-by-content-directory
 [languages]
 [languages.en]
-  title = 'Gurukulams'
+  title = 'Design System'
   languageName = 'English'
   contentDir = 'content.en'
   weight = 1
 
 [languages.ta]
-  title = "குருகுலங்கள்"
+  title = "வடிவமைப்பு அமைப்பு"
   languageName = 'தமிழ்'
   contentDir = 'content.ta'
   weight = 2
