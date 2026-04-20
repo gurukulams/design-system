@@ -26,7 +26,7 @@
         {{ $final_path := printf "presentations/%s" $url_fragment }}
         {{ $final_path = replace $final_path "//" "/" }}
 
-        <a href="{{ $final_path | relLangURL }}" class="btn btn-outline-secondary btn-sm border-0" title="Presentation">
+        <a href="{{ $final_path | relLangURL }}" class="btn btn-outline-secondary btn-sm border-0" title="{{ partial "docs/text/i18n" "Presentation" }}">
             <i class="bi bi-play-btn fs-5"></i>
         </a>
     {{ end }}

@@ -1,14 +1,5 @@
 - id: Search
-  translation: Search
-
-- id: Edit this page
-  translation: Edit this page
-
-- id: Last modified by
-  translation: Last modified by
-
-- id: bookSearchConfig
-  translation: '{ cache: true }'
+  translation: தேடு
 
 - id: Practices
   translation: பயிற்சி
@@ -21,4 +12,7 @@
 
 - id: Books
   translation: புத்தகங்கள்
+
+- id: Presentation
+  translation: விளக்கக்காட்சி
 
