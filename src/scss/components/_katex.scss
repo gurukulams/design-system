@@ -1,0 +1,23 @@
+
+/* Target the display-mode (block) equations */
+@media (max-width: 600px) {
+    .katex-display {
+        font-size: 0.85em;         /* Reduces the overall size of the formula */
+        overflow-x: auto;          /* Allows horizontal swiping if still too big */
+        overflow-y: hidden;
+        padding: 0.5em 0;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    }
+
+    /* Prevent inline math from breaking the line layout */
+    .katex {
+        font-size: 0.9em;          
+    }
+
+    /* Optional: If you still want some wrapping for very long text-based math */
+    .katex-display > .katex {
+        white-space: normal;
+        display: inline-block;     /* Keeps the internal logic intact */
+        max-width: 100%;
+    }
+}

@@ -4,6 +4,7 @@
 @import "./components/sidebar";
 @import "./components/vertical_tabs";
 @import "./components/reveal";
+@import "./components/katex";
 
 /** Bootstrap Components **/
 @import "./components/card";
@@ -161,3 +162,4 @@ ol {
       border-top: 1px solid #eee;
   }
 }
+
