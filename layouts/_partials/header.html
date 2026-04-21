@@ -1,11 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-body border-bottom fixed-top">
   <div class="container-fluid px-4">
       <div class="d-flex align-items-center">
-          <a class="navbar-brand me-2" href="{{ site.Home.RelPermalink }}">
-            <img src="{{ "apple-touch-icon.png" | relURL }}" 
-            class="img-circle img-thumbnail avatar"
-            style="vertical-align:middle; border-radius:50%; width:3rem" 
-            alt="avatar">
+        <a class="navbar-brand me-2" 
+        href="{{ if .Site.Params.GithubOrg }}https://{{ .Site.Params.GithubOrg | lower }}.github.io{{ else }}{{ .Site.Home.RelPermalink }}{{ end }}">
+         
+         <img src="{{ if .Site.Params.GithubOrg }}https://github.com/{{ .Site.Params.GithubOrg }}.png{{ else }}{{ "apple-touch-icon.png" | relURL }}{{ end }}" 
+              class="img-circle img-thumbnail avatar"
+              style="vertical-align:middle; border-radius:50%; width:3rem" 
+              alt="avatar">
           </a>
           <div class="d-flex flex-column">
               <a href="{{ site.Home.RelPermalink }}" class="h4 text-decoration-none mb-0 lh-1 fw-bold">
