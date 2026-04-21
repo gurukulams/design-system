@@ -8,3 +8,9 @@
     border-color: var(--bs-primary) !important;
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1) !important;
 }
+
+  .docs-ref-sequence .text-truncate {
+        white-space: normal !important;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
