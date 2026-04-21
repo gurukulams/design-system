@@ -5,6 +5,9 @@
 @import "./components/vertical_tabs";
 @import "./components/reveal";
 
+/** Bootstrap Components **/
+@import "./components/card";
+
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
 
 // Update the import directory to point to it‘s location within node_modules

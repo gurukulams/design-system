@@ -1,5 +1,5 @@
 {{ with .Params.references.videos }}
-<section class="docs-video-sequence border-top">
+<section class="border-top">
 <br>
     <ol class="list-unstyled p-0 m-0">
         {{ range $index, $element := . }}
@@ -12,9 +12,9 @@
 
             <li class="mb-4">
                 <a href="https://youtube.com/watch?v={{ $ytId }}" target="_blank" class="text-decoration-none group">
-                    <div class="card border-0 shadow-sm border-hover overflow-hidden">
+                    <div class="card border-1 shadow-sm  overflow-hidden">
                         <div class="row g-0 align-items-center">
-                            <div class="col-md-4 position-relative">
+                            <div class="col-md-4 px-3 position-relative">
                                 <div class="badge bg-primary position-absolute top-0 start-0 m-2 z-1 shadow">
                                     Step {{ add $index 1 }}
                                 </div>
@@ -46,22 +46,5 @@
     </ol>
 </section>
 
-<style>
-    .docs-video-sequence .border-hover {
-        transition: all 0.3s ease;
-        border: 1px solid transparent !important;
-    }
-    
-    .docs-video-sequence .border-hover:hover {
-        transform: translateY(-3px);
-        border-color: var(--bs-primary) !important;
-        box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1) !important;
-    }
 
-    /* Logic to show play button clearly on hover */
-    .group:hover .bi-play-circle-fill {
-        opacity: 1 !important;
-        transform: scale(1.1);
-    }
-</style>
 {{ end }}

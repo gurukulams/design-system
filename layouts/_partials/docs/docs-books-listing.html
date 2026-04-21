@@ -5,13 +5,13 @@
         {{ range $index, $element := . }}
             {{ range $key, $book := . }}
             <li class="mb-4">
-                <div class="card border-0 shadow-sm border-hover h-100">
+                <div class="card border-1 h-100">
                     <div class="card-body p-4">
                         <div class="row align-items-center">
                             <div class="col-auto">
                                 <div class="d-flex flex-column align-items-center">
                                     <span class="text-primary fw-bold mb-1">{{ add $index 1 }}</span>
-                                    <div class="bg-success-subtle text-success rounded-3 p-3 shadow-sm">
+                                    <div class="text-success rounded-3 p-3 shadow-sm">
                                         <i class="bi bi-journal-bookmark-fill fs-3"></i>
                                     </div>
                                 </div>
@@ -40,20 +40,5 @@
     </ol>
 </section>
 
-<style>
-    .docs-book-sequence .border-hover {
-        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-        border: 1px solid #eee !important;
-    }
-    
-    .docs-book-sequence .border-hover:hover {
-        transform: scale(1.02);
-        border-color: var(--bs-success) !important;
-        box-shadow: 0 1rem 2rem rgba(0,0,0,0.1) !important;
-    }
 
-    .bg-success-subtle {
-        background-color: #e8f5e9;
-    }
-</style>
 {{ end }}

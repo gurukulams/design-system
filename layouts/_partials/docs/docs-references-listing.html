@@ -13,7 +13,7 @@
 
             <li class="mb-3">
                 <a href="{{ $url }}" target="_blank" class="text-decoration-none group">
-                    <div class="card border-0 shadow-sm border-hover h-100">
+                    <div class="card border-1 h-100">
                         <div class="card-body py-3 px-4">
                             <div class="d-flex align-items-center">
                                 <div class="ref-number flex-shrink-0 me-3 d-flex align-items-center justify-content-center bg-body border rounded-circle text-primary fw-bold small" style="width: 32px; height: 32px;">
@@ -42,33 +42,5 @@
     </ol>
 </section>
 
-<style>
-    .docs-ref-sequence .border-hover {
-        transition: all 0.25s ease;
-        border-left: 3px solid transparent !important;
-    }
-    
-    .docs-ref-sequence .border-hover:hover {
-        background-color: #867786;
-        border-left-color: var(--bs-primary) !important;
-        transform: translateX(5px);
-    }
 
-    .x-small { font-size: 0.8rem; }
-    
-    .ref-number {
-        transition: all 0.25s ease;
-    }
-
-    .group:hover .ref-number {
-        background-color: var(--bs-primary) !important;
-        color: white !important;
-        border-color: var(--bs-primary) !important;
-    }
-   .docs-ref-sequence .text-truncate {
-        white-space: normal !important;
-        overflow-wrap: anywhere;
-        word-break: break-word;
-    }
-</style>
 {{ end }}
