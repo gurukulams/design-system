@@ -15,9 +15,9 @@
                 </div>
                 
                 <div class="card-body">
-                    <p class="card-text text-muted small">
+                    <p class="card-text text-muted">
                         {{ if .Summary }}
-                            {{ .Summary | truncate 120 }}
+                            {{ .Summary | truncate 250 }}
                         {{ else }}
                             Explore the contents of {{ .LinkTitle }}.
                         {{ end }}
