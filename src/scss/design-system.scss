@@ -163,3 +163,10 @@ ol {
   }
 }
 
+article a {
+  display: inline-block; /* Allows max-width to apply correctly */
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  vertical-align: top;
+}

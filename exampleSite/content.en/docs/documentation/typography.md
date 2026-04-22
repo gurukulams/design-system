@@ -83,6 +83,14 @@ Use these for "Pro-tips," "Notes," or "Warnings." Our system styles these to sta
 > **Note:** Typography on the web should ideally have a line height of 1.5 to 1.6 for maximum readability.
 ```
 
+
+**Note:** Use flash enabled browser or install flash player in your system.
+
+**URL:** http://tutor-homework.com/Physics_Help/double_slit_experiment.html  
+\* Pictures are indicative only.  
+\* If browser requires, allow Flash Player or Java Script to load the page.
+
+
 ---
 
 ## Best Practices for Gurukulams
