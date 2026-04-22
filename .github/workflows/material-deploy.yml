@@ -3,10 +3,6 @@ name: Deploy Material
 
 on:
   workflow_call:  # <--- THIS IS THE MISSING PART
-    inputs:
-      GithubOrg:
-        required: true
-        type: string
   # You can still keep your other triggers too
   push:
     branches: ["main"]
