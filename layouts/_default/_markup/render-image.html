@@ -1,27 +1,27 @@
-{{ $image := (printf "%s%s" .Page.File.Dir (.Destination | safeURL )) }}
-{{ $localizedimage := (printf "%s%s%s" .Page.Language.Lang "/" $image ) }}
-{{ $image_file_path := (printf "content.%s/%s" .Page.Language.Lang $image ) }}
+{{- $dest := .Destination | safeURL -}}
+{{- $image := .Page.Resources.GetMatch (printf "*%s" $dest) -}}
 
-
-{{ if fileExists $image }}
 <figure class="figure img-fluid {{ with .Title }}{{ . }}{{ end }}">
-  
-  {{ if eq .Page.Language.Lang "en" }}
-  <img src="{{ $image | absURL }}" alt="{{ .Text }}" class="w-100"/>
-  {{ else }}
-  {{ if fileExists $image_file_path }}
-  <img src="{{ $localizedimage | absURL }}" alt="{{ .Text }}" class="w-100"/>
-  {{ else }}
-  <img src="{{ $image | absURL }}" alt="{{ .Text }}" class="w-100"/>
-  {{ end }}
 
-  {{ end }}
+  {{- if $image -}}
+    <!-- ✅ Page Resource (same folder as index.md) -->
+    <img src="{{ $image.RelPermalink }}" alt="{{ .Text }}" class="w-100" loading="lazy"/>
 
+  {{- else if and (ne .Page.Language.Lang "en") -}}
+    <!-- 🌐 Try localized static path -->
+    {{- $localized := printf "/%s/%s" .Page.Language.Lang $dest -}}
+    <img src="{{ $localized | relURL }}" alt="{{ .Text }}" class="w-100" loading="lazy"/>
+
+  {{- else -}}
+    <!-- 📦 Fallback (static or external) -->
+    <img src="{{ $dest | relURL }}" alt="{{ .Text }}" class="w-100" loading="lazy"/>
+
+  {{- end }}
+
+  {{ with .Text }}
   <figcaption class="figure-caption text-center">
-    {{ .Text }}
+    {{ . }}
   </figcaption>
-</figure>
+  {{ end }}
 
-{{ else }}
-{{ errorf "Failed to image %q at %q" $image .Page.File }}
-{{ end }}
+</figure>
