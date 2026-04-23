@@ -4,8 +4,8 @@ name: Deploy Material
 on:
   workflow_call:  # <--- THIS IS THE MISSING PART
   # You can still keep your other triggers too
-  push:
-    branches: ["main"]
+  # push:
+  #   branches: ["main"]
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
