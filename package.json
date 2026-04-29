@@ -32,6 +32,7 @@
   "dependencies": {
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
+    "notes-js": "github:gurukulams/notes-js",
     "practice-js": "github:gurukulams/practice-js"
   }
 }

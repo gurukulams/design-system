@@ -29,12 +29,10 @@ npm run watch
 To preview the documentation and presentations locally using Hugo:
 
 ```bash
-cd exampleSite
-hugo server --themesDir ../.. --disableFastRender
+hugo server -s exampleSite --themesDir ../.. --disableFastRender
 ```
 
 ---
-
 ## Credits
 
 This project is built upon and inspired by the following open-source technologies:

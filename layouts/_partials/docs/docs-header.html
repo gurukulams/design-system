@@ -11,8 +11,12 @@
             </div>
 
             <div class="ms-auto d-flex align-items-center">
-            {{ partial "utils/slide-finder.html" . }}
-        </div>
+              <input type="checkbox" class="btn-check" id="notes-pencil-toggle" autocomplete="off" />
+              <label class="btn btn-outline-primary d-flex align-items-center justify-content-center p-2" for="notes-pencil-toggle">
+                <i class="bi bi-pencil-fill fs-5"></i>
+              </label>
+              {{ partial "utils/slide-finder.html" . }}
+            </div>
     </div>
 </header>
 

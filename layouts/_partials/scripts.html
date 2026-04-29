@@ -3,7 +3,7 @@
 {{ $js := "" }}
 
 {{/* 2. Assign the first resource */}}
-{{ $js = resources.Get "js/q-loader-bundle.js" | resources.Minify | resources.Fingerprint }}
+{{ $js = resources.Get "js/docs-bundle.js" | resources.Minify | resources.Fingerprint }}
 {{ with $js }}
   <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
 {{ end }}
@@ -57,7 +57,7 @@ aria-labelledby="practicepanelLabel"
       {{- if ne .Language.Lang "en" -}}
           {{- $homeURL = replace $homeURL $langPrefix "/" -}}
       {{- end -}}
-<div  id="main-container" data-practice-category="{{ (strings.TrimPrefix "/" $page) | safeURL }}" {{ if ne .Language.Lang "en" }}data-practice-lang="{{ .Language.Lang }}"{{ end }}  class="offcanvas-body">
+<div  id="practice-container" data-practice-category="{{ (strings.TrimPrefix "/" $page) | safeURL }}" {{ if ne .Language.Lang "en" }}data-practice-lang="{{ .Language.Lang }}"{{ end }}  class="offcanvas-body">
 <p>Question and Options section</p>
 </div>
 </div>

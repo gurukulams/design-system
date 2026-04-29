@@ -1,8 +1,9 @@
 import PracticeMaker from 'practice-js'
 
-class QuestionLoader {
+
+export default class QuestionLoader {
     constructor() {
-        var contentRoot = document.getElementById("main-container");
+        var contentRoot = document.getElementById("practice-container");
 
         // Initialize your logic here
         this.practiceMaker = new PracticeMaker(
