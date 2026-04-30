@@ -1,3 +1,5 @@
+@use "../../node_modules/notes-js/dist/notes.bundle";
+
 @import "./base/typography";
 @import "./themes/theme";
 
@@ -170,3 +172,5 @@ article a {
   word-break: break-all;
   vertical-align: top;
 }
+
+
