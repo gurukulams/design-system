@@ -1,6 +1,6 @@
 
 <header class="navbar navbar-expand-lg navbar-light border-bottom sticky-top py-2 shadow-sm">
-    <div class="container px-4">
+    <div class="container">
         <div class="d-flex align-items-center w-100">
             <button class="btn btn-link p-0 me-3" type="button" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
                 <i class="bi bi-list fs-3"></i>
@@ -9,14 +9,25 @@
                 {{ partial "breadcrumb.html" . }}
                 <h1 class="h5 mb-0 fw-bold">{{ partial "utils/title" . }}</h1>
             </div>
+            
 
-            <div class="ms-auto d-flex align-items-center">
-              <input type="checkbox" class="btn-check" id="notes-pencil-toggle" autocomplete="off" />
-              <label class="btn btn-outline-primary d-flex align-items-center justify-content-center p-2" for="notes-pencil-toggle">
-                <i class="bi bi-pencil-fill fs-5"></i>
-              </label>
-              {{ partial "utils/slide-finder.html" . }}
-            </div>
+            <ul class="navbar-nav ms-auto d-flex flex-row justify-content-evenly justify-content-lg-end mt-lg-0 pb-lg-0">
+
+              <li class="nav-item">
+                  <input type="checkbox" class="btn-check" id="notes-pencil-toggle" autocomplete="off" />
+                  <label class="btn btn-outline-secondary btn-sm border-0" for="notes-pencil-toggle">
+                    <i class="bi bi-pencil-fill fs-5"></i>
+                  </label>  
+              </li>
+
+              <li class="nav-item">
+                {{ partial "utils/slide-finder.html" . }}
+              </li>
+              
+              
+              </ul>
+
+            
     </div>
 </header>
 
