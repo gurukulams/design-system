@@ -22,41 +22,6 @@
     }
 </style>
 
-<style>
-    /* Force Reveal to stay inside the 70vh box */
-    .reveal-wrapper .reveal {
-        width: 100%;
-        height: 100%;
-        background: transparent; /* Use Bootstrap's background */
-    }
-    
-    /* Make Reveal use Bootstrap's text color variables */
-    .reveal, .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6, .reveal p, .reveal li {
-        color: var(--bs-body-color) !important;
-    }
-
-    /* Ensure background is transparent so the wrapper shows through */
-    .reveal .slides {
-        background: transparent !important;
-    }
-
-    /* Adjust slide padding */
-    .reveal .slides section { 
-        text-align: left; 
-        padding: 20px;
-    }
-
-    /* Keep navigation controls clearly visible */
-    .reveal .controls {
-        bottom: 20px !important;
-        right: 20px !important;
-    }
-
-    /* Match Reveal's built-in progress bar to Bootstrap Primary color */
-    .reveal .progress {
-        color: var(--bs-primary);
-    }
-</style>
 
 {{ else }}
   {{/* This is a list/section page */}}
