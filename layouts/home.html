@@ -4,8 +4,6 @@
         {{/* Grab the root docs folder */}}
         {{ with .Site.GetPage "section" "docs" }}
         {{ partial "docs/docs-cards.html" . }}
-        {{ else }}
-            <p class="p-3 text-muted">No documentation found in /content/docs/</p>
         {{ end }}
     </div>
 {{ end }}
