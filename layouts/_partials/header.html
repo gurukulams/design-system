@@ -30,6 +30,19 @@
               </div>
           </div>
       </div>
+
+      {{ if .Site.Params.AppMode }}
+
+       <!-- 2. LOGIN SECTION -->
+        <!-- order-lg-last moves this to the end of the flex row on laptops -->
+        <div class="d-flex align-items-center ms-auto ms-lg-0 order-lg-last">
+          <div class="vr mx-lg-3 opacity-25"></div>
+          <a href="/login" class="btn btn-outline-dark border-0 p-1" title="Login with Google">
+            <i class="bi bi-google fs-4"></i>
+          </a>
+        </div>
+
+        {{ end }}
           
       <!-- Load Content Type Specific Menu Items-->
       {{ if templates.Exists ( printf "_partials/header/menu-%s.html" .Type ) }} 

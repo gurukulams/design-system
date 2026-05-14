@@ -12,10 +12,11 @@
     "watch:questions": "node scripts/build-questions.js --watch --auto-fix",
     "build:css": "sass src/scss:assets/css",
     "watch:css": "sass --watch src/scss:assets/css",
+    "watch:site": "hugo server -s exampleSite --themesDir ../.. --disableFastRender",
     "build:js": "rollup -c",
     "build:questions": "node scripts/build-questions.js --auto-fix",
     "build": "npm-run-all build:*",
-    "watch": "npm-run-all build --parallel watch:*",
+    "dev": "npm-run-all build --parallel watch:*",
     "postinstall": "npm run build"
   },
   "devDependencies": {

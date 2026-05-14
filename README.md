@@ -4,6 +4,8 @@ The Gurukulams Design System serves as the unified visual and functional bluepri
 
 ## Setup
 
+You need to install `Hugo(exteded)` and `Node JS`
+
 ### Question Loader
 
 The Question Loader processes data from your `exampleSite` and prepares it for the frontend.
@@ -13,7 +15,7 @@ The Question Loader processes data from your `exampleSite` and prepares it for t
 export QUESTIONS_FOLDER="$PWD/exampleSite/questions"
 export PUBLIC_FOLDER="$PWD/static" 
 npm i
-npm run watch
+npm run dev
 ```
 
 **Windows (Cmd)**
@@ -21,15 +23,7 @@ npm run watch
 set QUESTIONS_FOLDER=%cd%\exampleSite\questions
 set PUBLIC_FOLDER=%cd%\static
 npm i
-npm run watch
-```
-
-### Static Server
-
-To preview the documentation and presentations locally using Hugo:
-
-```bash
-hugo server -s exampleSite --themesDir ../.. --disableFastRender
+npm run dev
 ```
 
 ---
