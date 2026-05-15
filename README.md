@@ -6,10 +6,6 @@ The Gurukulams Design System serves as the unified visual and functional bluepri
 
 You need to install `Hugo(exteded)` and `Node JS`
 
-### Question Loader
-
-The Question Loader processes data from your `exampleSite` and prepares it for the frontend.
-
 **Linux / macOS**
 ```bash
 export QUESTIONS_FOLDER="$PWD/exampleSite/questions"
@@ -25,8 +21,8 @@ set PUBLIC_FOLDER=%cd%\static
 npm i
 npm run dev
 ```
+You can open the brower with `http://localhost:3000/design-system`
 
----
 ## Credits
 
 This project is built upon and inspired by the following open-source technologies:
