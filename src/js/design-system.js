@@ -46,7 +46,10 @@ class DesignSystem {
         } else {
           localStorage.setItem("theme", "auto");
         }
-      }
+    }
+
+
+    
 }
 
 new DesignSystem();
