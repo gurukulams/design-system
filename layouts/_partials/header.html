@@ -31,18 +31,39 @@
           </div>
       </div>
 
-      {{ if .Site.Params.AppMode }}
+      {{ if .Site.Params.LoginMode }}
 
        <!-- 2. LOGIN SECTION -->
         <!-- order-lg-last moves this to the end of the flex row on laptops -->
         <div class="d-flex align-items-center ms-auto ms-lg-0 order-lg-last">
           <div class="vr mx-lg-3 opacity-25"></div>
-          <a href="/login" class="btn btn-outline-dark border-0 p-1" title="Login with Google">
-            <i class="bi bi-google fs-4"></i>
+          {{ if eq .Site.Params.LoginMode "Custom" }}
+          <div class="dropdown">
+            <button class="btn dropdown-toggle d-inline-flex align-items-center" 
+                    type="button" 
+                    id="jerseyDropdown" 
+                    data-bs-toggle="dropdown" 
+                    aria-expanded="false">
+                    <img src="/img/users/jerry.png" class="img-circle img-thumbnail" style="border-radius:50%;width:42px" alt="avatar">
+            </button>
+            
+            <ul class="dropdown-menu" aria-labelledby="jerseyDropdown">
+              <li>
+                <a class="dropdown-item" href="#">
+                  <img src="/img/users/tom.png"
+                  class="img-circle img-thumbnail" style="border-radius:50%;width:42px" alt="avatar"/>
+                </a>
+              </li>
+            </ul>
+          </div>
+          {{ else }}
+          <a href="/login" class="btn btn-outline-dark border-0 p-1" title="Login with {{.Site.Params.LoginMode}}">
+            <i class="bi bi-{{ .Site.Params.LoginMode | lower }} fs-4"></i>
           </a>
+          {{ end }}
         </div>
 
-        {{ end }}
+      {{ end }}
           
       <!-- Load Content Type Specific Menu Items-->
       {{ if templates.Exists ( printf "_partials/header/menu-%s.html" .Type ) }} 

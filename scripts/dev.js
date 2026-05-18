@@ -22,7 +22,7 @@ bs.init({
   // Automatically opens the browser at the correct sub-path
   startPath: "/design-system/", 
   files: ["exampleSite/public/**/*"],
-  port: 3000,
+  port: 1234,
   open: true,
   notify: false
 });
