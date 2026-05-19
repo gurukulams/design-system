@@ -53,7 +53,6 @@ class DesignSystem {
     // If User is Logged in
     if (sessionStorage.auth) {
       const userAuth = JSON.parse(sessionStorage.auth);
-      console.log("Logged in as {}", userAuth);
 
       if (loginsBtn) {
         // 3. Generate the dynamic HTML layout using values from userAuth
@@ -93,7 +92,6 @@ class DesignSystem {
         if (logoutBtn) {
           logoutBtn.addEventListener("click", function (e) {
             e.preventDefault();
-            console.log("Logging out user:", userAuth.userName);
             delete sessionStorage.auth;
             window.location.reload();
             fetch(`/api/auth/logout`, {

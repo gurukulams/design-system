@@ -19,6 +19,8 @@ export default class QuestionLoader {
         .querySelector("body > header > nav > div > div.d-flex.align-items-center > div > a")
         .href;
 
+        console.log("base Url is " + baseUrl);
+
         const category = contentRoot.dataset.practiceCategory;
         const languageCode = contentRoot.dataset.practiceLang;
 
