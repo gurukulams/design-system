@@ -9,10 +9,7 @@
 {{ end }}
 
 
-{{ $js = resources.Get "js/docs-bundle.js" | resources.Minify | resources.Fingerprint }}
-{{ with $js }}
-  <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
-{{ end }}
+
 
 <!-- Load Content Type Specific Scripts-->
 {{ if templates.Exists ( printf "_partials/scripts/scripts-%s.html" .Type ) }} {{
@@ -127,7 +124,7 @@ aria-labelledby="bookspanelLabel">
           sessionStorage.setItem("reg_token", auth_response.registrationToken);
           sessionStorage.setItem("profile_pic", auth_response.profilePicture);
           // Note: "welcome" has NO leading slash, and safeJS stops the escaping
-          window.location.href = '{{ "welcome" | absURL | safeJS }}';
+          window.location.href = '{{ "welcome" | absURL }}';
         }
       })
       .catch((err) => {
@@ -138,7 +135,7 @@ aria-labelledby="bookspanelLabel">
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-    const loginContainer = document.getElementById('custom-logins');
+    const loginContainer = document.getElementById('login-btn');
 
     if (loginContainer) {
       loginContainer.addEventListener('click', function(event) {

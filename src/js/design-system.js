@@ -49,45 +49,44 @@ class DesignSystem {
   }
 
   handleSecurity() {
+    const loginsBtn = document.getElementById("login-btn");
     // If User is Logged in
     if (sessionStorage.auth) {
       const userAuth = JSON.parse(sessionStorage.auth);
       console.log("Logged in as {}", userAuth);
-      // 2. Find the existing custom-logins container
-      const customLoginsElem = document.getElementById("custom-logins");
 
-      if (customLoginsElem) {
+      if (loginsBtn) {
         // 3. Generate the dynamic HTML layout using values from userAuth
         const dropdownHtml = `
-  <div class="d-flex bd-highlight">
-    <!-- Wrap the trigger and menu inside a relative dropdown container -->
-    <div class="dropdown">
-      <a id="userBtn" class="me-1 dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" role="button">
-        <div id="userMenu" class="flex-shrink-1 bd-highlight d-inline-block">
-          <img src="${userAuth.profilePicture}" 
-               class="img-circle img-thumbnail avatar" 
-               style="vertical-align:middle;border-radius:50%;width:3rem" 
-               alt="${userAuth.displayName}'s avatar">
-        </div>
-      </a>
-      
-      <ul class="dropdown-menu" aria-labelledby="userBtn">
-        <li><span class="dropdown-item-text fw-bold">Hi, ${userAuth.displayName}</span></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="/profile">Profile</a></li>
-        <li><a id="logoutBtn" class="dropdown-item" href="javascript://">Logout</a></li>
-      </ul>
-    </div>
-  </div>
-`;
+          <div class="d-flex bd-highlight">
+            <!-- Wrap the trigger and menu inside a relative dropdown container -->
+            <div class="dropdown">
+              <a id="userBtn" class="me-1 dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" role="button">
+                <div id="userMenu" class="flex-shrink-1 bd-highlight d-inline-block">
+                  <img src="${userAuth.profilePicture}" 
+                      class="img-circle img-thumbnail avatar" 
+                      style="vertical-align:middle;border-radius:50%;width:3rem" 
+                      alt="${userAuth.displayName}'s avatar">
+                </div>
+              </a>
+              
+              <ul class="dropdown-menu" aria-labelledby="userBtn">
+                <li><span class="dropdown-item-text fw-bold">Hi, ${userAuth.displayName}</span></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                <li><a id="logoutBtn" class="dropdown-item" href="javascript://">Logout</a></li>
+              </ul>
+            </div>
+          </div>
+        `;
 
         // 4. Create a temporary container wrapper to turn the string into an actual DOM node
         const tempContainer = document.createElement("div");
         tempContainer.innerHTML = dropdownHtml.trim();
         const newDropdownNode = tempContainer.firstElementChild;
 
-        // 5. Swap out the old #custom-logins element entirely
-        customLoginsElem.replaceWith(newDropdownNode);
+        // 5. Swap out the old #login-btn element entirely
+        loginsBtn.replaceWith(newDropdownNode);
 
         // 6. Optional: Wire up the logout action immediately
         const logoutBtn = document.getElementById("logoutBtn");
@@ -110,6 +109,10 @@ class DesignSystem {
         }
       }
     } else {
+        loginsBtn.addEventListener("click", () => {
+          sessionStorage.setItem("ref_page", window.location.href);
+          window.location.href = loginsBtn.dataset.href;
+        });
     }
   }
 }

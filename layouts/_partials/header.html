@@ -38,7 +38,7 @@
         <div class="d-flex align-items-center ms-auto ms-lg-0 order-lg-last">
           <div class="vr mx-lg-3 opacity-25"></div>
           {{ if eq .Site.Params.LoginMode "Custom" }}
-          <div id="custom-logins" class="dropdown">
+          <div id="login-btn" class="dropdown">
             <button class="btn dropdown-toggle d-inline-flex align-items-center" 
                     type="button" 
                     id="jerseyDropdown" 
@@ -62,7 +62,7 @@
             </ul>
           </div>
           {{ else }}
-          <a href="/login" class="btn btn-outline-dark border-0 p-1" title="Login with {{.Site.Params.LoginMode}}">
+          <a id="login-btn" data-href="/oauth2/authorize/google?redirect_uri={{ "welcome" | absURL | safeJS }}" href="javascript://" class="btn btn-outline-dark border-0 p-1" title="Login with {{.Site.Params.LoginMode}}">
             <i class="bi bi-{{ .Site.Params.LoginMode | lower }} fs-4"></i>
           </a>
           {{ end }}

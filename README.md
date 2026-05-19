@@ -21,7 +21,7 @@ set PUBLIC_FOLDER=%cd%\static
 npm i
 npm run dev
 ```
-You can open the brower with `http://localhost:3000/design-system`
+You can open the brower with `http://localhost:1234/design-system`
 
 ## Credits
 

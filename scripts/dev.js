@@ -7,13 +7,13 @@ const bs = browserSync.create();
 const apiProxy = createProxyMiddleware({
   target: 'http://localhost:8080',
   changeOrigin: true,
-  pathFilter: '/api'
+  pathFilter: ['/api', '/oauth']
 });
 
 bs.init({
   server: {
     baseDir: "exampleSite/public",
-    // This maps http://localhost:3000/design-system to your folder
+    // This maps http://localhost:1234/design-system to your folder
     routes: {
       "/design-system": "exampleSite/public"
     },
