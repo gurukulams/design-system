@@ -38,13 +38,13 @@
         <div class="d-flex align-items-center ms-auto ms-lg-0 order-lg-last">
           <div class="vr mx-lg-3 opacity-25"></div>
           {{ if eq .Site.Params.LoginMode "Custom" }}
-          <div class="dropdown">
+          <div id="custom-logins" class="dropdown">
             <button class="btn dropdown-toggle d-inline-flex align-items-center" 
                     type="button" 
                     id="jerseyDropdown" 
                     data-bs-toggle="dropdown" 
                     aria-expanded="false">
-                    <img src="/img/users/jerry.png" class="img-circle img-thumbnail" style="border-radius:50%;width:42px" alt="avatar">
+                    <i class="bi bi-box-arrow-in-right fs-4"></i>
             </button>
             
             <ul class="dropdown-menu" aria-labelledby="jerseyDropdown">
@@ -52,6 +52,11 @@
                 <a class="dropdown-item" href="#">
                   <img src="/img/users/tom.png"
                   class="img-circle img-thumbnail" style="border-radius:50%;width:42px" alt="avatar"/>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">
+                  <img src="/img/users/jerry.png" class="img-circle img-thumbnail" style="border-radius:50%;width:42px" alt="avatar">
                 </a>
               </li>
             </ul>

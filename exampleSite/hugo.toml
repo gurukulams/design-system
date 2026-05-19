@@ -4,7 +4,7 @@
 # hugo server --printPathWarnings --disableFastRender --cleanDestinationDir=true --logLevel=debug \
 # --gc -M -s exampleSite --themesDir ../.. -b http://127.0.0.1/
 
-baseURL = 'http://localhost:3000/design-system/'
+baseURL = 'http://localhost:1234/design-system/'
 theme = 'design-system'
 
 # Book configuration

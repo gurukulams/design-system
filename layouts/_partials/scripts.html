@@ -96,3 +96,75 @@ aria-labelledby="bookspanelLabel">
   {{ partial "docs/docs-books-listing" . }}
 </div>
 </div>
+
+<script>
+  // Your login function
+  function login(username) {
+    let authRequest = {
+      email: username + "@email.com",
+      password: username + "password",
+    };
+    fetch("/api/auth/login", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(authRequest),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then((auth_response) => {
+        if (auth_response.expiresIn) {
+          auth_response.expiresIn = Date.now() + auth_response.expiresIn;
+          sessionStorage.auth = JSON.stringify(auth_response);
+          location.reload();
+        } else {
+          sessionStorage.setItem("ref_page", window.location.href);
+          sessionStorage.setItem("reg_token", auth_response.registrationToken);
+          sessionStorage.setItem("profile_pic", auth_response.profilePicture);
+          // Note: "welcome" has NO leading slash, and safeJS stops the escaping
+          window.location.href = '{{ "welcome" | absURL | safeJS }}';
+        }
+      })
+      .catch((err) => {
+        // document.querySelector(".d-none").classList.remove("d-none");
+
+        alert(err);
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const loginContainer = document.getElementById('custom-logins');
+
+    if (loginContainer) {
+      loginContainer.addEventListener('click', function(event) {
+        // Find the closest dropdown link element
+        const targetLink = event.target.closest('.dropdown-item');
+        
+        if (targetLink) {
+          event.preventDefault(); // Prevent page jump from href="#"
+          
+          // Find the <img> tag inside the clicked link
+          const img = targetLink.querySelector('img');
+          
+          if (img && img.getAttribute('src')) {
+            const imgSrc = img.getAttribute('src'); // e.g., "/img/users/tom.png"
+            
+            // Extract the filename without extension
+            // 1. split('/') gets the last part: "tom.png"
+            // 2. split('.') gets the part before the dot: "tom"
+            const username = imgSrc.split('/').pop().split('.').shift();
+            
+            if (username) {
+              login(username);
+            }
+          }
+        }
+      });
+    }
+  });
+</script>

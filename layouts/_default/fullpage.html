@@ -26,6 +26,13 @@
   {{ partial $partialPath . }}
   {{ end }}
     
+  {{/* Check if the current file name is welcome.htm */}}
+{{ if and .File (eq .File.LogicalName "welcome.html") }}
+{{ $welcomeJs := resources.Get "js/welcome-bundle.js" | resources.Minify | resources.Fingerprint }}
+{{ with $welcomeJs }}
+  <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
+{{ end }}
+{{ end }}
   
 </body>
 
