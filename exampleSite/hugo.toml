@@ -21,11 +21,8 @@ enableGitInfo = true
           inline = [['\(', '\)']]
 
 
-[markup.tableOfContents]
-  startLevel = 1
-
 [markup.highlight]
-  style = 'base16-snazzy'
+  style = "dracula" # You can choose github-dark, dracula, etc.
 
 # Multi-lingual mode config
 # There are different options to translate files
