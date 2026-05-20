@@ -1,20 +1,24 @@
+{{/* Initialize variable */}}
+{{ $js := resources.Get "js/design-system-bundle.js" }}
 
-{{/* 1. Initialize the variable at the top level of the partial */}}
-{{ $js := "" }}
-
-
-{{ $js = resources.Get "js/design-system-bundle.js" | resources.Minify | resources.Fingerprint }}
 {{ with $js }}
-  <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
+  {{ $js = . | fingerprint }}
+
+  <script
+    src="{{ $js.RelPermalink }}"
+    integrity="{{ $js.Data.Integrity }}"
+    defer>
+  </script>
 {{ end }}
 
+<!-- Load Content Type Specific Scripts -->
+{{ with .Type }}
+  {{ $partialPath := printf "scripts/scripts-%s" . }}
 
-
-
-<!-- Load Content Type Specific Scripts-->
-{{ if templates.Exists ( printf "_partials/scripts/scripts-%s.html" .Type ) }} {{
-  $partialPath := printf "scripts/scripts-%s" .Type }} {{ partial $partialPath . }} {{ end
-}}
+  {{ if templates.Exists (printf "partials/%s.html" $partialPath) }}
+    {{ partial $partialPath $ }}
+  {{ end }}
+{{ end }}
 
 
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="referencepanel"
