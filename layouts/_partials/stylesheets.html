@@ -1,12 +1,24 @@
-{{ $style := resources.Get "css/design-system.css" | minify | fingerprint }}
+{{/* Load main stylesheet safely */}}
+
+{{ $style := resources.Get "css/design-system.css" }}
 
 {{ if $style }}
-  <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous">
+  {{ $style = $style | fingerprint }}
+
+  <link
+    rel="stylesheet"
+    href="{{ $style.RelPermalink }}"
+    integrity="{{ $style.Data.Integrity }}"
+    crossorigin="anonymous"
+  >
 {{ end }}
 
-<!-- Load Content Type Specific Style Sheets -->
-{{ $partialPath := printf "stylesheets/stylesheets-%s" .Type }}
+{{/* Load content-type specific stylesheets */}}
 
-{{ if templates.Exists (printf "partials/%s.html" $partialPath) }}
-  {{ partial $partialPath . }}
+{{ with .Type }}
+  {{ $partialPath := printf "stylesheets/stylesheets-%s" . }}
+
+  {{ if templates.Exists (printf "partials/%s.html" $partialPath) }}
+    {{ partial $partialPath $ }}
+  {{ end }}
 {{ end }}
