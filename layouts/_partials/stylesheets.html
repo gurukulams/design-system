@@ -18,7 +18,7 @@
 {{ with .Type }}
   {{ $partialPath := printf "stylesheets/stylesheets-%s" . }}
 
-  {{ if templates.Exists (printf "partials/%s.html" $partialPath) }}
+  {{ if templates.Exists (printf "_partials/%s.html" $partialPath) }}
     {{ partial $partialPath $ }}
   {{ end }}
 {{ end }}

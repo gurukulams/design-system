@@ -15,7 +15,7 @@
 {{ with .Type }}
   {{ $partialPath := printf "scripts/scripts-%s" . }}
 
-  {{ if templates.Exists (printf "partials/%s.html" $partialPath) }}
+  {{ if templates.Exists (printf "_partials/%s.html" $partialPath) }}
     {{ partial $partialPath $ }}
   {{ end }}
 {{ end }}
