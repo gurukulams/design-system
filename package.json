@@ -13,11 +13,12 @@
     "build:css": "sass src/scss:assets/css",
     "watch:css": "sass --watch src/scss:assets/css",
     "watch:site": "hugo -s exampleSite --watch --themesDir ../..",
-    "watch:dev": "node scripts/dev.js",
+    "preview": "node scripts/dev.js",
     "build:js": "rollup -c",
     "build:questions": "node scripts/build-questions.js --auto-fix",
     "build": "npm-run-all build:*",
-    "dev": "npm-run-all build --parallel watch:*",
+    "dev": "npm-run-all build --parallel watch:* preview",
+    "watch": "npm-run-all build --parallel watch:*",
     "postinstall": "npm run build"
   },
   "devDependencies": {

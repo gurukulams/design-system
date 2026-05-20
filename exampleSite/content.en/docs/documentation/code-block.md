@@ -26,7 +26,7 @@ To display a full block of code, wrap it in triple backticks ` ``` `. To enable 
 
 **Example:**
 
-<pre>
+
 ```java
 public class HelloWorld {
     public static void main(String[] args) {
@@ -34,7 +34,7 @@ public class HelloWorld {
     }
 }
 ```
-</pre>
+
 
 ---
 

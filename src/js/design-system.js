@@ -12,6 +12,7 @@ class DesignSystem {
   constructor() {
     this.handleTheme();
     this.handleSecurity();
+    this.handleCodeBlocks();
   }
 
   handleTheme() {
@@ -113,6 +114,78 @@ class DesignSystem {
         });
     }
   }
+
+  handleCodeBlocks() {
+
+
+      // Target all Hugo-generated highlight code blocks
+      const codeBlocks = document.querySelectorAll('.highlight');
+    
+      codeBlocks.forEach((container) => {
+        // 1. Find the actual code element inside
+        const codeElement = container.querySelector('pre code') || container.querySelector('pre');
+        if (!codeElement) return;
+    
+        // 2. Detect the coding language automatically from Hugo classes
+        let lang = 'Code';
+        const classes = codeElement.className.split(' ');
+        for (const cls of classes) {
+          if (cls.startsWith('language-')) {
+            lang = cls.replace('language-', '');
+            break;
+          }
+        }
+        // Fallback: Check if Hugo added a data attribute
+        if (lang === 'Code' && codeElement.getAttribute('data-lang')) {
+          lang = codeElement.getAttribute('data-lang');
+        }
+    
+        // 3. Create the Header Container Row
+        const headerBar = document.createElement('div');
+        headerBar.className = 'code-header';
+    
+        // 4. Create the Language Text Label (Left side)
+        const langLabel = document.createElement('span');
+        langLabel.className = 'code-lang-label';
+        langLabel.innerText = lang === 'js' ? 'javascript' : lang; // Optional pretty conversion
+    
+        // 5. Create the Copy Button (Right side)
+        const button = document.createElement('button');
+        button.className = 'btn btn-sm btn-outline-light copy-code-button';
+        button.type = 'button';
+        button.innerHTML = '<i class="bi bi-clipboard"></i> Copy';
+    
+        // 6. Build the header row structure
+        headerBar.appendChild(langLabel);
+        headerBar.appendChild(button);
+    
+        // 7. Inject the entire header banner layout at the top of the .highlight box
+        container.insertBefore(headerBar, container.firstChild);
+    
+        // 8. Clipboard handling logic
+        button.addEventListener('click', async () => {
+          const rawText = codeElement.innerText;
+    
+          try {
+            await navigator.clipboard.writeText(rawText);
+            
+            button.innerHTML = '<i class="bi bi-check-lg text-success"></i> Copied!';
+            button.classList.replace('btn-outline-light', 'btn-light');
+            
+            setTimeout(() => {
+              button.innerHTML = '<i class="bi bi-clipboard"></i> Copy';
+              button.classList.replace('btn-light', 'btn-outline-light');
+            }, 2000);
+            
+          } catch (err) {
+            console.error('Failed to copy text: ', err);
+            button.innerText = 'Error';
+          }
+        });
+      });
+
+  }
+  
 }
 
 new DesignSystem();

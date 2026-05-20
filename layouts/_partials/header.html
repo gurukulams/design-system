@@ -13,6 +13,7 @@
               <a href="{{ site.Home.RelPermalink }}" class="h4 text-decoration-none mb-0 lh-1 fw-bold">
                 {{ .Site.Title }}
               </a>
+              {{ if gt (len .Site.Languages) 1 }}
               <div class="dropdown">
                   <small id="languageBtn" data-code={{$.Site.Home.Language.Lang}} class="dropdown-toggle" 
                       type="button" id="languageBtn" data-bs-toggle="dropdown" aria-expanded="false">
@@ -28,6 +29,7 @@
                     {{ end }}
                   </ul>
               </div>
+              {{ end }}
           </div>
       </div>
 
