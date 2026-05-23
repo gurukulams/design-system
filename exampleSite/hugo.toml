@@ -48,5 +48,4 @@ getenv = ['^HUGO_','CONTEXT','BUILD_PRODUCTION']
 
 
 [params]
-  IncludeFooter = true
   LoginMode = "Google" ## Google, Github

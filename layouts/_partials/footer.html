@@ -1,5 +1,3 @@
-
-{{ if .Site.Params.IncludeFooter }}
 <footer>
   <nav class="navbar navbar-expand-md py-0 fixed-bottom">    
     <div class="container border-bottom border-top-1 shadow-sm bg-body position-relative">
@@ -36,16 +34,12 @@
           <a class="nav-link px-2 text-body-secoundary justify-content-end" href="/about">About</a>
         </li>
       </ul>
-      <p class="mb-0 text-body-secoundary float-end justify-content-end" > Ⓒ OurKadai Technologies </p>
+      <p class="mb-0 text-body-secoundary float-end justify-content-end"> 
+        {{ with i18n "copyright" }} Ⓒ {{ . }} {{ end }}
+    </p>
     </div>
   </nav>
 </footer>
-{{ end }}
-
-
-
-
-
 
 {{ partial "scripts.html" . }}
 
