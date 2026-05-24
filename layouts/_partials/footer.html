@@ -27,7 +27,9 @@
         {{ range .Site.Menus.footer }}
           {{ if findRE "^https?://" .URL }}
             <li class="nav-item">
-              <a class="nav-link px-2 text-body-secoundary" href="{{ .URL }}" target="_{{ .Name }}">{{ .Name }}</a>
+              <a class="nav-link px-2 text-body-secoundary" href="{{ .URL }}" target="_{{ .Name }}">
+                {{ partial "docs/text/i18n" .Name }}
+              </a>
             </li>
           {{ else }}
               {{ $cleanPath := printf "/%s" (strings.TrimPrefix "/" .PageRef) }}
