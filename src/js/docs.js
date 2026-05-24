@@ -5,8 +5,17 @@ import QuestionLoader from "./components/QuestionLoader";
 
 class DocsManager {
   constructor() {
-    console.log('Hello');
+    
     new QuestionLoader();
+
+    // Set Focus to the SearchBox When Side Nav Opened
+    const offcanvasDocsTree = document.getElementById('offcanvasDocsTree');
+    const searchInput = document.getElementById('book-search-input');
+
+    offcanvasDocsTree.addEventListener('shown.bs.offcanvas', function () {
+        searchInput.focus();
+    });
+
     const nm = new NotesMaker(document.getElementById("document-article"), (msg) => {
       console.log("NotesMaker Notification:", msg);
     });
@@ -14,6 +23,9 @@ class DocsManager {
     pencilToggle.addEventListener("change", function () {
       nm.setEditable(this.checked);
     });
+
+    
+
   }
 }
 
