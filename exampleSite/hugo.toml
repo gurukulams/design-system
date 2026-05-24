@@ -49,3 +49,32 @@ getenv = ['^HUGO_','CONTEXT','BUILD_PRODUCTION']
 
 [params]
   LoginMode = "Google" ## Google, Github
+
+
+[menu]
+
+# Scenario 1: External Link (GitHub Repository)
+[[menu.footer]]
+  name = 'GitHub'
+  url = 'https://github.com/gurukulams/design-system'
+  weight = 1
+
+# Scenario 2: Internal Page with Both English & Tamil Content
+[[menu.footer]]
+  pageRef = '/license'
+  weight = 2
+
+# Scenario 3: Internal Page with ONLY English Content (Missing Tamil file)
+[[menu.footer]]
+  pageRef = '/contributing'
+  weight = 3
+
+# [[menu.footer]]
+#   name = 'Showcases'
+#   pageRef = 'showcases'
+#   weight = 2
+
+# [[menu.footer]]
+#   name = 'Github'
+#   pageRef = 'showcases'
+#   weight = 3

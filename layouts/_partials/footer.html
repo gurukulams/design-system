@@ -24,15 +24,49 @@
         </ul>
       </div>
       <ul class="nav">
-        <li class="nav-item">
-          <a class="nav-link px-2 text-body-secoundary " href="/terms-and-conditions">Terms and conditions</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-2 text-body-secoundary" href="/refund-policy">Refund Policy</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-2 text-body-secoundary justify-content-end" href="/about">About</a>
-        </li>
+        {{ range .Site.Menus.footer }}
+          {{ if findRE "^https?://" .URL }}
+            <li class="nav-item">
+              <a class="nav-link px-2 text-body-secoundary" href="{{ .URL }}" target="_{{ .Name }}">{{ .Name }}</a>
+            </li>
+          {{ else }}
+              {{ $cleanPath := printf "/%s" (strings.TrimPrefix "/" .PageRef) }}
+            
+              {{/* 3. Base lookup initialization */}}
+              {{ $page := $.Site.GetPage $cleanPath }}
+              {{ if not $page }}
+                {{ $page = $.Site.GetPage (printf "%s.md" $cleanPath) }}
+              {{ end }}
+
+
+              {{/* Check if the page is missing or a placeholder nopPage */}}
+              {{ if or (not $page) (eq $page.Kind "nopPage") }}
+                {{ if eq $.Page.Language.Lang "en" }}
+                  {{/* Rule 1: On English site, throw a fatal error */}}
+                  {{ errorf "Footer Menu Error: Core English source file '%s' is missing from content.en/." .PageRef }}
+                {{ else }}
+                {{ warnf "Footer Menu Error: '%s' is missing from content.%s/." .PageRef $.Page.Language.Lang }}
+                {{/* Reassign missing localized page to default English page object */}}
+                  {{/* Reassign missing localized page to default English page object */}}
+                  {{ $enSite := index (where $.Site.Sites "Language.Lang" "en") 0 }}
+
+                  {{ if $enSite }}
+                    {{ $page = $enSite.GetPage $cleanPath }}
+                    {{ if not $page }}
+                      {{ $page = $enSite.GetPage (printf "%s.md" $cleanPath) }}
+                    {{ end }}
+                  {{ end }}
+                {{ end }}
+              {{ end }}
+
+
+              <li class="nav-item">
+                <a class="nav-link px-2 text-body-secoundary" href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>
+              </li>
+
+          {{ end }}
+        {{ end }}
+        
       </ul>
       <p class="mb-0 text-body-secoundary float-end justify-content-end"> 
         {{ with i18n "copyright" }} Ⓒ {{ . }} {{ end }}

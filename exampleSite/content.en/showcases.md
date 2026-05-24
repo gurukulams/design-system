@@ -1,6 +1,5 @@
 ---
 title: Showcases
-layout: landing
 ---
 
 <div class="book-hero text-center">
