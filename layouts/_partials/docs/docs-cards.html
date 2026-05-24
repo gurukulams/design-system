@@ -2,35 +2,37 @@
     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
         {{/* Combine standalone files and folders, then sort by weight */}}
         {{ $entries := (union .RegularPages .Sections).ByWeight }}
-        
+
         {{ range $entries }}
         <div class="col">
             <div class="card h-100 shadow-sm border-1">
                 <div class="card-header border-bottom-0 pt-4">
                     <h5 class="card-title fw-bold mb-0 text-primary">
                         {{/* Dynamic icon: folder for sections, text for files */}}
-                        <i class="bi {{ if .IsSection }}bi-folder-fill text-warning{{ else }}bi-journal-text{{ end }} me-2"></i>
+                        <i
+                            class="bi {{ if .IsSection }}bi-folder-fill text-warning{{ else }}bi-journal-text{{ end }} me-2"></i>
                         {{ partial "utils/title" . }}
                     </h5>
                 </div>
-                
+
                 <div class="card-body">
                     <p class="card-text text-muted">
                         {{ if .Summary }}
-                            {{ .Summary | truncate 250 }}
+                        {{ .Summary | truncate 250 }}
                         {{ else }}
-                            Explore the contents of {{ .LinkTitle }}.
+                        Explore the contents of {{ .LinkTitle }}.
                         {{ end }}
                     </p>
                 </div>
-                
+
                 <div class="card-footer border-0 pb-3 d-flex align-items-center justify-content-between">
                     <div>
                         {{ partial "utils/slide-finder.html" . }}
                     </div>
-            
-                    <a href="{{ .RelPermalink }}" class="btn btn-sm btn-link p-0 text-primary fw-bold text-decoration-none">
-                        View Details <i class="bi bi-arrow-right"></i>
+
+                    <a href="{{ .RelPermalink }}"
+                        class="btn btn-sm btn-link p-0 text-primary fw-bold text-decoration-none">
+                      {{ i18n "viewDetails" }} <i class="bi bi-arrow-right"></i>
                     </a>
                 </div>
             </div>

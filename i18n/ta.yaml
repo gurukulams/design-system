@@ -16,3 +16,8 @@
 - id: Presentation
   translation: விளக்கக்காட்சி
 
+- id: viewDetails
+  translation: "விவரங்களைப் பார்க்கவும்"
+
+- id: OnThisPage 
+  translation: "இந்தப் பக்கத்தில்"
