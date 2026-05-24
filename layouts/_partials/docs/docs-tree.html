@@ -11,19 +11,25 @@
 
             {{/* Render Folders */}}
             {{ $folderId := printf "folder-%s" (anchorize .LinkTitle) }}
+            
+            {{/* CRITICAL STATE CHECKS: Check if the user is currently looking at this folder or its children */}}
+            {{ $isCurrentFolder := eq .Permalink page.Permalink }}
+            {{ $isChildActive := page.InSection . }}
+            {{ $shouldExpand := or $isCurrentFolder $isChildActive }}
 
             <li class="list-group-item border-0 py-1">
                 <div class="d-flex align-items-center">
 
-                    <i class="bi bi-chevron-right me-2 toggle-icon"
+                    {{/* Bootstrap icons rotation handles changing 'collapsed' class state */}}
+                    <i class="bi bi-chevron-right me-2 toggle-icon {{ if not $shouldExpand }}collapsed{{ end }}"
                         data-bs-toggle="collapse"
                         data-bs-target="#{{ $folderId }}"
-                        aria-expanded="false"
+                        aria-expanded="{{ if $shouldExpand }}true{{ else }}false{{ end }}"
                         style="cursor: pointer;"></i>
 
                     <i class="bi bi-folder-fill me-2 text-warning"></i>
 
-                    {{ if eq .Permalink page.Permalink }}
+                    {{ if $isCurrentFolder }}
                         <span class="fw-bold">
                             {{ partial "utils/title" . }}
                         </span>
@@ -35,7 +41,8 @@
 
                 </div>
 
-                <div class="collapse" id="{{ $folderId }}">
+                {{/* Adding the 'show' class forces Bootstrap to render the section open on build load */}}
+                <div class="collapse {{ if $shouldExpand }}show{{ end }}" id="{{ $folderId }}">
                     {{ partial "docs/docs-tree.html" . }}
                 </div>
             </li>
