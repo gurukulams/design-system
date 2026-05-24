@@ -1,7 +1,6 @@
 import QuestionLoader from "./components/QuestionLoader";
 // import NotesMaker from 'notes-js'
-// import * as bootstrap from 'bootstrap';
-// window.bootstrap = bootstrap;
+
 
 class DocsManager {
   constructor() {
