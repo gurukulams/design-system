@@ -13,18 +13,21 @@
 
             <ul class="navbar-nav ms-auto d-flex flex-row justify-content-evenly justify-content-lg-end mt-lg-0 pb-lg-0">
 
-              <li class="nav-item">
-                  <input type="checkbox" class="btn-check" id="notes-pencil-toggle" autocomplete="off" />
-                  <label class="btn btn-outline-secondary btn-sm border-0" for="notes-pencil-toggle">
-                    <i class="bi bi-pencil-fill fs-5"></i>
-                  </label>  
-              </li>
+              
+
+              
 
               <li class="nav-item">
                 {{ partial "utils/slide-finder.html" . }}
               </li>
+              <li class="nav-item">
+                <input type="checkbox" class="btn-check" id="notes-pencil-toggle" autocomplete="off" />
+                <label class="btn btn-outline-secondary btn-sm border-0" for="notes-pencil-toggle">
+                  <i class="bi bi-pencil-fill fs-5"></i>
+                </label>  
+            </li>
               
-              
+              {{ partial "docs/prev-next-docs.html" . }}
               </ul>
 
             
