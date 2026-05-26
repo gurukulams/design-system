@@ -64,7 +64,10 @@
             </ul>
           </div>
           {{ else }}
-          <a id="login-btn" data-href="/oauth2/authorize/google?redirect_uri={{ "welcome" | absURL | safeJS }}" href="javascript://" class="btn btn-outline-dark border-0 p-1" title="Login with {{.Site.Params.LoginMode}}">
+          <a id="login-btn" 
+                data-href="/oauth2/authorize/google?redirect_uri={{ "welcome" | absURL | safeJS }}" 
+                href="javascript://" class="btn btn-outline-secondary border-0 p-1" 
+                title="Login with {{.Site.Params.LoginMode}}">
             <i class="bi bi-{{ .Site.Params.LoginMode | lower }} fs-4"></i>
           </a>
           {{ end }}

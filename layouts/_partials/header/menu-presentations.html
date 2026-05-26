@@ -1,8 +1,12 @@
 {{ if .IsPage }}
+<div class="collapse navbar-collapse bg-transparent" id="navbarIcons">
+  <ul class="navbar-nav ms-auto d-flex flex-row justify-content-evenly justify-content-lg-end mt-3 mt-lg-0 pb-2 pb-lg-0">
 
-<a class="nav-link px-3" href="javascript://" onclick="toggleFullScreen()">
+<li class="nav-item"><a class="nav-link px-3" href="javascript://" onclick="toggleFullScreen()">
   <i class="bi bi-arrows-fullscreen"></i>
-</a>
+</a></li>
+</ul>
+</div>
 
 {{ else }}
   {{/* This is a list/section page */}}
