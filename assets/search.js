@@ -5,6 +5,18 @@
 {{ $searchConfig := i18n "bookSearchConfig" | default "{}" }}
 
 (function () {
+
+
+  // Global elements to keep track of state
+  let originalElements = []; 
+  let offcanvasBody = null;
+
+  offcanvasBody = document.querySelector('#offcanvasDocsTree .offcanvas-body');
+  if (offcanvasBody) {
+      // Capture the actual DOM elements, preserving their memory and event listeners
+      originalElements = Array.from(offcanvasBody.childNodes);
+  }
+
   const searchDataURL = '{{ partial "docs/links/resource-precache" $searchData }}';
   const indexConfig = Object.assign({{ $searchConfig }}, {
     includeScore: true,
@@ -75,10 +87,7 @@
     return dataHotkeys.indexOf(character) >= 0;
   }
 
-  function clear() {
-    results.innerHTML = '';
-    input.value = ''
-  }
+  
 
   function init() {
     input.removeEventListener('focus', init); // init once
@@ -102,18 +111,48 @@
       return;
     }
 
-    const searchHits = window.bookSearchIndex.search(input.value).slice(0,10);
-    searchHits.forEach(function (page) {
-      const li = element('<li><a href></a><small></small></li>');
-      const a = li.querySelector('a'), small = li.querySelector('small');
-
-      a.href = page.item.href;
-      a.textContent = page.item.title;
-      small.textContent = page.item.section;
-
-      results.appendChild(li);
-    });
+    displayResults(window.bookSearchIndex.search(input.value).slice(0,10));
+    
   }
+
+  function displayResults(searchHits) {
+    if (!offcanvasBody) return;
+
+    // 1. Clear the offcanvas without destroying the original elements' memory
+    offcanvasBody.innerHTML = ''; 
+
+    if (!searchHits || searchHits.length === 0) {
+        offcanvasBody.innerHTML = `<div class="text-center text-muted p-4"><p>No results found.</p></div>`;
+        return;
+    }
+
+    // 2. Build and inject search results
+    let resultsContainer = document.createElement('div');
+    resultsContainer.className = 'list-group list-group-flush';
+
+    searchHits.forEach(hit => {
+        const item = hit.item;
+        resultsContainer.innerHTML += `
+            <a href="${item.href}" class="list-group-item list-group-item-action py-3">
+                <strong class="text-primary d-block">${item.title}</strong>
+                <small class="text-muted">${item.section}</small>
+            </a>`;
+    });
+
+    offcanvasBody.appendChild(resultsContainer);
+}
+
+function clear() {
+    if (!offcanvasBody || originalElements.length === 0) return;
+
+    // Clear out the search results HTML
+    offcanvasBody.innerHTML = '';
+
+    // Re-append the exact same original DOM nodes with their events completely intact
+    originalElements.forEach(node => {
+        offcanvasBody.appendChild(node);
+    });
+}
 
   /**
    * @param {String} content
