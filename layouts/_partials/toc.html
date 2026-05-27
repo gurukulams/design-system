@@ -1,10 +1,22 @@
 {{ if .TableOfContents }}
+
 <aside class="col-lg-3 d-none d-lg-block border-start bg-light-subtle">
     <div class="sticky-top py-5 ps-4" style="top: 80px;">
         <h6 class="text-uppercase fw-bold small text-muted mb-3">{{ i18n "OnThisPage" }}</h6>
         <nav id="TableOfContents" class="toc-nav">
-            {{ .TableOfContents }}
+            <nav id="TableOfContents">
+                {{ .TableOfContents }}
+            </nav>
         </nav>
+
+        <div class="mt-4 pt-3 border-top border-secondary-subtle">
+            <a href="{{ .Permalink }}#" class="btn btn-link btn-sm p-0 text-decoration-none text-muted d-flex align-items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5"/>
+                </svg>
+                {{ i18n "Back to top" }}
+            </a>
+        </div>
     </div>
 </aside>
 
