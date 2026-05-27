@@ -4,3 +4,29 @@
     color: var(--bs-emphasis-color) !important;
     }
 }
+
+.reveal-wrapper {
+    position: relative; /* Essential anchor for absolute positioning */
+}
+
+#dynamic-fullscreen-exit {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 2147483647; /* Forces it to stay on top of all fullscreen content */
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    color: #fff !important;
+    padding: 10px 14px;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+#dynamic-fullscreen-exit:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: scale(1.05);
+}
+
+#dynamic-fullscreen-exit i {
+    pointer-events: none; /* The click passes straight through the icon to the link */
+}

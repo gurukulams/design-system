@@ -21,12 +21,64 @@
 
     function toggleFullScreen() {
         const elem = document.querySelector('.reveal-wrapper');
-        if (elem.requestFullscreen) {
-            elem.requestFullscreen();
-        } else if (elem.webkitRequestFullscreen) { /* Safari */
-            elem.webkitRequestFullscreen();
+        const existingBtn = document.getElementById('dynamic-fullscreen-exit');
+    
+        // CASE 1: If the button exists, it means we are in full screen and want to EXIT
+        if (existingBtn) {
+            // Remove the button immediately
+            existingBtn.remove();
+    
+            // Trigger exit full screen
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { /* Safari */
+                document.webkitExitFullscreen();
+            }
+        } 
+        // CASE 2: We are entering full screen
+        else {
+            // 1. Create the floating button with the same icon
+            const exitBtn = document.createElement('a');
+            exitBtn.id = 'dynamic-fullscreen-exit';
+            exitBtn.className = 'fullscreen-floating-btn';
+            exitBtn.href = 'javascript://';
+            exitBtn.innerHTML = '<i class="bi bi-arrows-fullscreen"></i>';
+            
+            // 2. Attach this exact same function to the new button's click event
+            exitBtn.onclick = toggleFullScreen;
+            
+            // 3. Append it to the element going full screen so it travels with it
+            elem.appendChild(exitBtn);
+    
+            // 4. Trigger enter full screen
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            }
         }
     }
+    
+    /**
+     * CRITICAL SAFETY NET FOR THE 'ESC' KEY:
+     * If the user hits the physical 'Esc' key to leave full screen instead of 
+     * clicking your button, we still need to clear the floating button out of the DOM.
+     */
+    document.addEventListener('fullscreenchange', () => {
+        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+            const existingBtn = document.getElementById('dynamic-fullscreen-exit');
+            if (existingBtn) {
+                existingBtn.remove();
+            }
+        }
+    });
+    // Safari variant
+    document.addEventListener('webkitfullscreenchange', () => {
+        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+            const existingBtn = document.getElementById('dynamic-fullscreen-exit');
+            if (existingBtn) { existingBtn.remove(); }
+        }
+    });
 
 
     function updateRevealTheme() {
