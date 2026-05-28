@@ -43,6 +43,8 @@ enableGitInfo = true
 
 [security]
 enableInlineShortcodes = true
+[security.allowContent]
+    mediaTypes = ['text/html']
 [security.funcs]
 getenv = ['^HUGO_','CONTEXT','BUILD_PRODUCTION']
 
