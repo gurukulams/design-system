@@ -24,6 +24,9 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^29.0.2",
     "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-replace": "^6.0.3",
+    "rollup-plugin-import-css": "^4.2.1",
+    "rollup-plugin-postcss": "^4.0.2",
     "browser-sync": "^3.0.4",
     "chokidar": "^5.0.0",
     "glob": "^13.0.6",
@@ -37,7 +40,12 @@
   "dependencies": {
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
-    "notes-js": "github:gurukulams/notes-js",
-    "practice-js": "github:gurukulams/practice-js"
+    "practice-js": "github:gurukulams/practice-js",
+    "openseadragon": "^6.0.2",
+    "@annotorious/annotorious": "^3.8.1",
+    "@annotorious/openseadragon": "^3.8.1",
+    "@recogito/annotorious": "^2.7.14",
+    "@recogito/text-annotator": "^3.4.9"
+
   }
 }

@@ -1,6 +1,6 @@
 import QuestionLoader from "./components/QuestionLoader";
-// import NotesMaker from 'notes-js'
 
+import NotesMaker from "./components/NotesMaker";
 
 class DocsManager {
   constructor() {
@@ -21,6 +21,7 @@ class DocsManager {
     const pencilToggle = document.getElementById("notes-pencil-toggle");
     pencilToggle.addEventListener("change", function () {
       nm.setEditable(this.checked);
+      console.log("JJJ");
     });
 
     
