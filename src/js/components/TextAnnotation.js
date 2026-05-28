@@ -3,15 +3,11 @@
 import "@recogito/text-annotator/text-annotator.css";
 import { createTextAnnotator } from "@recogito/text-annotator";
 
-
 export default class TextAnnotation {
   constructor(_contentRoot) {
     this.contentRoot = _contentRoot;
-
     this.anno = null;
-
     this.annotatingEnabled = true;
-
     this.init();
   }
 
@@ -26,14 +22,30 @@ export default class TextAnnotation {
     }
 
     this.anno = createTextAnnotator(this.contentRoot);
-
     this.loadAnnotations();
-
     this.setAnnotatingEnabled(this.annotatingEnabled);
 
-    this.anno.on("createAnnotation", () => this.saveAnnotations());
+    // --- Overlap Prevention Logic ---
 
-    this.anno.on("updateAnnotation", () => this.saveAnnotations());
+    this.anno.on("createAnnotation", (annotation) => {
+      if (this.isOverlapping(annotation)) {
+        // Alert the user and immediately remove the overlapping annotation from the UI
+        alert("Overlapping annotations are not allowed!");
+        this.anno.removeAnnotation(annotation.id);
+        return;
+      }
+      this.saveAnnotations();
+    });
+
+    this.anno.on("updateAnnotation", (annotation, previous) => {
+      if (this.isOverlapping(annotation)) {
+        alert("This change causes an overlap and cannot be saved.");
+        // Revert to the previous state if it overlaps
+        this.anno.addAnnotation(previous, true); 
+        return;
+      }
+      this.saveAnnotations();
+    });
 
     this.anno.on("deleteAnnotation", () => this.saveAnnotations());
   }
@@ -63,6 +75,48 @@ export default class TextAnnotation {
     } catch (e) {
       console.warn("Invalid saved annotations", e);
     }
+  }
+
+  /**
+   * Checks if a target annotation overlaps with any existing annotations
+   */
+   isOverlapping(targetAnno) {
+    if (!this.anno) return false;
+
+    // Recogito selectors are wrapped inside an array
+    const targetSelectors = targetAnno.target?.selector;
+    if (!targetSelectors || !Array.length) return false;
+
+    // Find the selector element that holds text offsets (start & end)
+    const targetPosition = targetSelectors.find(s => s.start !== undefined);
+    if (!targetPosition) return false;
+
+    const targetStart = targetPosition.start;
+    const targetEnd = targetPosition.end;
+
+    // Grab all currently active annotations
+    const allAnnotations = this.anno.getAnnotations();
+
+    for (const existingAnno of allAnnotations) {
+      // Don't compare the annotation against itself
+      if (existingAnno.id === targetAnno.id) continue;
+
+      const existingSelectors = existingAnno.target?.selector;
+      if (!existingSelectors) continue;
+
+      const existingPosition = existingSelectors.find(s => s.start !== undefined);
+      if (!existingPosition) continue;
+
+      const existingStart = existingPosition.start;
+      const existingEnd = existingPosition.end;
+
+      // Checking for exact matching indices or partial bounding overlap
+      if (targetStart < existingEnd && targetEnd > existingStart) {
+        return true; // Overlap confirmed!
+      }
+    }
+
+    return false; // Safe to create
   }
 
   setAnnotatingEnabled(_editable) {
