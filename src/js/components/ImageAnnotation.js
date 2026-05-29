@@ -3,12 +3,11 @@
 import { createImageAnnotator } from '@annotorious/annotorious';
 import OpenSeadragon from 'openseadragon';
 import { createOSDAnnotator } from '@annotorious/openseadragon';
+import AnnotationPopup from './AnnotationPopup';
 
 export default class ImageAnnotation {
-
   constructor(_contentRoot) {
     this.contentRoot = _contentRoot;
-
     this.anno = null;
     this.currentMode = 'rectangle';
     this.currentImageKey = null;
@@ -17,6 +16,13 @@ export default class ImageAnnotation {
     this.annotatingEnabled = false;
     this.viewerMode = 'standard';
     this.osdViewer = null;
+
+    // Initialize shared popup control
+    this.popup = new AnnotationPopup({
+      onSave: (annotation, textValue) => this.handleSaveComment(annotation, textValue),
+      onDelete: (id) => this.handleDeleteAnnotation(id),
+      onCloseMemory: () => this.clearEngineSelection()
+    });
 
     this.init();
   }
@@ -28,23 +34,20 @@ export default class ImageAnnotation {
 
   setAnnotatingEnabled(_editable) {
     this.annotatingEnabled = _editable;
-  
     if (this.anno) {
       this.anno.setDrawingEnabled(_editable);
-  
       if (_editable) {
         this.anno.setDrawingTool(this.currentMode);
+      } else {
+        this.popup.close(true);
       }
     }
-  
     const rectBtn = document.getElementById('anno-rect-btn');
     const polyBtn = document.getElementById('anno-poly-btn');
-    const deleteBtn = document.getElementById('anno-delete-btn');
-  
-    rectBtn.disabled = !_editable;
-    polyBtn.disabled = !_editable;
-  
-    deleteBtn.disabled = !_editable || !this.selectedAnnotation;
+    if (rectBtn && polyBtn) {
+      rectBtn.disabled = !_editable;
+      polyBtn.disabled = !_editable;
+    }
   }
 
   bindFigures() {
@@ -52,16 +55,13 @@ export default class ImageAnnotation {
       figure.addEventListener('dblclick', () => {
         const img = figure.querySelector('img');
         if (!img) return;
-
         this.openImage(img, figure);
       });
     });
   }
 
   createOffcanvas() {
-    if (document.getElementById('imageAnnotationCanvas')) {
-      return;
-    }
+    if (document.getElementById('imageAnnotationCanvas')) return;
 
     document.body.insertAdjacentHTML(
       'beforeend',
@@ -73,13 +73,11 @@ export default class ImageAnnotation {
      
         <div class="offcanvas-header border-bottom border-secondary" style="height: 60px;">
             <h5 id="annotation-title" class="mb-0">Image Annotation</h5>
-
-            <div class="d-flex align-items-center ms-auto me-3 gap-2">
+            <div class="d-flex align-items-center ms-auto gap-2">
                 <select id="viewer-mode-select" class="form-select form-select-sm" style="width:auto;">
                     <option value="standard">Standard</option>
                     <option value="deepzoom">Deep Zoom</option>
                 </select>
-
                 <div class="btn-group btn-group-sm">
                     <button id="anno-rect-btn" class="btn btn-outline-primary active">
                         <i class="bi bi-square me-1"></i> Rectangle
@@ -87,24 +85,15 @@ export default class ImageAnnotation {
                     <button id="anno-poly-btn" class="btn btn-outline-primary">
                         <i class="bi bi-pentagon me-1"></i> Polygon
                     </button>
-                    <button id="anno-delete-btn" class="btn btn-outline-danger" disabled>
-                        <i class="bi bi-trash"></i>
-                    </button>
                 </div>
             </div>
-
-            <button type="button" id="anno-close-canvas-btn" class="btn-close" aria-label="Close"></button>
+            <button type="button" id="anno-close-canvas-btn" class="btn-close ms-3" aria-label="Close"></button>
         </div>
 
         <div class="offcanvas-body p-0 position-relative overflow-hidden" style="height: calc(100vh - 60px); width: 100vw;">
             <div class="d-flex align-items-center justify-content-center w-100 h-100">
-                <img id="annotation-image" 
-                     class="img-fluid" 
-                     style="max-height: 100%; max-width: 100%; object-fit: contain; display: block;" />
-
-                <div id="annotation-viewer" 
-                     style="display:none; width:100%; height:100%; min-height: 100%; background: #000;">
-                </div>
+                <img id="annotation-image" class="img-fluid" style="max-height: 100%; max-width: 100%; object-fit: contain; display: block;" />
+                <div id="annotation-viewer" style="display:none; width:100%; height:100%; min-height: 100%; background: #000;"></div>
             </div>
         </div>
       </div>
@@ -115,19 +104,16 @@ export default class ImageAnnotation {
     this.imageEl = document.getElementById('annotation-image');
     this.viewerEl = document.getElementById('annotation-viewer');
 
-    document.getElementById('anno-close-canvas-btn').addEventListener('click', () => {
-      this.closeImage();
-    });
-
+    document.getElementById('anno-close-canvas-btn').addEventListener('click', () => this.closeImage());
     document.getElementById('anno-rect-btn').addEventListener('click', () => this.setMode('rectangle'));
     document.getElementById('anno-poly-btn').addEventListener('click', () => this.setMode('polygon'));
-    document.getElementById('anno-delete-btn').addEventListener('click', () => this.deleteSelected());
     document.getElementById('viewer-mode-select').addEventListener('change', e => this.setViewerMode(e.target.value));
   }
 
   setViewerMode(mode) {
     if (this.viewerMode === mode) return;
     this.viewerMode = mode;
+    this.popup.close(true);
     this.initAnnotator();
   }
 
@@ -138,18 +124,13 @@ export default class ImageAnnotation {
     const caption = figure.querySelector('figcaption');
     document.getElementById('annotation-title').textContent = caption ? caption.textContent.trim() : 'Image Annotation';
 
-    // 1. Reveal container framework instantly
     this.canvasEl.style.visibility = 'visible';
     this.canvasEl.classList.add('show');
 
-    // 2. Assign standard container fallback element 
     if (this.pendingImageSrc) {
       this.imageEl.src = this.pendingImageSrc;
     }
 
-    // --- FIX: DELAY MOUNT UNTIL SLIDE TRANSITION IS 100% COMPLETE ---
-    // The panel slides out using a 300ms transition. We wait 320ms to ensure 
-    // width calculations have locked securely at full viewport resolution.
     setTimeout(() => {
       this.initAnnotator();
       this.pendingImageSrc = null;
@@ -158,25 +139,17 @@ export default class ImageAnnotation {
 
   closeImage() {
     this.canvasEl.classList.remove('show');
+    this.popup.close(true);
     setTimeout(() => {
       this.canvasEl.style.visibility = 'hidden';
-      
-      // Clean up viewer on close to free memory strings
       if (this.anno) { this.anno.destroy(); this.anno = null; }
       if (this.osdViewer) { this.osdViewer.destroy(); this.osdViewer = null; }
     }, 300);
   }
 
   initAnnotator() {
-    if (this.anno) {
-      this.anno.destroy();
-      this.anno = null;
-    }
-
-    if (this.osdViewer) {
-      this.osdViewer.destroy();
-      this.osdViewer = null;
-    }
+    if (this.anno) { this.anno.destroy(); this.anno = null; }
+    if (this.osdViewer) { this.osdViewer.destroy(); this.osdViewer = null; }
 
     const imageSrc = this.pendingImageSrc || this.imageEl.src;
 
@@ -184,14 +157,10 @@ export default class ImageAnnotation {
       this.imageEl.style.display = 'none';
       this.viewerEl.style.display = 'block';
 
-      // Initialize OpenSeadragon with strict container layout bindings
       this.osdViewer = OpenSeadragon({
         element: this.viewerEl,
         prefixUrl: 'https://openseadragon.github.io/openseadragon/images/',
-        tileSources: {
-          type: 'image',
-          url: imageSrc
-        },
+        tileSources: { type: 'image', url: imageSrc },
         showNavigator: true,
         visibilityRatio: 1.0,
         constrainDuringPan: true
@@ -203,7 +172,7 @@ export default class ImageAnnotation {
       this.imageEl.style.display = 'block';
 
       this.anno = createImageAnnotator(this.imageEl, {
-        drawingEnabled: true
+        drawingEnabled: this.annotatingEnabled
       });
     }
 
@@ -211,65 +180,107 @@ export default class ImageAnnotation {
     this.setAnnotatingEnabled(this.annotatingEnabled);
     this.loadAnnotations();
 
-    // Attach life-cycle methods safely
-    this.anno.on('createAnnotation', () => this.saveAnnotations());
+    this.anno.on('createAnnotation', (annotation) => {
+      this.saveAnnotations();
+      this.positionAndOpenPopup(annotation, true);
+    });
+    
     this.anno.on('updateAnnotation', () => this.saveAnnotations());
     this.anno.on('deleteAnnotation', () => this.saveAnnotations());
 
     this.anno.on('selectionChanged', selected => {
       if (selected?.length > 0) {
         this.selectedAnnotation = selected[0];
-        document.getElementById('anno-delete-btn').disabled = !this.annotatingEnabled;
+        this.positionAndOpenPopup(this.selectedAnnotation, false);
       } else {
         this.selectedAnnotation = null;
-        document.getElementById('anno-delete-btn').disabled = true;
+        this.popup.close(false);
       }
     });
   }
 
-  deleteSelected() {
-    if (!this.selectedAnnotation || !this.anno) return;
-    this.anno.removeAnnotation(this.selectedAnnotation.id);
-    this.selectedAnnotation = null;
-    document.getElementById('anno-delete-btn').disabled = true;
+  positionAndOpenPopup(annotation, isDraft = false) {
+    let rect = null;
+
+    if (this.viewerMode === 'deepzoom' && this.osdViewer) {
+      const bounds = annotation.target?.selector?.geometry?.bounds;
+      if (bounds) {
+        const imagePoint = new OpenSeadragon.Point(
+          bounds.minX + (bounds.maxX - bounds.minX) / 2, 
+          bounds.minY
+        );
+        const viewportPoint = this.osdViewer.viewport.imageToViewportElementByPixels(imagePoint);
+        rect = { top: viewportPoint.y, left: viewportPoint.x, width: 0 };
+      }
+    } else {
+      const element = this.canvasEl.querySelector(`[data-id="${annotation.id}"]`);
+      if (element) {
+        rect = element.getBoundingClientRect();
+      }
+    }
+
+    if (!rect) {
+      rect = { top: window.innerHeight / 2, left: window.innerWidth / 2, width: 0 };
+    }
+
+    this.popup.open({
+      annotation,
+      rect,
+      isDraft,
+      editable: this.annotatingEnabled,
+      usePageScroll: false // OpenSeadragon & Offcanvas use fixed containers
+    });
+  }
+
+  handleSaveComment(annotation, textValue) {
+    const targetAnnotation = JSON.parse(JSON.stringify(annotation));
+    if (!Array.isArray(targetAnnotation.bodies)) targetAnnotation.bodies = [];
+
+    const commentBody = textValue !== "" ? {
+      type: "TextualBody",
+      value: textValue,
+      purpose: "commenting",
+      format: "text/plain"
+    } : null;
+
+    const commentIndex = targetAnnotation.bodies.findIndex(b => b.purpose === "commenting");
+
+    if (commentBody) {
+      if (commentIndex > -1) targetAnnotation.bodies[commentIndex] = commentBody;
+      else targetAnnotation.bodies.push(commentBody);
+    } else if (commentIndex > -1) {
+      targetAnnotation.bodies.splice(commentIndex, 1);
+    }
+
+    this.anno.updateAnnotation(targetAnnotation);
     this.saveAnnotations();
+  }
+
+  handleDeleteAnnotation(id) {
+    this.anno.removeAnnotation(id);
+    this.saveAnnotations();
+  }
+
+  clearEngineSelection() {
+    if (this.anno && this.anno.setSelected) {
+      this.anno.setSelected(null);
+    }
   }
 
   setMode(mode) {
     this.currentMode = mode;
-    if (this.anno) {
-      this.anno.setDrawingTool(mode);
-    }
-
+    if (this.anno) this.anno.setDrawingTool(mode);
     document.getElementById('anno-rect-btn').classList.toggle('active', mode === 'rectangle');
     document.getElementById('anno-poly-btn').classList.toggle('active', mode === 'polygon');
   }
 
-  storageKey() {
-    return `image-annotations:${this.currentImageKey}`;
-  }
-
-  saveAnnotations() {
-    if (!this.anno) return;
-    localStorage.setItem(this.storageKey(), JSON.stringify(this.anno.getAnnotations()));
-  }
-
+  storageKey() { return `image-annotations:${this.currentImageKey}`; }
+  saveAnnotations() { if (this.anno) localStorage.setItem(this.storageKey(), JSON.stringify(this.anno.getAnnotations())); }
   loadAnnotations() {
     const saved = localStorage.getItem(this.storageKey());
     if (!saved || !this.anno) return;
-    try {
-      this.anno.setAnnotations(JSON.parse(saved));
-    } catch(e) {
-      console.warn('Invalid saved annotations', e);
-    }
+    try { this.anno.setAnnotations(JSON.parse(saved)); } catch(e) { console.warn('Invalid saved annotations', e); }
   }
-
-  relativePath(url) {
-    return new URL(url, window.location.origin).pathname;
-  }
-
-  destroy() {
-    if (this.anno) this.anno.destroy();
-    if (this.osdViewer) this.osdViewer.destroy();
-  }
+  relativePath(url) { return new URL(url, window.location.origin).pathname; }
+  destroy() { this.popup.close(true); if (this.anno) this.anno.destroy(); if (this.osdViewer) this.osdViewer.destroy(); }
 }

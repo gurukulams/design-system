@@ -2,21 +2,28 @@
 
 import "@recogito/text-annotator/text-annotator.css";
 import { createTextAnnotator } from "@recogito/text-annotator";
+import AnnotationPopup from "./AnnotationPopup";
 
 export default class TextAnnotation {
   constructor(_contentRoot) {
     this.contentRoot = _contentRoot;
     this.anno = null;
     this.annotatingEnabled = true;
-    this.activePopup = null; 
-    this.currentDraftSelection = null; // Holds unsaved selections
+
+    // Initialize shared popup control using the decoupled external module template
+    this.popup = new AnnotationPopup({
+      onSave: (annotation, textValue, isDraft) => this.handleSaveComment(annotation, textValue, isDraft),
+      onDelete: (id) => this.handleDeleteAnnotation(id),
+      onCancel: () => this.handleCancelDraft(),
+      onCloseMemory: () => this.clearEngineSelection()
+    });
+
     this.init();
   }
 
   init() {
     this.initAnnotator();
-    this.initGlobalClickListener();
-    this.injectStyles(); 
+    this.initReadOnlyClickListener(); // Add native fallback handler for read-only view
   }
 
   initAnnotator() {
@@ -29,23 +36,43 @@ export default class TextAnnotation {
     this.loadAnnotations();
     this.setAnnotatingEnabled(this.annotatingEnabled);
 
-    // --- Lifecycle Event Listeners ---
+    // --- Core Lifecycle Hooks & Working Overlap Protection ---
 
-    this.anno.on("updateAnnotation", () => this.saveAnnotations());
-    this.anno.on("deleteAnnotation", () => {
+    this.anno.on("createAnnotation", (annotation) => {
+      if (this.isOverlapping(annotation)) {
+        alert("Overlapping annotations are not allowed!");
+        this.anno.removeAnnotation(annotation.id);
+        this.popup.close(true);
+        return;
+      }
+      
       this.saveAnnotations();
-      this.closePopup();
+      
+      setTimeout(() => {
+        this.triggerPopupForAnnotation(annotation, true);
+      }, 50);
     });
 
-    // --- Core Selection Interceptor ---
-    this.anno.on("selectionChanged", (selections) => {
-      console.log("On selectionChanged", selections);
+    this.anno.on("updateAnnotation", (annotation, previous) => {
+      if (this.isOverlapping(annotation)) {
+        alert("This change causes an overlap and cannot be saved.");
+        this.anno.addAnnotation(previous, true);
+        this.popup.close(true);
+        return;
+      }
+      this.saveAnnotations();
+    });
 
+    this.anno.on("deleteAnnotation", () => {
+      this.saveAnnotations();
+    });
+
+    // --- Selection Event Handler for Popup Display (Editable Mode) ---
+    this.anno.on("selectionChanged", (selections) => {
       if (!selections || selections.length === 0) {
-        if (this.currentDraftSelection) {
-          this.currentDraftSelection = null;
+        if (!document.activeElement.closest('.annotation-callout-popup')) {
+          this.popup.close(false);
         }
-        this.closePopup();
         return;
       }
 
@@ -55,158 +82,147 @@ export default class TextAnnotation {
       const isNewSelection = !selectionData.id;
 
       if (isNewSelection && !this.annotatingEnabled) {
-        this.closePopup();
+        this.popup.close(true);
         return;
       }
 
-      let rect = null;
+      if (!isNewSelection) {
+        this.triggerPopupForAnnotation(selectionData, false);
+      }
+    }); 
+  }
+
+  /**
+   * FIX: Catch direct clicks on annotation elements when Recogito's tracking events are offline
+   */
+   initReadOnlyClickListener() {
+    this.contentRoot.addEventListener("click", (e) => {
+      // This will now match because the spans are kept alive in the DOM
+      const annotationSpan = e.target.closest(".r6o-annotation");
+      if (!annotationSpan || !this.anno) return;
+
+      const annotationId = annotationSpan.getAttribute("data-id");
+      if (!annotationId) return;
+
+      const matchedAnnotation = this.anno.getAnnotations().find(a => a.id === annotationId);
+      if (matchedAnnotation) {
+        const rect = annotationSpan.getBoundingClientRect();
+        this.popup.open({
+          annotation: matchedAnnotation,
+          rect,
+          isDraft: false,
+          editable: this.annotatingEnabled, // Passing false will render the read-only dashboard layout
+          usePageScroll: true
+        });
+      }
+    });
+  }
+
+  /**
+   * Calculates the DOM client bounding rectangle and pops open the external manager
+   */
+  triggerPopupForAnnotation(annotation, isDraft = false) {
+    let rect = null;
+
+    const targetText = annotation.target?.selector?.find(s => s.exact)?.exact;
+    if (targetText) {
+      const highlights = this.contentRoot.querySelectorAll(".r6o-annotation, .r6o-span-highlight, span");
+      const element = Array.from(highlights).find(el => el.textContent.trim() === targetText.trim());
+      if (element) {
+        rect = element.getBoundingClientRect();
+      }
+    }
+
+    if (!rect || rect.width === 0) {
       const activeSelection = window.getSelection();
       if (activeSelection && activeSelection.rangeCount > 0) {
         rect = activeSelection.getRangeAt(0).getBoundingClientRect();
       }
-
-      if (!rect || rect.width === 0) {
-        const targetText = selectionData.target?.selector?.find(s => s.exact)?.exact;
-        const highlights = this.contentRoot.querySelectorAll(".r6o-annotation, .r6o-span-highlight, span");
-        const element = Array.from(highlights).find(el => el.textContent.trim() === targetText?.trim());
-        if (element) {
-          rect = element.getBoundingClientRect();
-        }
-      }
-
-      if (rect && rect.width > 0) {
-        if (isNewSelection) {
-          this.currentDraftSelection = selectionData;
-          this.openPopup(selectionData, rect, true); 
-        } else {
-          this.currentDraftSelection = null;
-          this.openPopup(selectionData, rect, false); 
-        }
-      }
-    }); 
-  } 
-
-  // --- Dynamic Callout Popup Window Generation ---
-
-  openPopup(annotation, rect, isDraft = false) {
-    this.closePopup(false); // Clean any open popups without clearing Recogito selection state yet
-
-    const popup = document.createElement("div");
-    popup.className = "annotation-callout-popup";
-    
-    const existingCommentBody = Array.isArray(annotation.bodies)
-      ? annotation.bodies.find(b => b.purpose === "commenting")
-      : null;
-    const initialText = existingCommentBody ? existingCommentBody.value : "";
-
-    if (!this.annotatingEnabled) {
-      popup.innerHTML = `
-        <div class="popup-content">
-          <textarea readonly placeholder="No comment attached." rows="3">${initialText}</textarea>
-        </div>
-      `;
-    } else {
-      popup.innerHTML = `
-        <div class="popup-content">
-          <textarea placeholder="Write a comment..." rows="3">${initialText}</textarea>
-          <div class="popup-actions">
-            <button class="btn-save">Save</button>
-            <button class="btn-delete">${isDraft ? "Cancel" : "Delete"}</button>
-          </div>
-        </div>
-      `;
     }
 
-    popup.style.position = "fixed";
-    popup.style.top = `${rect.top + window.scrollY - 10}px`; 
-    popup.style.left = `${rect.left + window.scrollX + (rect.width / 2)}px`;
-    popup.style.transform = "translate(-50%, -100%)";
-    popup.style.zIndex = "99999"; 
-
-    document.body.appendChild(popup);
-    this.activePopup = popup;
-
-    popup.addEventListener("mousedown", (e) => e.stopPropagation());
-    popup.addEventListener("click", (e) => e.stopPropagation());
-
-    if (!this.annotatingEnabled) return;
-
-    popup.querySelector(".btn-save").addEventListener("click", () => {
-      const textValue = popup.querySelector("textarea").value.trim();
-      
-      const targetAnnotation = JSON.parse(JSON.stringify(annotation));
-      if (!Array.isArray(targetAnnotation.bodies)) {
-        targetAnnotation.bodies = [];
-      }
-
-      const commentBody = textValue !== "" ? {
-        type: "TextualBody",
-        value: textValue,
-        purpose: "commenting",
-        format: "text/plain"
-      } : null;
-
-      const commentIndex = targetAnnotation.bodies.findIndex(b => b.purpose === "commenting");
-
-      if (commentBody) {
-        if (commentIndex > -1) {
-          targetAnnotation.bodies[commentIndex] = commentBody;
-        } else {
-          targetAnnotation.bodies.push(commentBody);
-        }
-      } else if (commentIndex > -1) {
-        targetAnnotation.bodies.splice(commentIndex, 1);
-      }
-
-      if (isDraft) {
-        if (this.isOverlapping(targetAnnotation)) {
-          alert("Overlapping annotations are not allowed!");
-          this.closePopup();
-          return;
-        }
-        
-        targetAnnotation.id = crypto.randomUUID ? crypto.randomUUID() : `id-${Date.now()}`;
-        this.anno.addAnnotation(targetAnnotation);
-      } else {
-        this.anno.updateAnnotation(targetAnnotation);
-      }
-
-      this.saveAnnotations();
-      this.closePopup();
-    });
-
-    popup.querySelector(".btn-delete").addEventListener("click", () => {
-      if (isDraft) {
-        window.getSelection().removeAllRanges();
-      } else {
-        this.anno.removeAnnotation(annotation.id);
-      }
-      this.closePopup();
-    });
+    if (rect && rect.width > 0) {
+      this.popup.open({
+        annotation,
+        rect,
+        isDraft,
+        editable: this.annotatingEnabled,
+        usePageScroll: true
+      });
+    }
   }
 
-  // --- FIX: Clear Recogito selection programmatically on popup close ---
-  closePopup(clearRecogitoSelection = true) {
-    if (this.activePopup) {
-      this.activePopup.remove();
-      this.activePopup = null;
+  handleSaveComment(annotation, textValue, isDraft) {
+    const targetAnnotation = JSON.parse(JSON.stringify(annotation));
+    if (!Array.isArray(targetAnnotation.bodies)) targetAnnotation.bodies = [];
+
+    const commentBody = textValue !== "" ? {
+      type: "TextualBody",
+      value: textValue,
+      purpose: "commenting",
+      format: "text/plain"
+    } : null;
+
+    const commentIndex = targetAnnotation.bodies.findIndex(b => b.purpose === "commenting");
+
+    if (commentBody) {
+      if (commentIndex > -1) targetAnnotation.bodies[commentIndex] = commentBody;
+      else targetAnnotation.bodies.push(commentBody);
+    } else if (commentIndex > -1) {
+      targetAnnotation.bodies.splice(commentIndex, 1);
     }
-    
-    // Clear Recogito's internal state so the exact same annotation can be instantly re-clicked
-    if (clearRecogitoSelection && this.anno && this.anno.setSelected) {
+
+    this.anno.updateAnnotation(targetAnnotation);
+    this.saveAnnotations();
+  }
+
+  handleDeleteAnnotation(id) {
+    this.anno.removeAnnotation(id);
+    this.saveAnnotations();
+  }
+
+  handleCancelDraft() {
+    window.getSelection().removeAllRanges();
+  }
+
+  clearEngineSelection() {
+    if (this.anno && this.anno.setSelected) {
       this.anno.setSelected(null);
     }
   }
 
-  initGlobalClickListener() {
-    window.addEventListener("mousedown", (e) => {
-      if (this.activePopup && !e.target.closest(".annotation-callout-popup")) {
-        this.closePopup();
-      }
-    });
-  }
+  isOverlapping(targetAnno) {
+    if (!this.anno) return false;
 
-  // --- Storage & Verification Controls ---
+    const targetSelectors = targetAnno.target?.selector;
+    if (!targetSelectors || !targetSelectors.length) return false;
+
+    const targetPosition = targetSelectors.find(s => s.start !== undefined);
+    if (!targetPosition) return false;
+
+    const targetStart = targetPosition.start;
+    const targetEnd = targetPosition.end;
+
+    const allAnnotations = this.anno.getAnnotations();
+
+    for (const existingAnno of allAnnotations) {
+      if (existingAnno.id === targetAnno.id) continue;
+
+      const existingSelectors = existingAnno.target?.selector;
+      if (!existingSelectors) continue;
+
+      const existingPosition = existingSelectors.find(s => s.start !== undefined);
+      if (!existingPosition) continue;
+
+      const existingStart = existingPosition.start;
+      const existingEnd = existingPosition.end;
+
+      if (targetStart < existingEnd && targetEnd > existingStart) {
+        return true; 
+      }
+    }
+
+    return false;
+  }
 
   storageKey() {
     return `text-annotations:${window.location.pathname}`;
@@ -228,76 +244,22 @@ export default class TextAnnotation {
     }
   }
 
-  isOverlapping(targetAnno) {
-    if (!this.anno) return false;
-    const targetSelectors = targetAnno.target?.selector;
-    if (!targetSelectors || !targetSelectors.length) return false;
-
-    const targetPosition = targetSelectors.find(s => s.start !== undefined);
-    if (!targetPosition) return false;
-
-    const targetStart = targetPosition.start;
-    const targetEnd = targetPosition.end;
-    const allAnnotations = this.anno.getAnnotations();
-
-    for (const existingAnno of allAnnotations) {
-      if (existingAnno.id === targetAnno.id) continue;
-      const existingSelectors = existingAnno.target?.selector;
-      if (!existingSelectors) continue;
-
-      const existingPosition = existingSelectors.find(s => s.start !== undefined);
-      if (!existingPosition) continue;
-
-      if (targetStart < existingPosition.end && targetEnd > existingPosition.start) {
-        return true; 
-      }
-    }
-    return false;
-  }
-
   setAnnotatingEnabled(_editable) {
     this.annotatingEnabled = _editable;
     if (!this.anno) return;
+    
     this.anno.setAnnotatingEnabled(_editable);
+    
     if (!_editable && this.anno.setUserSelectAction) {
+      // CRITICAL FIX: "SELECT" keeps the highlight span wrappers in the DOM 
+      // while preventing the creation of new annotations or edit changes.
       this.anno.setUserSelectAction("SELECT"); 
     } else if (this.anno.setUserSelectAction) {
       this.anno.setUserSelectAction("EDIT");
     }
   }
-
   destroy() {
-    this.closePopup();
+    this.popup.close(true);
     if (this.anno) this.anno.destroy();
-  }
-
-  injectStyles() {
-    if (document.getElementById("annotation-popup-styles")) return;
-    const style = document.createElement("style");
-    style.id = "annotation-popup-styles";
-    style.innerHTML = `
-      .annotation-callout-popup {
-        background: #ffffff !important; border-radius: 8px !important;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.2) !important;
-        padding: 12px !important; width: 240px !important;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-      }
-      .annotation-callout-popup::after {
-        content: ""; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%) rotate(45deg);
-        width: 12px; height: 12px; background: #ffffff; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.05);
-      }
-      .popup-content textarea {
-        width: 100% !important; box-sizing: border-box !important; border: 1px solid #e2e8f0 !important;
-        border-radius: 4px !important; padding: 6px 8px !important; font-size: 14px !important; resize: vertical !important;
-      }
-      .popup-content textarea[readonly] {
-        background-color: #f7fafc !important; color: #4a5568 !important; border-style: dashed !important; cursor: default !important;
-      }
-      .popup-actions { display: flex !important; justify-content: space-between !important; margin-top: 8px !important; }
-      .popup-actions button { padding: 5px 12px !important; font-size: 12px !important; font-weight: 500 !important; border-radius: 4px !important; cursor: pointer !important; border: none !important; }
-      .popup-actions .btn-save { background-color: #3182ce !important; color: #fff !important; }
-      .popup-actions .btn-delete { background-color: #e53e3e !important; color: #fff !important; }
-    `;
-    document.head.appendChild(style);
   }
 }
