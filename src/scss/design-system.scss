@@ -1,5 +1,8 @@
 @use "../../node_modules/@recogito/text-annotator/dist/text-annotator.css";
 
+@use  "../../node_modules/@annotorious/annotorious/dist/annotorious.css";
+@use "../../node_modules/@annotorious/openseadragon/dist/annotorious-openseadragon.css";
+
 @import "./base/typography";
 @import "./themes/theme";
 
