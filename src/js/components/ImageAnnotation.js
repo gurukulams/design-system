@@ -52,11 +52,22 @@ export default class ImageAnnotation {
 
   bindFigures() {
     this.contentRoot.querySelectorAll('figure').forEach(figure => {
+      const img = figure.querySelector('img');
+      if (!img) return;
+  
+      // Original behavior: Double click anywhere on the figure opens the image
       figure.addEventListener('dblclick', () => {
-        const img = figure.querySelector('img');
-        if (!img) return;
         this.openImage(img, figure);
       });
+  
+      // New behavior: Clicking the specific zoom icon opens the image
+      const zoomIcon = figure.querySelector('[data-action="zoom-image"]');
+      if (zoomIcon) {
+        zoomIcon.addEventListener('click', (e) => {
+          e.stopPropagation(); // Prevent triggering any parent click events
+          this.openImage(img, figure);
+        });
+      }
     });
   }
 

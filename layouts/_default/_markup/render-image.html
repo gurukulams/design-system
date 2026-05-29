@@ -1,3 +1,14 @@
+{{/* Extract and clean the video ID if present in .Title */}}
+{{ $ytIdClean := "" }}
+{{ if .Title }}
+  {{ if strings.Contains .Title "youtube:" }}
+    {{ $rawId := replace .Title "youtube:" "" }}
+    {{ $ytIdClean = index (split $rawId "?") 0 }}
+  {{ else if strings.Contains .Title "http" }}
+    {{ $ytIdClean = .Title }} 
+  {{ end }}
+{{ end }}
+
 {{/* Build raw path (may contain \ on Windows) */}}
 {{ $raw := printf "%s%s" .Page.File.Dir .Destination }}
 
@@ -11,7 +22,7 @@
 {{ $image_file_path := printf "content.%s/%s" .Page.Language.Lang $image }}
 
 {{ if fileExists $image }}
-<figure class="figure img-fluid {{ with .Title }}{{ . }}{{ end }}">
+<figure class="figure img-fluid w-100 position-relative">
   
   {{ if eq .Page.Language.Lang "en" }}
     <img src="{{ $image | absURL }}" alt="{{ .Text }}" class="w-100"/>
@@ -24,8 +35,23 @@
     {{ end }}
   {{ end }}
 
-  <figcaption class="figure-caption text-center">
-    {{ .Text }}
+  <figcaption class="figure-caption d-flex align-items-center justify-content-between px-2 mt-2">
+    <span class="text-start me-auto text-truncate" style="max-width: 75%;">{{ .Text }}</span>
+    
+    <div class="d-flex align-items-center gap-2 text-end">
+      {{/* 1. Video Icon matching your layout properties */}}
+      {{ if $ytIdClean }}
+        <i class="bi bi-play-circle-fill text-primary fs-5 cursor-pointer" 
+           role="button"
+           data-action="play-video" 
+           data-video-id="{{ $ytIdClean }}" 
+           data-video-title="{{ .Text }}"
+           title="Watch reference video"></i>
+      {{ end }}
+
+      {{/* 2. Zoom Icon */}}
+      <i class="bi bi-zoom-in text-secondary fs-5 cursor-pointer" data-action="zoom-image" title="Zoom Image" role="button"></i>
+    </div>
   </figcaption>
 </figure>
 

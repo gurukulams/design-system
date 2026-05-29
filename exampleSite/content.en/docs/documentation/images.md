@@ -22,6 +22,10 @@ To display an image, use the following format:
 
 ![Guru](guru.jpeg)
 
+`![Guru](guru.jpeg "youtube:dQw4w9WgXcQ")`
+
+![Guru](guru.jpeg "youtube:dQw4w9WgXcQ")
+
 > In case if the language does not have this image it will be taken from default language ( `content.en` folder )
 
 ---
