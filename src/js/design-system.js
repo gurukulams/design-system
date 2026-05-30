@@ -1,6 +1,5 @@
-import Dropdown from "bootstrap/js/dist/dropdown";
-import Collapse from "bootstrap/js/dist/collapse";
-import Offcanvas from "bootstrap/js/dist/offcanvas";
+// Replace individual imports with the unified bundle containing an isolated Popper instance
+import { Dropdown, Collapse, Offcanvas } from "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 // // Optional: Manual initialization if you want to trigger it via JS
 // document.addEventListener('DOMContentLoaded', () => {
