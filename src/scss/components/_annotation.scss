@@ -1,0 +1,11 @@
+/* Only disable selection on touch/smartboard devices */
+@media (pointer: coarse) {
+    .annotation-content-root, .r6o-annotation {
+      -webkit-user-select: none;  /* Safari */
+      -ms-user-select: none;      /* IE/Edge */
+      user-select: none;          /* Standard */
+      
+      /* Disables the default touch zoom/pan delay on interactive elements */
+      touch-action: manipulation; 
+    }
+  }

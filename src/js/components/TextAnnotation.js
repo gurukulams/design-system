@@ -96,7 +96,15 @@ export default class TextAnnotation {
    * FIX: Catch direct clicks on annotation elements when Recogito's tracking events are offline
    */
    initReadOnlyClickListener() {
-    // Helper processing function to keep our event structures DRY
+    // Prevent long-press touch selections on smartboards completely
+    this.contentRoot.addEventListener('touchstart', (e) => {
+      // Only block if they hit an annotation span to preserve scrolling/swiping elsewhere
+      if (e.target.closest('.r6o-annotation')) {
+        // Prevents the smartboard engine from bringing up native selection pins
+        e.preventDefault(); 
+      }
+    }, { passive: false });
+  
     const handleAnnotationActivation = (targetElement) => {
       const annotationSpan = targetElement.closest(".r6o-annotation");
       if (!annotationSpan || !this.anno) return;
@@ -119,14 +127,9 @@ export default class TextAnnotation {
       }
     };
   
-    // 1. Primary Handler: Pointerdown (Fast-response for standard touch/stylus/mouse interactions)
+    // Fast-response listener
     this.contentRoot.addEventListener("pointerdown", (e) => {
       if (e.button !== 0 && e.pointerType === 'mouse') return;
-      handleAnnotationActivation(e.target);
-    });
-  
-    // 2. Fallback Handler: DblClick (Smartboards capture quick double-taps cleanly, bypassing selection lockouts)
-    this.contentRoot.addEventListener("dblclick", (e) => {
       handleAnnotationActivation(e.target);
     });
   }
