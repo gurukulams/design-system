@@ -17,5 +17,13 @@ blockquote {
   font-style: italic;
 }
 
+article h1 a.anchor,article h2 a.anchor,article h3 a.anchor,article h4 a.anchor,article h5 a.anchor,article h6 a.anchor {
+  opacity: 0;
+  font-size: .95em;
+  margin-inline-start:.25em
+}
 
-
+article h1:hover a.anchor,article h1 a.anchor:focus-visible,article h2:hover a.anchor,article h2 a.anchor:focus-visible,article h3:hover a.anchor,article h3 a.anchor:focus-visible,article h4:hover a.anchor,article h4 a.anchor:focus-visible,article h5:hover a.anchor,article h5 a.anchor:focus-visible,article h6:hover a.anchor,article h6 a.anchor:focus-visible {
+  opacity: initial;
+  text-decoration: none
+}
