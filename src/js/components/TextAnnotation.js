@@ -96,42 +96,54 @@ export default class TextAnnotation {
    * FIX: Catch direct clicks on annotation elements when Recogito's tracking events are offline
    */
    initReadOnlyClickListener() {
-    // Prevent long-press touch selections on smartboards completely
-    this.contentRoot.addEventListener('touchstart', (e) => {
-      // Only block if they hit an annotation span to preserve scrolling/swiping elsewhere
-      if (e.target.closest('.r6o-annotation')) {
-        // Prevents the smartboard engine from bringing up native selection pins
-        e.preventDefault(); 
-      }
-    }, { passive: false });
+    // 1. Locate the SVG container overlay sitting over your content root
+    // Recogito typically uses 'svg.r6o-svg-layer' or '.r6o-annotation-layer'
+    const svgOverlay = this.contentRoot.querySelector('svg, .r6o-annotation-layer');
+    
+    if (!svgOverlay) {
+      // Fallback: If Recogito hasn't fully loaded the SVG layer into the DOM yet,
+      // retry in a split second.
+      setTimeout(() => this.initReadOnlyClickListener(), 100);
+      return;
+    }
   
-    const handleAnnotationActivation = (targetElement) => {
-      const annotationSpan = targetElement.closest(".r6o-annotation");
-      if (!annotationSpan || !this.anno) return;
+    // 2. Clear any old listeners if this gets initialized multiple times
+    // Using pointerdown handles mouse clicks, styluses, and smartboard taps natively
+    svgOverlay.addEventListener('pointerdown', (e) => {
+      // Only process primary interactions (left-clicks or screen taps)
+      if (e.button !== 0 && e.pointerType === 'mouse') return;
   
-      const annotationId = annotationSpan.getAttribute("data-id");
+      // Target the specific SVG shape (like a <polygon>, <rect>, or <path>)
+      const highlightShape = e.target.closest('.r6o-annotation, [data-id]');
+      if (!highlightShape || !this.anno) return;
+  
+      // Extract the annotation ID directly from the SVG element attribute
+      const annotationId = highlightShape.getAttribute('data-id');
       if (!annotationId) return;
   
       const matchedAnnotation = this.anno.getAnnotations().find(a => a.id === annotationId);
       if (matchedAnnotation) {
         setTimeout(() => {
-          const rect = annotationSpan.getBoundingClientRect();
+          // Get the bounding box coordinates of the SVG element shape itself
+          const rect = highlightShape.getBoundingClientRect();
+          
           this.popup.open({
             annotation: matchedAnnotation,
             rect,
             isDraft: false,
-            editable: this.annotatingEnabled,
+            editable: this.annotatingEnabled, // false in read-only mode
             usePageScroll: true
           });
         }, 50);
       }
-    };
-  
-    // Fast-response listener
-    this.contentRoot.addEventListener("pointerdown", (e) => {
-      if (e.button !== 0 && e.pointerType === 'mouse') return;
-      handleAnnotationActivation(e.target);
     });
+  
+    // 3. Fallback: Block long-press selection triggers on the SVG layer to keep things completely stable
+    svgOverlay.addEventListener('touchstart', (e) => {
+      if (e.target.closest('.r6o-annotation, [data-id]')) {
+        e.preventDefault(); 
+      }
+    }, { passive: false });
   }
 
   /**
