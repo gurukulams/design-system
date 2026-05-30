@@ -96,49 +96,52 @@ export default class TextAnnotation {
    * FIX: Catch direct clicks on annotation elements when Recogito's tracking events are offline
    */
    initReadOnlyClickListener() {
-    // 1. Locate the SVG container overlay sitting over your content root
-    // Recogito typically uses 'svg.r6o-svg-layer' or '.r6o-annotation-layer'
     const svgOverlay = this.contentRoot.querySelector('svg, .r6o-annotation-layer');
     
     if (!svgOverlay) {
-      // Fallback: If Recogito hasn't fully loaded the SVG layer into the DOM yet,
-      // retry in a split second.
       setTimeout(() => this.initReadOnlyClickListener(), 100);
       return;
     }
   
-    // 2. Clear any old listeners if this gets initialized multiple times
-    // Using pointerdown handles mouse clicks, styluses, and smartboard taps natively
-    svgOverlay.addEventListener('pointerdown', (e) => {
-      // Only process primary interactions (left-clicks or screen taps)
-      if (e.button !== 0 && e.pointerType === 'mouse') return;
-  
-      // Target the specific SVG shape (like a <polygon>, <rect>, or <path>)
-      const highlightShape = e.target.closest('.r6o-annotation, [data-id]');
+    // --- 1. NEW HELPER FUNCTION TO DRY REUSABLE POPUP LOGIC ---
+    const handleActivation = (targetElement) => {
+      const highlightShape = targetElement.closest('.r6o-annotation, [data-id]');
       if (!highlightShape || !this.anno) return;
   
-      // Extract the annotation ID directly from the SVG element attribute
       const annotationId = highlightShape.getAttribute('data-id');
       if (!annotationId) return;
   
       const matchedAnnotation = this.anno.getAnnotations().find(a => a.id === annotationId);
       if (matchedAnnotation) {
         setTimeout(() => {
-          // Get the bounding box coordinates of the SVG element shape itself
           const rect = highlightShape.getBoundingClientRect();
-          
           this.popup.open({
             annotation: matchedAnnotation,
             rect,
             isDraft: false,
-            editable: this.annotatingEnabled, // false in read-only mode
+            editable: this.annotatingEnabled,
             usePageScroll: true
           });
         }, 50);
       }
+    };
+  
+    // 2. Updated pointerdown to use the helper
+    svgOverlay.addEventListener('pointerdown', (e) => {
+      if (e.button !== 0 && e.pointerType === 'mouse') return;
+      handleActivation(e.target); // <-- Changed to use helper
     });
   
-    // 3. Fallback: Block long-press selection triggers on the SVG layer to keep things completely stable
+    // --- 3. ADD THIS CONTEXTMENU LISTENER DIRECTLY HERE ---
+    svgOverlay.addEventListener('contextmenu', (e) => {
+      if (e.target.closest('.r6o-annotation, [data-id]')) {
+        e.preventDefault();  // Stop the native smartboard menu
+        e.stopPropagation(); // Stop event bubbling issues
+        handleActivation(e.target);
+      }
+    });
+  
+    // 4. Fallback touchstart block remains untouched
     svgOverlay.addEventListener('touchstart', (e) => {
       if (e.target.closest('.r6o-annotation, [data-id]')) {
         e.preventDefault(); 
