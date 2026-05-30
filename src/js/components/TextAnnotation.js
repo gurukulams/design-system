@@ -96,24 +96,30 @@ export default class TextAnnotation {
    * FIX: Catch direct clicks on annotation elements when Recogito's tracking events are offline
    */
    initReadOnlyClickListener() {
-    this.contentRoot.addEventListener("click", (e) => {
-      // This will now match because the spans are kept alive in the DOM
+    // Switch 'click' to 'pointerdown' for instantaneous hardware registration
+    this.contentRoot.addEventListener("pointerdown", (e) => {
+      // Ensure it's a primary action (left mouse click or standard touch tap)
+      if (e.button !== 0 && e.pointerType === 'mouse') return;
+  
       const annotationSpan = e.target.closest(".r6o-annotation");
       if (!annotationSpan || !this.anno) return;
-
+  
       const annotationId = annotationSpan.getAttribute("data-id");
       if (!annotationId) return;
-
+  
       const matchedAnnotation = this.anno.getAnnotations().find(a => a.id === annotationId);
       if (matchedAnnotation) {
-        const rect = annotationSpan.getBoundingClientRect();
-        this.popup.open({
-          annotation: matchedAnnotation,
-          rect,
-          isDraft: false,
-          editable: this.annotatingEnabled, // Passing false will render the read-only dashboard layout
-          usePageScroll: true
-        });
+        // Small timeout fixes rendering race conditions on heavy smartboard software layers
+        setTimeout(() => {
+          const rect = annotationSpan.getBoundingClientRect();
+          this.popup.open({
+            annotation: matchedAnnotation,
+            rect,
+            isDraft: false,
+            editable: this.annotatingEnabled,
+            usePageScroll: true
+          });
+        }, 50); 
       }
     });
   }

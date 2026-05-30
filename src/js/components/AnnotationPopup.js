@@ -73,6 +73,25 @@ export default class AnnotationPopup {
         }
         this.close(true);
       });
+
+
+      // FIX 1: Use 'editable' directly instead of 'options.editable'
+    if (editable) {
+      // FIX 2: Use requestAnimationFrame to guarantee the DOM is painted before applying focus
+      requestAnimationFrame(() => {
+        const inputField = popup.querySelector('textarea');
+        if (inputField) {
+          inputField.focus();
+          
+          // Move the cursor to the very end of any existing text string
+          if (inputField.value) {
+            const length = inputField.value.length;
+            inputField.setSelectionRange(length, length);
+          }
+        }
+      });
+    }
+
     }
   
     close(clearSelectionMemory = true) {
