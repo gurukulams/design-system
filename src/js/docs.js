@@ -14,7 +14,9 @@ class DocsManager {
         searchInput.focus();
     });
 
-    const nm = new NotesMaker(document.getElementById("document-article"), (msg) => {
+    const articleEl = document.getElementById("document-article");
+
+    const nm = new NotesMaker(articleEl, (msg) => {
       console.log("NotesMaker Notification:", msg);
     });
     const pencilToggle = document.getElementById("notes-pencil-toggle");
@@ -24,6 +26,9 @@ class DocsManager {
     });
 
     this.handleVideos();
+
+    this.handleScrolling(articleEl,
+        document.getElementById("document-article-toc"));
 
   }
 
@@ -105,6 +110,77 @@ class DocsManager {
           // Register the escape key listener
           document.addEventListener('keydown', handleEscape);
       });
+    });
+  }
+
+  handleScrolling(articleEl, asideEl) {
+    const headings = Array.from(articleEl.querySelectorAll('h1, h2, h3'));
+    if (headings.length === 0) return; // Exit if no headings exist
+    
+    // Helper function to update the active class in the sidebar
+    const updateSidebarActiveState = (targetId) => {
+      if (!targetId) return;
+  
+      const currentActive = asideEl.querySelector('a.active');
+      if (currentActive) {
+        currentActive.classList.remove('active');
+      }
+  
+      const matchingLink = asideEl.querySelector(`a[href="#${targetId}"]`);
+      if (matchingLink) {
+        matchingLink.classList.add('active');
+      }
+    };
+  
+    // --- REQUIREMENT 2: Handle Page Load ---
+    if (window.location.hash) {
+      const cleanHash = window.location.hash.replace('#', '');
+      updateSidebarActiveState(cleanHash);
+    }
+  
+    // --- REQUIREMENT 1: Handle Active State on Scroll ---
+    const options = {
+      // Triggers when heading is in the top 30% of the viewport
+      rootMargin: '-0px 0px -70% 0px', 
+      threshold: 0
+    };
+  
+    const observer = new IntersectionObserver((entries) => {
+      // Only update via observer if we are NOT at the very bottom of the page
+      const isAtBottom = (window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 5;
+      if (isAtBottom) return;
+  
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          if (id) {
+            if (window.location.hash !== `#${id}`) {
+              history.replaceState(null, null, `#${id}`);
+            }
+            updateSidebarActiveState(id);
+          }
+        }
+      });
+    }, options);
+  
+    headings.forEach((heading) => observer.observe(heading));
+  
+    // --- FIX: Bottom of Page Catch ---
+    window.addEventListener('scroll', () => {
+      // Check if user has scrolled to the absolute bottom of the window
+      // (We subtract 5 pixels as a safety buffer for minor browser rounding errors)
+      const isAtBottom = (window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 5;
+      
+      if (isAtBottom) {
+        // Grab the very last heading in the article
+        const lastHeading = headings[headings.length - 1];
+        if (lastHeading && lastHeading.id) {
+          if (window.location.hash !== `#${lastHeading.id}`) {
+            history.replaceState(null, null, `#${lastHeading.id}`);
+          }
+          updateSidebarActiveState(lastHeading.id);
+        }
+      }
     });
   }
 }
