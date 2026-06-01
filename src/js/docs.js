@@ -169,26 +169,26 @@ class DocsManager {
 
   }
 
-//   setActiveHeading(asideEl, hashValue) {
-//     // 1. Return early if inputs are missing
-//     if (!asideEl || !hashValue) return;
+  setActiveHeading(asideEl, hashValue) {
+    // 1. Return early if inputs are missing
+    if (!asideEl || !hashValue) return;
   
-//     // 2. Ensure hashValue starts with exactly one '#' character
-//     // (e.g., converts 'my-heading' or '#my-heading' cleanly into '#my-heading')
-//     const cleanHash = `#${hashValue.replace(/^#+/, '')}`;
+    // 2. Ensure hashValue starts with exactly one '#' character
+    // (e.g., converts 'my-heading' or '#my-heading' cleanly into '#my-heading')
+    const cleanHash = `#${hashValue.replace(/^#+/, '')}`;
   
-//     // 3. Find and remove 'active' from the currently highlighted link in this sidebar
-//     const currentActive = asideEl.querySelector('a.active');
-//     if (currentActive) {
-//       currentActive.classList.remove('active');
-//     }
+    // 3. Find and remove 'active' from the currently highlighted link in this sidebar
+    const currentActive = asideEl.querySelector('a.active');
+    if (currentActive) {
+      currentActive.classList.remove('active');
+    }
   
-//     // 4. Find the link matching our hash and add the 'active' class
-//     const targetLink = asideEl.querySelector(`a[href="${cleanHash}"]`);
-//     if (targetLink) {
-//       targetLink.classList.add('active');
-//     }
-//   }
+    // 4. Find the link matching our hash and add the 'active' class
+    const targetLink = asideEl.querySelector(`a[href="${cleanHash}"]`);
+    if (targetLink) {
+      targetLink.classList.add('active');
+    }
+  }
   
 }
 
