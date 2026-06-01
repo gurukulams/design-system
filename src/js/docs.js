@@ -113,76 +113,83 @@ class DocsManager {
     });
   }
 
-  handleScrolling(articleEl, asideEl) {
-    const headings = Array.from(articleEl.querySelectorAll('h1, h2, h3'));
-    if (headings.length === 0) return; // Exit if no headings exist
-    
-    // Helper function to update the active class in the sidebar
-    const updateSidebarActiveState = (targetId) => {
-      if (!targetId) return;
-  
-      const currentActive = asideEl.querySelector('a.active');
-      if (currentActive) {
-        currentActive.classList.remove('active');
-      }
-  
-      const matchingLink = asideEl.querySelector(`a[href="#${targetId}"]`);
-      if (matchingLink) {
-        matchingLink.classList.add('active');
-      }
-    };
-  
-    // --- REQUIREMENT 2: Handle Page Load ---
+  handleScrolling(articleEl,asideEl) {
+
+    // Check for an initial hash on page load and highlight it
     if (window.location.hash) {
-      const cleanHash = window.location.hash.replace('#', '');
-      updateSidebarActiveState(cleanHash);
+        this.setActiveHeading(asideEl, window.location.hash);
     }
+
+    // 1. Grab all the headings within the article that have an ID
+    const headings = articleEl.querySelectorAll('h1, h2, h3');
   
-    // --- REQUIREMENT 1: Handle Active State on Scroll ---
+    // 2. Configure the observer options
     const options = {
-      // Triggers when heading is in the top 30% of the viewport
-      rootMargin: '-0px 0px -70% 0px', 
+      // Treat the top section of the viewport as the "active detection zone"
+      rootMargin: '0px 0px -75% 0px',
       threshold: 0
     };
   
+    // 3. Define what happens when a heading enters the zone
     const observer = new IntersectionObserver((entries) => {
-      // Only update via observer if we are NOT at the very bottom of the page
-      const isAtBottom = (window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 5;
-      if (isAtBottom) return;
-  
       entries.forEach((entry) => {
+        // Check if the heading has crossed into our active top zone
         if (entry.isIntersecting) {
           const id = entry.target.id;
-          if (id) {
-            if (window.location.hash !== `#${id}`) {
-              history.replaceState(null, null, `#${id}`);
-            }
-            updateSidebarActiveState(id);
+  
+          // Only update if the heading has an ID and it's different from the current hash
+          if (id && window.location.hash !== `#${id}`) {
+            // Updates the URL string without jumping the screen or breaking browser history
+            history.replaceState(null, null, `#${id}`);
+            this.setActiveHeading(asideEl, id)
           }
         }
       });
     }, options);
   
+    // 4. Start tracking every heading
     headings.forEach((heading) => observer.observe(heading));
-  
-    // --- FIX: Bottom of Page Catch ---
-    window.addEventListener('scroll', () => {
-      // Check if user has scrolled to the absolute bottom of the window
-      // (We subtract 5 pixels as a safety buffer for minor browser rounding errors)
-      const isAtBottom = (window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 5;
-      
-      if (isAtBottom) {
-        // Grab the very last heading in the article
-        const lastHeading = headings[headings.length - 1];
-        if (lastHeading && lastHeading.id) {
-          if (window.location.hash !== `#${lastHeading.id}`) {
-            history.replaceState(null, null, `#${lastHeading.id}`);
-          }
-          updateSidebarActiveState(lastHeading.id);
-        }
-      }
+
+    // 1. Select all anchor tags inside the aside that have an href starting with '#'
+    const asideLinks = asideEl.querySelectorAll('a');
+
+    asideLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+            // Extract the hash component (e.g., "#my-heading")
+            const hashValue = link.hash || link.getAttribute('href');
+            
+            console.log("Click " + link.href + " -> Hash: " + hashValue);
+    
+            // Call setActiveHeading with the hash value if it exists
+            if (hashValue) {
+                this.setActiveHeading(asideEl, hashValue);
+            }
+        });
     });
+
   }
+
+//   setActiveHeading(asideEl, hashValue) {
+//     // 1. Return early if inputs are missing
+//     if (!asideEl || !hashValue) return;
+  
+//     // 2. Ensure hashValue starts with exactly one '#' character
+//     // (e.g., converts 'my-heading' or '#my-heading' cleanly into '#my-heading')
+//     const cleanHash = `#${hashValue.replace(/^#+/, '')}`;
+  
+//     // 3. Find and remove 'active' from the currently highlighted link in this sidebar
+//     const currentActive = asideEl.querySelector('a.active');
+//     if (currentActive) {
+//       currentActive.classList.remove('active');
+//     }
+  
+//     // 4. Find the link matching our hash and add the 'active' class
+//     const targetLink = asideEl.querySelector(`a[href="${cleanHash}"]`);
+//     if (targetLink) {
+//       targetLink.classList.add('active');
+//     }
+//   }
+  
 }
 
 new DocsManager();
