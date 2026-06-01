@@ -1,0 +1,19 @@
+{{/* Initialize with the current page's own anchors as the standard default */}}
+{{- $anchors := .Fragments.Identifiers -}}
+
+{{/* If the current page isn't English, look up the English translation version */}}
+{{- if ne .Lang "en" -}}
+  {{- $englishPage := false -}}
+  {{- range .AllTranslations -}}
+    {{- if eq .Lang "en" -}}
+      {{- $englishPage = . -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- if $englishPage -}}
+    {{- $anchors = $englishPage.Fragments.Identifiers -}}
+  {{- end -}}
+{{- end -}}
+
+{{/* Return the final array back to the calling template */}}
+{{- return $anchors -}}
