@@ -1,25 +1,6 @@
-{{- $englishAnchors := partial "docs/get-english-anchors.html" .Page -}}
-{{- $finalAnchor := .Anchor -}}
-
-{{/* Calculate current index by matching raw heading lines up to this point */}}
-{{- if and (ne .Page.Lang "en") $englishAnchors -}}
-  {{- $currentHeadings := findRE `(?m)^#{1,6}\s+.+` .Page.RawContent -}}
-  {{- $currentIndex := -1 -}}
-  
-  {{- range $index, $heading := $currentHeadings -}}
-    {{- if in $heading $.Text -}}
-      {{- $currentIndex = $index -}}
-    {{- end -}}
-  {{- end -}}
-
-  {{- if and (ge $currentIndex 0) (lt $currentIndex (len $englishAnchors)) -}}
-    {{- $finalAnchor = index $englishAnchors $currentIndex -}}
-  {{- end -}}
-{{- end -}}
-
-<h{{ .Level }} id="{{ $finalAnchor }}" {{- with .Attributes.class -}}class="{{ . }}"{{- end -}}>
+<h{{ .Level }} id="{{ .Anchor }}" {{- with .Attributes.class -}}class="{{ . }}"{{- end -}}>
   {{- .Text -}}
-  {{- if and (default true .Attributes.anchor) (ne $finalAnchor "#") -}}
-  <a class="anchor" href="#{{ $finalAnchor }}">#</a>
+  {{- if default true .Attributes.anchor -}}
+  <a class="anchor" href="#{{ .Anchor }}">#</a>
   {{- end -}}
 </h{{ .Level }}>
