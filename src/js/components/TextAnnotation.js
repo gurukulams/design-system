@@ -95,7 +95,7 @@ export default class TextAnnotation {
   /**
    * FIX: Catch direct clicks on annotation elements when Recogito's tracking events are offline
    */
-   initReadOnlyClickListener() {
+  initReadOnlyClickListener() {
     const svgOverlay = this.contentRoot.querySelector('svg, .r6o-annotation-layer');
     
     if (!svgOverlay) {
@@ -103,7 +103,6 @@ export default class TextAnnotation {
       return;
     }
   
-    // --- 1. NEW HELPER FUNCTION TO DRY REUSABLE POPUP LOGIC ---
     const handleActivation = (targetElement) => {
       const highlightShape = targetElement.closest('.r6o-annotation, [data-id]');
       if (!highlightShape || !this.anno) return;
@@ -115,38 +114,82 @@ export default class TextAnnotation {
       if (matchedAnnotation) {
         setTimeout(() => {
           const rect = highlightShape.getBoundingClientRect();
+          // Process calculations using the new viewport-aware smart handler
+          const placementConfig = this.calculateSmartPlacement(rect);
+
           this.popup.open({
             annotation: matchedAnnotation,
-            rect,
+            rect: placementConfig.rect,
             isDraft: false,
             editable: this.annotatingEnabled,
-            usePageScroll: true
+            usePageScroll: true,
+            // Pass the calculated alignment switch down to your UI CSS class handlers
+            alignment: placementConfig.alignment 
           });
         }, 50);
       }
     };
   
-    // 2. Updated pointerdown to use the helper
     svgOverlay.addEventListener('pointerdown', (e) => {
       if (e.button !== 0 && e.pointerType === 'mouse') return;
-      handleActivation(e.target); // <-- Changed to use helper
+      handleActivation(e.target);
     });
   
-    // --- 3. ADD THIS CONTEXTMENU LISTENER DIRECTLY HERE ---
     svgOverlay.addEventListener('contextmenu', (e) => {
       if (e.target.closest('.r6o-annotation, [data-id]')) {
-        e.preventDefault();  // Stop the native smartboard menu
-        e.stopPropagation(); // Stop event bubbling issues
+        e.preventDefault();
+        e.stopPropagation();
         handleActivation(e.target);
       }
     });
   
-    // 4. Fallback touchstart block remains untouched
     svgOverlay.addEventListener('touchstart', (e) => {
       if (e.target.closest('.r6o-annotation, [data-id]')) {
         e.preventDefault(); 
       }
     }, { passive: false });
+  }
+
+  /**
+   * NEW MECHANISM: Calculates viewport clearance thresholds to prevent cutoff issues
+   * at both the top bounds and bottom bounds of the browser window.
+   */
+  calculateSmartPlacement(rawRect) {
+    // Approximate target pixel depth expected for your popup component window 
+    // Adjust this value if your design layout uses a taller input form container
+    const estimatedPopupHeight = 180; 
+    const marginSpacing = 12;
+
+    // Check distance from the top boundary line of the viewport highlight box
+    const spaceAtTop = rawRect.top;
+    const windowHeight = window.innerHeight;
+    const spaceAtBottom = windowHeight - rawRect.bottom;
+
+    let alignment = "above"; // Default desired position
+    let modifiedRect = {
+      x: rawRect.x,
+      y: rawRect.y,
+      left: rawRect.left,
+      right: rawRect.right,
+      width: rawRect.width,
+      height: rawRect.height,
+      top: rawRect.top,
+      bottom: rawRect.bottom
+    };
+
+    // SCENARIO 1: Cutoff at the bottom -> Flip it to display comfortably above the text
+    if (spaceAtBottom < (estimatedPopupHeight + marginSpacing) && spaceAtTop > (estimatedPopupHeight + marginSpacing)) {
+      alignment = "above";
+    }
+    // SCENARIO 2: Text falls close to the absolute top of the screen -> Push it down below the line safely
+    else if (spaceAtTop < (estimatedPopupHeight + marginSpacing)) {
+      alignment = "below";
+    }
+
+    return {
+      rect: modifiedRect,
+      alignment: alignment
+    };
   }
 
   /**
@@ -172,12 +215,16 @@ export default class TextAnnotation {
     }
 
     if (rect && rect.width > 0) {
+      // Process measurements using the viewport layout tracker
+      const placementConfig = this.calculateSmartPlacement(rect);
+
       this.popup.open({
         annotation,
-        rect,
+        rect: placementConfig.rect,
         isDraft,
         editable: this.annotatingEnabled,
-        usePageScroll: true
+        usePageScroll: true,
+        alignment: placementConfig.alignment
       });
     }
   }
@@ -282,13 +329,12 @@ export default class TextAnnotation {
     this.anno.setAnnotatingEnabled(_editable);
     
     if (!_editable && this.anno.setUserSelectAction) {
-      // CRITICAL FIX: "SELECT" keeps the highlight span wrappers in the DOM 
-      // while preventing the creation of new annotations or edit changes.
       this.anno.setUserSelectAction("SELECT"); 
     } else if (this.anno.setUserSelectAction) {
       this.anno.setUserSelectAction("EDIT");
     }
   }
+
   destroy() {
     this.popup.close(true);
     if (this.anno) this.anno.destroy();

@@ -12,7 +12,7 @@ export default class AnnotationPopup {
       this.injectStyles();
     }
   
-    open({ annotation, rect, isDraft = false, editable = true, usePageScroll = false }) {
+    open({ annotation, rect, isDraft = false, editable = true, usePageScroll = false, alignment = "above" }) {
       this.close(false);
   
       const popup = document.createElement("div");
@@ -41,18 +41,36 @@ export default class AnnotationPopup {
         `;
       }
   
-      // Apply viewport tracking offsets depending on selection system target
-      const scrollTopOffset = usePageScroll ? window.scrollY : 0;
-      const scrollLeftOffset = usePageScroll ? window.scrollX : 0;
-  
+      // Set base layout properties
       popup.style.position = "fixed";
-      popup.style.top = `${rect.top + scrollTopOffset - 10}px`;
-      popup.style.left = `${rect.left + scrollLeftOffset + (rect.width / 2)}px`;
-      popup.style.transform = "translate(-50%, -100%)";
       popup.style.zIndex = "99999";
-  
+      
+      // 1. Append early so the browser can calculate the element's height layout
       document.body.appendChild(popup);
       this.activePopup = popup;
+  
+      // 2. Measure the actual rendered height of your popup container
+      const popupHeight = popup.offsetHeight;
+      const marginSpacing = 10; 
+      let calculatedTop = 0;
+  
+      // 3. Conditionally position based on the dynamic flip state
+      if (alignment === "above") {
+        // Place it right over the top edge of the selection highlight bounding box
+        calculatedTop = rect.top - popupHeight - marginSpacing;
+        popup.classList.remove("position-below");
+        popup.classList.add("position-above");
+      } else {
+        // Place it right beneath the bottom edge of the selection highlight bounding box
+        calculatedTop = rect.bottom + marginSpacing;
+        popup.classList.remove("position-above");
+        popup.classList.add("position-below");
+      }
+  
+      // 4. Safely apply coordinate coordinates relative to the fixed viewport grid
+      popup.style.top = `${calculatedTop}px`;
+      popup.style.left = `${rect.left + (rect.width / 2)}px`;
+      popup.style.transform = "translateX(-50%)"; // Only center horizontally now
   
       popup.addEventListener("mousedown", (e) => e.stopPropagation());
       popup.addEventListener("click", (e) => e.stopPropagation());
@@ -73,26 +91,24 @@ export default class AnnotationPopup {
         }
         this.close(true);
       });
-
-
+  
       // FIX 1: Use 'editable' directly instead of 'options.editable'
-    if (editable) {
-      // FIX 2: Use requestAnimationFrame to guarantee the DOM is painted before applying focus
-      requestAnimationFrame(() => {
-        const inputField = popup.querySelector('textarea');
-        if (inputField) {
-          inputField.focus();
-          
-          // Move the cursor to the very end of any existing text string
-          if (inputField.value) {
-            const length = inputField.value.length;
-            inputField.setSelectionRange(length, length);
+      if (editable) {
+        // FIX 2: Use requestAnimationFrame to guarantee the DOM is painted before applying focus
+        requestAnimationFrame(() => {
+          const inputField = popup.querySelector('textarea');
+          if (inputField) {
+            inputField.focus();
+            
+            // Move the cursor to the very end of any existing text string
+            if (inputField.value) {
+              const length = inputField.value.length;
+              inputField.setSelectionRange(length, length);
+            }
           }
-        }
-      });
-    }
-
-    }
+        });
+      }
+  }
   
     close(clearSelectionMemory = true) {
       if (this.activePopup) {
