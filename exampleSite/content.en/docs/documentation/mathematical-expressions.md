@@ -4,42 +4,6 @@ weight: 2
 description: "Rendering equations using KaTeX or MathJax."
 ---
 
-**EXAMPLE 5.1**  
-Consider a parallel plate capacitor which is connected to an \(230\ \mathrm{V}\) RMS value and \(50\ \mathrm{Hz}\) frequency. If the separation distance between the plates of the capacitor and area of the plates are \(1\ \mathrm{mm}\) and \(20\ \mathrm{cm^2}\) respectively. Calculate the displacement current at \(t = 1\) s.
-
-**Solution**  
-Potential difference between the plates of the capacitor,
-
-$$
-V = V_{\mathrm{max}} \sin 2\pi ft = 230\sqrt{2} \sin (2\pi \times 50t) = 325 \sin 100\pi t
-$$
-
-\(d = 1\ \mathrm{mm} = 1\times 10^{-3}\ \mathrm{m},\quad A = 20\ \mathrm{cm^2} = 20\times 10^{-4}\ \mathrm{m^2}\)
-
-Displacement current,
-
-$$
-i_d = \epsilon_0 \frac{d\Phi_E}{dt} = \epsilon_0 \frac{d(EA)}{dt} = \frac{\epsilon_0 A}{d} \left|\frac{dV}{dt}\right| \quad (\because E = V/d)
-$$
-
-$$
-= \frac{\epsilon_0 A}{d} (325)(100\pi) \cos 100\pi t
-$$
-
-$$
-= \frac{8.85\times 10^{-12} \times 20\times 10^{-4} \times 325 \times 100 \times 3.14 \times \cos(100\pi \times 1)}{1\times 10^{-3}}
-$$
-
-$$
-= 1.81\times 10^{-6}\ \mathrm{A} = 1.81\ \mu\mathrm{A} \quad (\because \cos 100\pi = 1)
-$$
-
-
-
-For any educational platform, being able to present clear and accurate math is essential. The **Gurukulams Design System** uses a standardized way to display mathematical formulas, ensuring they look professional, align perfectly with your text, and remain readable on any screen size.
-
----
-
 ## Writing Math in Markdown
 
 You don’t need special software to include math in your documents. You can write expressions directly in your text files using a simple syntax.
@@ -88,4 +52,4 @@ Our system supports standard notation used in science and mathematics. Here are 
 ## Best Practices
 * **Keep it Simple:** Use "Inline" math for brief mentions and "Display" math for formulas that the student needs to study closely.
 * **Don't Overuse:** Only wrap actual mathematical symbols in dollar signs. Use regular bold or italics for standard emphasis in your sentences.
-* **Check Your Braces:** Most complex parts (like fractions) use curly braces `{ }` to group numbers together. Ensure every opening brace has a closing one!
+* **Check Your Braces:** Most complex parts (like fractions) use curly braces `{ }` to group numbers together. Ensure every opening brace has a closing one!****
