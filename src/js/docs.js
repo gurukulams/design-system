@@ -113,82 +113,93 @@ class DocsManager {
     });
   }
 
-  handleScrolling(articleEl,asideEl) {
+  handleScrolling(articleEl, asideEl) {
+    // A flag to keep track of whether a sidebar click is currently driving the scroll position
+    this.isClickScrolling = false;
+    this.clickTimeout = null;
 
-    // Check for an initial hash on page load and highlight it
     if (window.location.hash) {
         this.setActiveHeading(asideEl, window.location.hash);
     }
 
-    // 1. Grab all the headings within the article that have an ID
     const headings = articleEl.querySelectorAll('h1, h2, h3');
   
-    // 2. Configure the observer options
     const options = {
-      // Treat the top section of the viewport as the "active detection zone"
       rootMargin: '0px 0px -75% 0px',
       threshold: 0
     };
   
-    // 3. Define what happens when a heading enters the zone
     const observer = new IntersectionObserver((entries) => {
+      // FIX 1: If we are scrolling due to a sidebar click, ignore observer triggers entirely!
+      if (this.isClickScrolling) return;
+
       entries.forEach((entry) => {
-        // Check if the heading has crossed into our active top zone
         if (entry.isIntersecting) {
           const id = entry.target.id;
   
-          // Only update if the heading has an ID and it's different from the current hash
           if (id && window.location.hash !== `#${id}`) {
-            // Updates the URL string without jumping the screen or breaking browser history
             history.replaceState(null, null, `#${id}`);
-            this.setActiveHeading(asideEl, id)
+            this.setActiveHeading(asideEl, id);
           }
         }
       });
     }, options);
   
-    // 4. Start tracking every heading
     headings.forEach((heading) => observer.observe(heading));
 
-    // 1. Select all anchor tags inside the aside that have an href starting with '#'
+    const setActiveAnchor = (link) => {
+      link.addEventListener("click", () => {
+        const hashValue = link.hash || link.getAttribute('href');
+        
+        console.log("Click " + link.href + " -> Hash: " + hashValue);
+
+        if (hashValue) {
+            // FIX 2: Set the flag to true immediately on click to lock out the observer
+            this.isClickScrolling = true;
+            
+            this.setActiveHeading(asideEl, hashValue);
+
+            // FIX 3: Clear any lingering timeouts and reset the flag after the scroll finishes.
+            // 500ms is usually the sweet spot for smooth scrolling transitions.
+            clearTimeout(this.clickTimeout);
+            this.clickTimeout = setTimeout(() => {
+                this.isClickScrolling = false;
+            }, 500); 
+        }
+    });
+    };
+
     const asideLinks = asideEl.querySelectorAll('a');
 
     asideLinks.forEach((link) => {
-        link.addEventListener("click", () => {
-            // Extract the hash component (e.g., "#my-heading")
-            const hashValue = link.hash || link.getAttribute('href');
-            
-            console.log("Click " + link.href + " -> Hash: " + hashValue);
-    
-            // Call setActiveHeading with the hash value if it exists
-            if (hashValue) {
-                this.setActiveHeading(asideEl, hashValue);
-            }
-        });
+      setActiveAnchor(link);
     });
 
-  }
+    const articleLinks = articleEl.querySelectorAll(
+      'h1 a.anchor, h2 a.anchor, h3 a.anchor, h4 a.anchor, h5 a.anchor, h6 a.anchor'
+    );
+    
+    articleLinks.forEach((link) => {
+      setActiveAnchor(link);
+    });
+}
 
-  setActiveHeading(asideEl, hashValue) {
-    // 1. Return early if inputs are missing
+setActiveHeading(asideEl, hashValue) {
+    console.log("setActiveHeading " + hashValue);
     if (!asideEl || !hashValue) return;
   
-    // 2. Ensure hashValue starts with exactly one '#' character
-    // (e.g., converts 'my-heading' or '#my-heading' cleanly into '#my-heading')
     const cleanHash = `#${hashValue.replace(/^#+/, '')}`;
   
-    // 3. Find and remove 'active' from the currently highlighted link in this sidebar
     const currentActive = asideEl.querySelector('a.active');
     if (currentActive) {
       currentActive.classList.remove('active');
     }
   
-    // 4. Find the link matching our hash and add the 'active' class
     const targetLink = asideEl.querySelector(`a[href="${cleanHash}"]`);
     if (targetLink) {
       targetLink.classList.add('active');
     }
-  }
+}
   
 }
 
