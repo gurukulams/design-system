@@ -195,27 +195,49 @@ export default class TextAnnotation {
   /**
    * Calculates the DOM client bounding rectangle and pops open the external manager
    */
-  triggerPopupForAnnotation(annotation, isDraft = false) {
+   triggerPopupForAnnotation(annotation, isDraft = false) {
     let rect = null;
 
-    const targetText = annotation.target?.selector?.find(s => s.exact)?.exact;
-    if (targetText) {
-      const highlights = this.contentRoot.querySelectorAll(".r6o-annotation, .r6o-span-highlight, span");
-      const element = Array.from(highlights).find(el => el.textContent.trim() === targetText.trim());
+    // STEP 1: If it's an existing annotation, lookup by Recogito ID (Most reliable)
+    if (annotation.id) {
+      const element = this.contentRoot.querySelector(`[data-id="${annotation.id}"]`);
       if (element) {
         rect = element.getBoundingClientRect();
       }
     }
 
+    // STEP 2: Windows Fallback - Use Recogito's underlying annotation highlight layer
     if (!rect || rect.width === 0) {
-      const activeSelection = window.getSelection();
-      if (activeSelection && activeSelection.rangeCount > 0) {
-        rect = activeSelection.getRangeAt(0).getBoundingClientRect();
+      // Find any Recogito span wrapper that contains our text chunk as a fallback
+      const targetText = annotation.target?.selector?.find(s => s.exact)?.exact;
+      if (targetText) {
+        const highlights = this.contentRoot.querySelectorAll(".r6o-annotation, .r6o-span-highlight");
+        const element = Array.from(highlights).find(el => {
+          const cleanText = el.textContent.replace(/\s+/g, ' ').trim();
+          return cleanText.includes(targetText.trim()) || targetText.trim().includes(cleanText);
+        });
+        if (element) {
+          rect = element.getBoundingClientRect();
+        }
       }
     }
 
-    if (rect && rect.width > 0) {
-      // Process measurements using the viewport layout tracker
+    // STEP 3: Fallback to the active user selection range block
+    if (!rect || rect.width === 0) {
+      const activeSelection = window.getSelection();
+      if (activeSelection && activeSelection.rangeCount > 0) {
+        const range = activeSelection.getRangeAt(0);
+        // Ensure the range isn't collapsed (empty cursor click)
+        if (!range.collapsed) {
+          rect = range.getBoundingClientRect();
+        }
+      }
+    }
+
+    // STEP 4: Safety Check & Execution Block
+    if (rect && rect.width > 0 && rect.height > 0) {
+      console.log("Going to open", annotation);
+      
       const placementConfig = this.calculateSmartPlacement(rect);
 
       this.popup.open({
@@ -226,9 +248,36 @@ export default class TextAnnotation {
         usePageScroll: true,
         alignment: placementConfig.alignment
       });
+    } else {
+      console.warn("Not Going to open - DOM rect calculations returned zero dimensions:", rect);
+      
+      // STEP 5: Emergency Windows Fallback (Centered relative to the main container)
+      // If we still don't have a selection boundary box but an annotation exists, 
+      // we place the popover relative to the mouse pointer position or container midpoint
+      if (this.contentRoot) {
+        console.log("Triggering emergency UI boundary anchor point fallback.");
+        const rootRect = this.contentRoot.getBoundingClientRect();
+        const fallbackRect = {
+          left: rootRect.left + (rootRect.width / 2) - 10,
+          top: window.innerHeight / 3, // Safely within upper central zone
+          width: 20,
+          height: 20,
+          right: rootRect.left + (rootRect.width / 2) + 10,
+          bottom: (window.innerHeight / 3) + 20
+        };
+        
+        const placementConfig = this.calculateSmartPlacement(fallbackRect);
+        this.popup.open({
+          annotation,
+          rect: fallbackRect,
+          isDraft,
+          editable: this.annotatingEnabled,
+          usePageScroll: true,
+          alignment: placementConfig.alignment
+        });
+      }
     }
   }
-
   handleSaveComment(annotation, textValue, isDraft) {
     const targetAnnotation = JSON.parse(JSON.stringify(annotation));
     if (!Array.isArray(targetAnnotation.bodies)) targetAnnotation.bodies = [];
