@@ -7,10 +7,8 @@ references:
         - youtube: BjJJW4QavOA?si=RTAasw_Jq-W4WQSQ
         - youtube: dX8396ADdto
     links:
-        - title: "Google Fonts Knowledge Base"
-          url: "https://fonts.google.com/knowledge"
-        - title: "W3C Typography Accessibility"
-          url: "https://www.w3.org/WAI/tutorials/page-structure/headings/"
+        - "[Google Fonts Knowledge Base](https://fonts.google.com/knowledge)"
+        - "[Google Fonts Knowledge Base](https://fonts.google.com/knowledge)"
     books:
         - b1:
             title: "The Elements of Typographic Style by Robert Bringhurst"

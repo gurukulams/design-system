@@ -3,16 +3,29 @@
 <br>
     <ol class="list-unstyled p-0 m-0">
         {{ range $index, $element := . }}
-            {{/* Handle both Map (title/url) and String formats */}}
-            {{ $url := "" }}{{ $title := "" }}
-            {{ if reflect.IsMap . }}
-                {{ $url = .url }}{{ $title = .title }}
+            {{/* Convert Markdown string to HTML -> <a href="URL">Title</a> */}}
+            {{ $htmlLink := . | markdownify }}
+            
+            {{/* Extract the URL from the href attribute */}}
+            {{ $urlMatches := findRE `href="([^"]+)"` $htmlLink 1 }}
+            {{ $url := "" }}
+            {{ if len $urlMatches }}
+                {{ $url = index $urlMatches 0 | replaceRE `href="([^"]+)"` "$1" }}
+            {{ end }}
+
+            {{/* Extract the plaintext title inside the <a> tags */}}
+            {{ $titleMatches := findRE `>([^<]+)<` $htmlLink 1 }}
+            {{ $title := "" }}
+            {{ if len $titleMatches }}
+                {{ $title = index $titleMatches 0 | replaceRE `>([^<]+)<` "$1" }}
             {{ else }}
-                {{ $url = . }}{{ $title = . }}
+                {{/* Fallback if Markdown parsing wasn't a standard link */}}
+                {{ $title = . }}
+                {{ $url = . }}
             {{ end }}
 
             <li class="mb-3">
-                <a href="{{ $url }}" target="_blank" class="text-decoration-none group">
+                <a href="{{ $url | safeURL }}" target="_blank" class="text-decoration-none group">
                     <div class="card border-1 h-100">
                         <div class="card-body py-3 px-4">
                             <div class="d-flex align-items-center">
@@ -41,6 +54,4 @@
         {{ end }}
     </ol>
 </section>
-
-
 {{ end }}
