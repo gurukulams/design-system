@@ -25,13 +25,13 @@
 <figure class="figure img-fluid w-100 position-relative">
   
   {{ if eq .Page.Language.Lang "en" }}
-    <img src="{{ $image | absURL }}" alt="{{ .Text }}" class="w-100"/>
+    <img src="{{ $image | absURL }}" alt="{{ .Text }}" class="img-fluid"/>
   
   {{ else }}
     {{ if fileExists $image_file_path }}
-      <img src="{{ $localizedimage | absURL }}" alt="{{ .Text }}" class="w-100"/>
+      <img src="{{ $localizedimage | absURL }}" alt="{{ .Text }}" class="img-fluid"/>
     {{ else }}
-      <img src="{{ $image | absURL }}" alt="{{ .Text }}" class="w-100"/>
+      <img src="{{ $image | absURL }}" alt="{{ .Text }}" class="img-fluid"/>
     {{ end }}
   {{ end }}
 
