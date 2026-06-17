@@ -11,11 +11,10 @@
             {{ $ytIdClean := index (split $ytId "?") 0 }}
 
             <li class="mb-4">
-                <div class="text-decoration-none group cursor-pointer" 
+                <div class="text-decoration-none group cursor-pointer yt-video-card" 
                      role="button"
                      data-action="play-video"
-                     data-video-id="{{ $ytIdClean }}"
-                     data-video-title="Watch Tutorial Part {{ add $index 1 }}">
+                     data-video-id="{{ $ytIdClean }}">
                     
                     <div class="card border-1 shadow-sm overflow-hidden">
                         <div class="row g-0 align-items-center">
@@ -34,9 +33,11 @@
                             
                             <div class="col-md-8">
                                 <div class="card-body py-3 px-4">
-                                    <h5 class="card-title fw-bold mb-1">Watch Tutorial Part {{ add $index 1 }}</h5>
-                                    <p class="card-text text-muted small mb-0">
-                                        Follow this video lesson to understand the implementation details of this section.
+                                    <h5 class="card-title fw-bold mb-1 yt-title" data-video-id="{{ $ytIdClean }}">
+                                        Loading title...
+                                    </h5>
+                                    <p class="card-text text-muted small mb-0 yt-desc" data-video-id="{{ $ytIdClean }}">
+                                        Video tutorial lesson. Click to watch.
                                     </p>
                                     <div class="mt-2 text-primary small fw-bold">
                                         Play Video <i class="bi bi-play-fill ms-1"></i>
@@ -55,4 +56,33 @@
 .cursor-pointer { cursor: pointer; }
 </style>
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll('.yt-video-card').forEach(function(card) {
+        const videoId = card.getAttribute('data-video-id');
+        const titleEl = card.querySelector('.yt-title');
+        const descEl = card.querySelector('.yt-desc');
+        
+        if (videoId) {
+            fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.title) {
+                        titleEl.innerText = data.title;
+                        card.setAttribute('data-video-title', data.title); // sync play attribute
+                    }
+                    if (data.author_name) {
+                        descEl.innerText = `Video tutorial courtesy of ${data.author_name}. Click to play implementation details.`;
+                    }
+                })
+                .catch(err => {
+                    // Fallback if video is private or API fails
+                    if(titleEl.innerText === "Loading title...") {
+                        titleEl.innerText = "Watch Video Tutorial";
+                    }
+                });
+        }
+    });
+});
+</script>
 {{ end }}
