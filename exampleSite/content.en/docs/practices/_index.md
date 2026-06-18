@@ -1,7 +1,7 @@
 ---
 title: "Practices"
 summary: "Interactive assessment types for student engagement."
-weight: 2
+weight: 3
 ---
 
 The **Practices Module** is the interactive heartbeat of the Gurukulams platform. Based on the philosophy that **Questions are the source of Knowledge**, this module moves beyond passive reading to active participation. It provides a diverse suite of assessment types designed to challenge learners, reinforce core concepts, and provide immediate feedback.
