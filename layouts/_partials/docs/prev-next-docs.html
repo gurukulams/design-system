@@ -2,116 +2,51 @@
 {{ $nextPage := "" }}
 {{ $prevPage := "" }}
 
-{{/* --- NEXT PAGE CALCULATION --- */}}
-{{ if .Pages }}
-  {{/* Rule A: If on a folder page (e.g. Documentation), next is its first child */}}
-  {{ $nextPage = index .Pages.ByWeight 0 }}
-{{ else }}
-  {{/* Rule B: Get all sibling leaf pages in this current section, sorted by weight */}}
-  {{ $siblings := .Parent.RegularPages.ByWeight }}
-  {{ $currentIdx := -1 }}
+{{/* Dynamically find your documentation top-level root */}}
+{{ $docsRoot := .Site.GetPage "/design-system/docs" }}
+{{ if not $docsRoot }}
+  {{ $docsRoot = .FirstSection }}
+{{ end }}
+
+{{/* 2. RECURSIVELY BUILD A FLAT ORDERED LIST MATCHING YOUR SIDEBAR */}}
+{{ $allPages := slice }}
+{{ range $docsRoot.Pages.ByWeight }}
+  {{/* Append the top level folder/section landing page first */}}
+  {{ $allPages = $allPages | append . }}
   
-  {{ range $index, $element := $siblings }}
-    {{ if eq $element.RelPermalink $.RelPermalink }}
-      {{ $currentIdx = $index }}
-    {{ end }}
-  {{ end }}
-
-  {{/* Check if there is an immediate weighted sibling below us */}}
-  {{ $nextSiblingIdx := add $currentIdx 1 }}
-  {{ if lt $nextSiblingIdx (len $siblings) }}
-    {{ $nextPage = index $siblings $nextSiblingIdx }}
-  {{ else }}
-    {{/* Rule C: If we are the last leaf inside a sub-folder, look for the next parent folder section */}}
-    {{ if and .Parent .Parent.Parent (not .Parent.Parent.IsHome) }}
-      {{ $parentSiblings := .Parent.Parent.Pages.ByWeight }}
-      {{ $parentIdx := -1 }}
-      {{ range $pIdx, $pEl := $parentSiblings }}
-        {{ if eq $pEl.RelPermalink $.Parent.RelPermalink }}
-          {{ $parentIdx = $pIdx }}
-        {{ end }}
-      {{ end }}
-      
-      {{ $nextParentIdx := add $parentIdx 1 }}
-      {{ if lt $nextParentIdx (len $parentSiblings) }}
-        {{ $nextPage = index $parentSiblings $nextParentIdx }}
-      {{ else }}
-        {{ $nextPage = "" }}
-      {{ end }}
-    {{ else }}
-      {{ $nextPage = "" }}
+  {{/* If it's a section, immediately append its direct regular child leaves */}}
+  {{ if .IsSection }}
+    {{ range .RegularPages.ByWeight }}
+      {{ $allPages = $allPages | append . }}
     {{ end }}
   {{ end }}
 {{ end }}
 
+{{/* 3. LOCATE WHERE THE VISITOR IS CURRENTLY BROWSING */}}
+{{ $currentIdx := -1 }}
+{{ range $index, $element := $allPages }}
+  {{ if eq $element.RelPermalink $.RelPermalink }}
+    {{ $currentIdx = $index }}
+  {{ end }}
+{{ end }}
 
-{{/* --- PREVIOUS PAGE CALCULATION --- */}}
-{{ if not .Pages }}
-  {{/* Rule A: Find our index in the sibling list of our current immediate parent */}}
-  {{ $siblings := .Parent.RegularPages.ByWeight }}
-  {{ $currentIdx := -1 }}
-  {{ range $index, $element := $siblings }}
-    {{ if eq $element.RelPermalink $.RelPermalink }}
-      {{ $currentIdx = $index }}
-    {{ end }}
+{{/* 4. LOOKAHEAD AND LOOKBEHIND ASSIGNMENT */}}
+{{ if ge $currentIdx 0 }}
+  {{/* Calculate Next Page */}}
+  {{ $nextIdx := add $currentIdx 1 }}
+  {{ if lt $nextIdx (len $allPages) }}
+    {{ $nextPage = index $allPages $nextIdx }}
   {{ end }}
 
-  {{ $prevSiblingIdx := sub $currentIdx 1 }}
-  {{ if ge $prevSiblingIdx 0 }}
-    {{/* If there is a sibling above us, that is our previous page */}}
-    {{ $prevPage = index $siblings $prevSiblingIdx }}
-  {{ else }}
-    {{/* Rule B: If we are the first child of a nested folder (e.g. Typography), previous is its Parent container */}}
-    {{ if and .Parent (not .Parent.IsHome) (ne .Parent.RelPermalink "/design-system/docs/") }}
-      {{ $prevPage = .Parent }}
-    {{ else if .Parent }}
-      {{/* Rule C: Cross-level jump for top-level leaves (e.g., Presentation) */}}
-      {{/* Look at the folders under /docs/ to find what sits right before this page */}}
-      {{ $parentSiblings := .Parent.Pages.ByWeight }}
-      {{ $parentIdx := -1 }}
-      {{ range $pIdx, $pEl := $parentSiblings }}
-        {{ if eq $pEl.RelPermalink $.RelPermalink }}
-          {{ $parentIdx = $pIdx }}
-        {{ end }}
-      {{ end }}
-      
-      {{ $prevParentIdx := sub $parentIdx 1 }}
-      {{ if ge $prevParentIdx 0 }}
-        {{ $prevParent := index $parentSiblings $prevParentIdx }}
-        {{ if $prevParent.RegularPages }}
-          {{/* Take the last child inside that folder (e.g., Multi Choice) */}}
-          {{ $prevPage = index $prevParent.RegularPages.ByWeight.Reverse 0 }}
-        {{ else }}
-          {{ $prevPage = $prevParent }}
-        {{ end }}
-      {{ end }}
-    {{ end }}
-  {{ end }}
-{{ else }}
-  {{/* Rule D: If we are on a parent folder landing page itself */}}
-  {{ if .Parent }}
-    {{ $parentSiblings := .Parent.Pages.ByWeight }}
-    {{ $parentIdx := -1 }}
-    {{ range $pIdx, $pEl := $parentSiblings }}
-      {{ if eq $pEl.RelPermalink $.RelPermalink }}
-        {{ $parentIdx = $pIdx }}
-      {{ end }}
-    {{ end }}
-    
-    {{ $prevParentIdx := sub $parentIdx 1 }}
-    {{ if ge $prevParentIdx 0 }}
-      {{ $prevParent := index $parentSiblings $prevParentIdx }}
-      {{ if $prevParent.RegularPages }}
-        {{ $prevPage = index $prevParent.RegularPages.ByWeight.Reverse 0 }}
-      {{ else }}
-        {{ $prevPage = $prevParent }}
-      {{ end }}
-    {{ end }}
+  {{/* Calculate Previous Page */}}
+  {{ $prevIdx := sub $currentIdx 1 }}
+  {{ if ge $prevIdx 0 }}
+    {{ $prevPage = index $allPages $prevIdx }}
   {{ end }}
 {{ end }}
 
 
-{{/* 2. RENDER THE NAVIGATION INTERFACE ELEMENTS */}}
+{{/* 5. RENDER THE NAVIGATION INTERFACE ELEMENTS */}}
 
 {{/* PREVIOUS BUTTON */}}
 <li class="nav-item">
