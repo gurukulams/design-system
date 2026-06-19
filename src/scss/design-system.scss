@@ -12,6 +12,7 @@
 @import "./components/katex";
 @import "./components/highlight";
 @import "./components/annotation";
+@import "./components/toc";
 
 /** Bootstrap Components **/
 @import "./components/card";
@@ -169,13 +170,4 @@ ol {
       border-top: 1px solid #eee;
   }
 }
-
-article a {
-  display: inline-block; /* Allows max-width to apply correctly */
-  max-width: 100%;
-  overflow-wrap: break-word;
-  word-break: break-all;
-  vertical-align: top;
-}
-
 

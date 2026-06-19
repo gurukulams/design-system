@@ -198,6 +198,14 @@ setActiveHeading(asideEl, hashValue) {
     const targetLink = asideEl.querySelector(`a[href="${cleanHash}"]`);
     if (targetLink) {
       targetLink.classList.add('active');
+
+      // scrollIntoView moves the link into the scrollable viewport of asideEl
+      targetLink.scrollIntoView({
+        behavior: 'smooth', // 'smooth' for a pleasant transition, 'auto' for instant jumping
+        block: 'nearest',   // Minimizes scrolling; only moves it if it is out of view
+        inline: 'nearest'
+      });
+
     }
 }
   

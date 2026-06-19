@@ -1,0 +1,26 @@
+article a {
+    display: inline-block; /* Allows max-width to apply correctly */
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    vertical-align: top;
+  }
+  
+  
+  aside {
+    position: sticky;
+    top: 2rem;
+    max-height: calc(100vh - 4rem);
+    
+    /* Allow scrolling functionality */
+    overflow-y: auto; 
+    
+    /* Hide scrollbar for Chrome, Safari, and newer Opera */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    
+    /* Hide scrollbar for IE, Edge, and Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
