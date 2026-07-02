@@ -3,12 +3,24 @@ import PracticeMaker from 'practice-js'
 
 export default class QuestionLoader {
     constructor() {
-        var contentRoot = document.getElementById("practice-container");
+        const modeSelect = document.getElementById('modeSelect');
+        this.buildInstance(modeSelect.value);
+
+        modeSelect
+            .addEventListener('change', () => {
+              this.buildInstance(modeSelect.value);
+        });
+    }
+
+    buildInstance(mode) {
+      const contentRoot = document.getElementById("practice-container");
+        contentRoot.innerHTML = '';
 
         // Initialize your logic here
         this.practiceMaker = new PracticeMaker(
           contentRoot,
           { 
+            "mode":mode,
             "error":(message) => {
                 window.error(message)
             }
@@ -35,7 +47,6 @@ export default class QuestionLoader {
         console.log('Load Questions from ' + questionsUrl);
 
         this.loadQuestions(questionsUrl, undefined, languageCode);
-        
     }
 
     loadQuestions(questionsUrl, maxQuestions = null, locale = null) {
