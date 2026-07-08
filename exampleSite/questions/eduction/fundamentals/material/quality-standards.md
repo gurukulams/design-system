@@ -1,6 +1,7 @@
 ---
+complexity: "M"
 choices:
-  - "![Guided 2.](/docs/documentation/guru.jpeg)"
+  - "![Guided](/docs/documentation/guru.jpeg)"
   - Focused
   - Personalized
 answers:

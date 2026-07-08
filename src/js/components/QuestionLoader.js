@@ -10,16 +10,35 @@ export default class QuestionLoader {
             .addEventListener('change', () => {
               this.buildInstance(modeSelect.value);
         });
+
+        const complexityCmb = document.getElementById("complexityCmb");
+        const savedComplexity = sessionStorage.getItem("selectedComplexity");
+        if (savedComplexity !== null) {
+          complexityCmb.value = savedComplexity;
+        }
+
+        complexityCmb.addEventListener('change', () => {
+          sessionStorage.setItem("selectedComplexity", this.value);
+          this.buildInstance(modeSelect.value);
+        });
+
+
     }
 
     buildInstance(mode) {
       const contentRoot = document.getElementById("practice-container");
         contentRoot.innerHTML = '';
+        var complexity = null;
+
+        if(document.getElementById("complexityCmb").value.trim() !== "") {
+          complexity = document.getElementById("complexityCmb").value;
+        }
 
         // Initialize your logic here
         this.practiceMaker = new PracticeMaker(
           contentRoot,
           { 
+            "complexity":complexity,
             "mode":mode,
             "error":(message) => {
                 window.error(message)

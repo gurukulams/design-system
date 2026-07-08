@@ -1,4 +1,5 @@
 ---
+complexity: "M"
 choices:
   - "![வழிகாட்டப்பட்ட (Guided)](/docs/documentation/guru.jpeg)"
   - கவனம் செலுத்தப்பட்ட (Focused)

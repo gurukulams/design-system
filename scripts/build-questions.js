@@ -32,6 +32,10 @@ const schema = {
   properties: {
     question: { type: "string" },
     explanation: { type: "string" },
+    complexity: {
+      type: "string",
+      enum: ["M", "H"],
+    },
     type: {
       type: "string",
       enum: ["CHOOSE_THE_BEST", "MULTI_CHOICE", "MATCH_THE_FOLLOWING"],
@@ -117,6 +121,11 @@ function transformMarkdown(filePath) {
       ? processKatex(explanationText)
       : explanationText,
   };
+
+  // Add complexity if it exists in the front matter data
+  if (data.complexity) {
+    question.complexity = data.complexity;
+  }
 
   // 2. Handle Logic for Choices/Answers (Existing logic)
   const answers = Array.isArray(data.answers) ? data.answers : [];
