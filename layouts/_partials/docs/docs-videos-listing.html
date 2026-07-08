@@ -3,18 +3,40 @@
 <br>
     <ol class="list-unstyled p-0 m-0">
         {{ range $index, $element := . }}
-            {{/* Handle both Map and String formats */}}
-            {{ $ytId := "" }}
-            {{ if reflect.IsMap . }}{{ $ytId = .youtube }}{{ else }}{{ $ytId = replace . "youtube:" "" }}{{ end }}
-            
-            {{/* Clean the ID for the thumbnail */}}
-            {{ $ytIdClean := index (split $ytId "?") 0 }}
+            {{ $isCustom := false }}
+            {{ $ytIdClean := "" }}
+            {{ $title := "Loading title..." }}
+            {{ $desc := "Video tutorial lesson. Click to watch." }}
+            {{ $videoUrl := "" }}
+
+            {{ if reflect.IsMap . }}
+                {{ if isset . "custom" }}
+                    {{ $isCustom = true }}
+                    {{ $customData := .custom }}
+                    {{ $title = $customData.title }}
+                    {{ $desc = $customData.desc }}
+                    {{ $videoUrl = $customData.url }}
+                {{ else if isset . "youtube" }}
+                    {{ $ytIdClean = index (split .youtube "?") 0 }}
+                {{ end }}
+            {{ else }}
+                {{/* Fallback for the old flat string format: "youtube:ID" */}}
+                {{ $rawId := replace . "youtube:" "" }}
+                {{ $ytIdClean = index (split $rawId "?") 0 }}
+            {{ end }}
 
             <li class="mb-4">
-                <div class="text-decoration-none group cursor-pointer yt-video-card" 
+                <div class="text-decoration-none group cursor-pointer video-card" 
                      role="button"
                      data-action="play-video"
-                     data-video-id="{{ $ytIdClean }}">
+                     {{ if $isCustom }}
+                     data-video-type="custom"
+                     data-video-url="{{ $videoUrl }}"
+                     data-video-title="{{ $title }}"
+                     {{ else }}
+                     data-video-type="youtube"
+                     data-youtube-id="{{ $ytIdClean }}"
+                     {{ end }}>
                     
                     <div class="card border-1 shadow-sm overflow-hidden">
                         <div class="row g-0 align-items-center">
@@ -22,10 +44,19 @@
                                 <div class="badge bg-primary position-absolute top-0 start-0 m-2 z-1 shadow">
                                     Step {{ add $index 1 }}
                                 </div>
-                                <img src="https://img.youtube.com/vi/{{ $ytIdClean }}/mqdefault.jpg" 
-                                     class="img-fluid w-100" 
-                                     style="aspect-ratio: 16/9; object-fit: cover;"
-                                     alt="Thumbnail">
+                                
+                                {{ if $isCustom }}
+                                    <!-- Fallback placeholder image for custom videos, or use a custom thumb property if you add one later -->
+                                    <div class="bg-dark text-white d-flex align-items-center justify-content-center w-100" style="aspect-ratio: 16/9; object-fit: cover;">
+                                        <i class="bi bi-film fs-2 text-muted"></i>
+                                    </div>
+                                {{ else }}
+                                    <img src="https://img.youtube.com/vi/{{ $ytIdClean }}/mqdefault.jpg" 
+                                         class="img-fluid w-100" 
+                                         style="aspect-ratio: 16/9; object-fit: cover;"
+                                         alt="Thumbnail">
+                                {{ end }}
+
                                 <div class="position-absolute top-50 start-50 translate-middle">
                                     <i class="bi bi-play-circle-fill text-white fs-1 opacity-75 group-hover:opacity-100 transition-all"></i>
                                 </div>
@@ -33,11 +64,11 @@
                             
                             <div class="col-md-8">
                                 <div class="card-body py-3 px-4">
-                                    <h5 class="card-title fw-bold mb-1 yt-title" data-video-id="{{ $ytIdClean }}">
-                                        Loading title...
+                                    <h5 class="card-title fw-bold mb-1 video-title" {{ if not $isCustom }}data-youtube-id="{{ $ytIdClean }}"{{ end }}>
+                                        {{ $title }}
                                     </h5>
-                                    <p class="card-text text-muted small mb-0 yt-desc" data-video-id="{{ $ytIdClean }}">
-                                        Video tutorial lesson. Click to watch.
+                                    <p class="card-text text-muted small mb-0 video-desc" {{ if not $isCustom }}data-youtube-id="{{ $ytIdClean }}"{{ end }}>
+                                        {{ $desc }}
                                     </p>
                                     <div class="mt-2 text-primary small fw-bold">
                                         Play Video <i class="bi bi-play-fill ms-1"></i>
@@ -58,10 +89,11 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll('.yt-video-card').forEach(function(card) {
-        const videoId = card.getAttribute('data-video-id');
-        const titleEl = card.querySelector('.yt-title');
-        const descEl = card.querySelector('.yt-desc');
+    // Only fetch for elements that are explicitly youtube type
+    document.querySelectorAll('.video-card[data-video-type="youtube"]').forEach(function(card) {
+        const videoId = card.getAttribute('data-youtube-id');
+        const titleEl = card.querySelector('.video-title');
+        const descEl = card.querySelector('.video-desc');
         
         if (videoId) {
             fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`)
@@ -69,14 +101,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 .then(data => {
                     if (data.title) {
                         titleEl.innerText = data.title;
-                        card.setAttribute('data-video-title', data.title); // sync play attribute
+                        card.setAttribute('data-video-title', data.title); 
                     }
                     if (data.author_name) {
                         descEl.innerText = `Video tutorial courtesy of ${data.author_name}. Click to play implementation details.`;
                     }
                 })
                 .catch(err => {
-                    // Fallback if video is private or API fails
                     if(titleEl.innerText === "Loading title...") {
                         titleEl.innerText = "Watch Video Tutorial";
                     }

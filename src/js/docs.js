@@ -39,8 +39,34 @@ class DocsManager {
           // CRITICAL FIX: Stop the click event from bubbling up to the parent figure element
           e.stopPropagation();
           
-          const videoId = this.getAttribute('data-video-id');
-          const videoTitle = this.getAttribute('data-video-title');
+          const videoType = this.getAttribute('data-video-type') || 'youtube';
+          const videoTitle = this.getAttribute('data-video-title') || 'Watch Video';
+          
+          // Determine player markup based on video type
+          let playerHtml = '';
+          
+          if (videoType === 'custom') {
+              const videoUrl = this.getAttribute('data-video-url');
+              playerHtml = `
+                  <video src="${videoUrl}" 
+                         controls 
+                         autoplay 
+                         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;">
+                      Your browser does not support the video tag.
+                  </video>
+              `;
+          } else {
+              const videoId = this.getAttribute('data-youtube-id');
+              playerHtml = `
+                  <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                          title="YouTube video player" 
+                          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                          frameborder="0" 
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                          allowfullscreen>
+                  </iframe>
+              `;
+          }
           
           // 1. Create a high z-index fullscreen overlay container
           const overlay = document.createElement('div');
@@ -65,13 +91,7 @@ class DocsManager {
                   </div>
                   <div class="card-body p-3 bg-black">
                       <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%; overflow: hidden; border-radius: 4px;">
-                          <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
-                                  title="YouTube video player" 
-                                  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                                  frameborder="0" 
-                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                  allowfullscreen>
-                          </iframe>
+                          ${playerHtml}
                       </div>
                   </div>
               </div>
@@ -92,6 +112,14 @@ class DocsManager {
   
           // Function to safely destroy the player view
           const removePlayer = () => {
+              // If it's a custom video element, pause it manually before removal to prevent phantom audio bugs in some browsers
+              const customVideo = overlay.querySelector('video');
+              if (customVideo) {
+                  customVideo.pause();
+                  customVideo.src = "";
+                  customVideo.load();
+              }
+              
               overlay.remove();
               document.body.style.overflow = '';
               document.removeEventListener('keydown', handleEscape);
