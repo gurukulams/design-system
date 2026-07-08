@@ -1,6 +1,6 @@
 ---
 choices:
-  - Guided
+  - "![Guided 2.](/docs/documentation/guru.jpeg)"
   - Focused
   - Personalized
 answers:

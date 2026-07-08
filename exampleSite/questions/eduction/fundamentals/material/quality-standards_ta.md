@@ -1,6 +1,6 @@
 ---
 choices:
-  - வழிகாட்டப்பட்ட (Guided)
+  - "![வழிகாட்டப்பட்ட (Guided)](/docs/documentation/guru.jpeg)"
   - கவனம் செலுத்தப்பட்ட (Focused)
   - தனிப்பயனாக்கப்பட்ட (Personalized)
 answers:

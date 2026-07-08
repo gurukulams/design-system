@@ -123,24 +123,51 @@ function transformMarkdown(filePath) {
   const initialChoices = Array.isArray(data.choices) ? data.choices : [];
   const combinedList = [...initialChoices, ...answers];
 
-  /**
-   * Process Choices Value.
-   * @param {*} choiceList
-   * @returns
-   */
-  const processChoices = (choiceList) => {
-    return choiceList.map((item) => {
-      const label = typeof item === "string" ? processKatex(item.trim()) : item;
-      // We process KaTeX in labels too, in case choices have formulas
-      const processedLabel = processKatex(label);
+/**
+ * Process Choices Value.
+ * @param {*} choiceList
+ * @returns
+ */
+ const processChoices = (choiceList) => {
+  return choiceList.map((item) => {
+    // 1. Force convert to string and aggressively trim edge whitespace
+    let rawLabel = typeof item === "string" ? item.trim() : String(item);
+    let imageUrl = null;
 
-      const choice = { label: processedLabel };
-      if (answers.includes(label)) {
-        choice.answer = true;
+    // Remove wrapping quotes if the YAML parser passed them down as literal string chars
+    if (rawLabel.startsWith('"') && rawLabel.endsWith('"')) {
+      rawLabel = rawLabel.slice(1, -1).trim();
+    }
+
+    // 2. Perform the Markdown extraction
+    if (typeof rawLabel === "string") {
+      // Direct regex to pull text out of ![...] and (...) anywhere inside the line
+      const imgMatch = rawLabel.match(/!\[(.*?)\]\((.*?)\)/);
+      
+      if (imgMatch) {
+        rawLabel = imgMatch[1].trim(); // Extracts: Guided 2.
+        imageUrl = imgMatch[2].trim(); // Extracts: /guru.jpeg
       }
-      return choice;
-    });
-  };
+    }
+
+    // 3. Process KaTeX only AFTER the clean text label has been extracted
+    const processedLabel = processKatex(rawLabel);
+
+    const choice = { label: processedLabel };
+
+    // 4. Attach the parsed image field
+    if (imageUrl) {
+      choice.image = imageUrl;
+    }
+
+    // 5. Check against the answers array using the pristine text label
+    if (answers.includes(rawLabel)) {
+      choice.answer = true;
+    }
+
+    return choice;
+  });
+};
 
   if (combinedList.length > 0) {
     question.choices = processChoices(combinedList);
