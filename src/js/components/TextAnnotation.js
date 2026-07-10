@@ -36,6 +36,39 @@ export default class TextAnnotation {
     this.loadAnnotations();
     this.setAnnotatingEnabled(this.annotatingEnabled);
 
+    // 1. Helper function to safely fetch Bootstrap CSS variables with a default fallback
+    const getBsColor = (colorName) => {
+      const variableValue = getComputedStyle(document.documentElement)
+        .getPropertyValue(`--bs-${colorName}`)
+        .trim();
+      
+      // Fallback hex values just in case the CSS hasn't loaded fully when this runs
+      if (!variableValue) {
+        const fallbacks = { info: '#0dcaf0', success: '#198754', warning: '#ffc107', danger: '#dc3545' };
+        return fallbacks[colorName] || fallbacks.info;
+      }
+      return variableValue;
+    };
+
+    // 2. Set your annotation style dynamically
+    this.anno.setStyle((annotation, state) => {
+      // Extract intent (adjust the path if it lives in annotation.body)
+      const intent = annotation.intent || (annotation.body && annotation.body.intent);
+      
+      // Resolve the color name or default to 'info'
+      const validIntents = ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'light', 'dark'];
+      const targetIntent = validIntents.includes(intent) ? intent : 'info';
+
+      // Fetch the live CSS variable color
+      const fillColor = getBsColor(targetIntent);
+
+      return {
+        fill: fillColor,
+        stroke: fillColor, // Matches border to fill for Bootstrap-like consistency
+        strokeWidth: 2
+      };
+    });
+
     // --- Core Lifecycle Hooks & Working Overlap Protection ---
 
     this.anno.on("createAnnotation", (annotation) => {
@@ -45,6 +78,12 @@ export default class TextAnnotation {
         this.popup.close(true);
         return;
       }
+
+      if(this.intent !== "info") {
+        annotation.intent = this.intent;
+      }
+      
+      console.log("Created Anno {}", annotation);
       
       this.saveAnnotations();
       
@@ -90,6 +129,11 @@ export default class TextAnnotation {
         this.triggerPopupForAnnotation(selectionData, false);
       }
     }); 
+  }
+
+  setNotesIntent(_intent) {
+    console.log('Text _intent is ' + _intent);
+    this.intent = _intent;
   }
 
   /**

@@ -31,7 +31,9 @@ export default class ImageAnnotation {
     this.createOffcanvas();
     this.bindFigures();
   }
-
+  setNotesIntent(_intent) {
+    console.log('Image _intent is ' + _intent);
+  }
   setAnnotatingEnabled(_editable) {
     this.annotatingEnabled = _editable;
     if (this.anno) {

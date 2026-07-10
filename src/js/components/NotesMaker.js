@@ -12,6 +12,11 @@ export default class NotesMaker {
     this.setEditable(false);
   }
 
+  setNotesIntent(_intent) {
+    this.textanno.setNotesIntent(_intent)
+    this.imageAnno.setNotesIntent(_intent)
+  }
+
   setEditable(_editable) {
     this.textanno.setAnnotatingEnabled(_editable)
     this.imageAnno.setAnnotatingEnabled(_editable)

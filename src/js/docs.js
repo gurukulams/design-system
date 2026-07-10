@@ -46,9 +46,37 @@ class DocsManager {
     
     if (!wrapper || !menuList || !inputProxy || !indicator || !toggleCheckbox || !menuButton) return;
   
-    const savedColor = sessionStorage.getItem("selectedNotesLine") || "#0dcaf0";
+    // 1. Helper function to extract the real computed color from the element's Bootstrap bg-* class
+    function getComputedHexColor(element) {
+      // 1. Find the full class name
+      const fullClass = Array.from(element.classList).find(c => c.startsWith('bg-'));
+
+      // 2. Remove the "bg-" prefix
+      const intent = fullClass ? fullClass.replace('bg-', '') : undefined;
+      nm.setNotesIntent(intent)
+      const rgb = window.getComputedStyle(element).backgroundColor;
+      // Convert standard rgb(r, g, b) strings to pristine Hex strings for consistency
+      const rgbValues = rgb.match(/\d+/g);
+      if (!rgbValues || rgbValues.length < 3) return rgb; 
+      return "#" + rgbValues.slice(0, 3).map(x => parseInt(x).toString(16).padStart(2, '0')).join('');
+    }
+
+    // Fallback to the computed value of the .bg-info swatch if sessionStorage is blank
+    const infoSwatch = menuList.querySelector('.bg-info');
+    const fallbackColor = infoSwatch ? getComputedHexColor(infoSwatch) : "#0dcaf0";
+    const savedColor = sessionStorage.getItem("selectedNotesLine") || fallbackColor;
   
-    const initialActive = menuList.querySelector(`[data-color="${savedColor}"]`);
+    // 2. Locate matching node by evaluating actual computed styles 
+    let initialActive = null;
+    const allSwatches = menuList.querySelectorAll('.color-swatch');
+    
+    for (const swatch of allSwatches) {
+      if (getComputedHexColor(swatch) === savedColor) {
+        initialActive = swatch;
+        break;
+      }
+    }
+
     if (initialActive) {
       applySelectedColor(initialActive, false);
     } else {
@@ -56,9 +84,9 @@ class DocsManager {
       inputProxy.value = savedColor;
     }
   
-    menuList.querySelectorAll('.color-swatch').forEach(swatch => {
+    allSwatches.forEach(swatch => {
       swatch.addEventListener('click', function(e) {
-        e.stopPropagation(); 
+        // Removed e.stopPropagation() here to fix the automatic layout close bug
         applySelectedColor(this, true);
       });
     });
@@ -67,22 +95,22 @@ class DocsManager {
       menuList.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
       element.classList.add('active');
       
-      const hexColor = element.getAttribute('data-color');
-      inputProxy.value = hexColor;
-      indicator.style.backgroundColor = hexColor;
+      // 3. Drive color mapping dynamically from browser styles
+      const computedHex = getComputedHexColor(element);
+      inputProxy.value = computedHex;
+      indicator.style.backgroundColor = computedHex;
       
       if (shouldToggleOn && !toggleCheckbox.checked) {
         toggleCheckbox.checked = true;
         toggleCheckbox.dispatchEvent(new Event('change'));
       }
       
-      sessionStorage.setItem("selectedNotesLine", hexColor);
+      sessionStorage.setItem("selectedNotesLine", computedHex);
       inputProxy.dispatchEvent(new Event('change'));
   
-      // Explicitly hide the Bootstrap Dropdown menu on deliberate selection click
       if (shouldToggleOn) {
-        // Method 2: Bulletproof Fallback (simulates clicking the toggle arrow again to force close)
-        if (menuButton.classList.contains('show')) {
+        // Fallback method to force drop menu shut across browsers
+        if (menuButton.classList.contains('show') || menuButton.getAttribute('aria-expanded') === 'true') {
           menuButton.click();
         }
       }
