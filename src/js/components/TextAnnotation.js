@@ -65,7 +65,10 @@ export default class TextAnnotation {
       return {
         fill: fillColor,
         stroke: fillColor, // Matches border to fill for Bootstrap-like consistency
-        strokeWidth: 2
+        strokeWidth: state.hovered ? 3 : 1.5, // Optional: Make the border thicker on hover
+    
+        // Default to 25% opacity (Bootstrap's bg-opacity-25), bump to 60% on hover
+        fillOpacity: state.hovered ? 0.6 : 0.30
       };
     });
 
