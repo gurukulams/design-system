@@ -176,3 +176,9 @@ ol {
   white-space: nowrap;
 }
 
+@media (min-width: 768px) {
+  .inner-section-header {
+    top: 70px !important; 
+    z-index: 1020;
+  }
+}
