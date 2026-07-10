@@ -1,0 +1,39 @@
+
+
+/* Base styling for the underline marker block */
+#colorPickerDropdownWrapper .underline-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 4px;
+    right: 4px;
+    height: 3px;
+    border-radius: 2px;
+    background-color: var(--bs-info);
+    transition: background-color 0.2s ease, opacity 0.15s ease;
+    
+    /* Hidden by default */
+    opacity: 0; 
+    pointer-events: none;
+  }
+  
+  /* CRITICAL: Only show the line when the checkbox button is :checked */
+  #notes-pencil-toggle:checked ~ .underline-indicator {
+    opacity: 1;
+  }
+  
+  /* Color swatch items inside dropdown layout */
+  .color-swatch {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    border: 1px solid rgba(0,0,0,0.15);
+  }
+  .color-swatch:hover {
+    transform: scale(1.15);
+  }
+  .color-swatch.active {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #212529;
+  }
+  

@@ -16,6 +16,19 @@ class DocsManager {
 
     const articleEl = document.getElementById("document-article");
 
+
+
+    this.handleNotes(articleEl);
+    
+
+    this.handleVideos();
+
+    this.handleScrolling(articleEl,
+        document.getElementById("document-article-toc"));
+
+  }
+
+  handleNotes(articleEl) {
     const nm = new NotesMaker(articleEl, (msg) => {
       console.log("NotesMaker Notification:", msg);
     });
@@ -24,12 +37,56 @@ class DocsManager {
       nm.setEditable(this.checked);
       console.log("Editor Enabled " + this.checked);
     });
-
-    this.handleVideos();
-
-    this.handleScrolling(articleEl,
-        document.getElementById("document-article-toc"));
-
+    const wrapper = document.getElementById('colorPickerDropdownWrapper');
+    const menuList = document.getElementById('presetColorsList');
+    const inputProxy = document.getElementById('noteLineCmb');
+    const toggleCheckbox = document.getElementById('notes-pencil-toggle');
+    const menuButton = document.getElementById('colorPickerMenuButton');
+    const indicator = wrapper ? wrapper.querySelector('.underline-indicator') : null;
+    
+    if (!wrapper || !menuList || !inputProxy || !indicator || !toggleCheckbox || !menuButton) return;
+  
+    const savedColor = sessionStorage.getItem("selectedNotesLine") || "#0dcaf0";
+  
+    const initialActive = menuList.querySelector(`[data-color="${savedColor}"]`);
+    if (initialActive) {
+      applySelectedColor(initialActive, false);
+    } else {
+      indicator.style.backgroundColor = savedColor;
+      inputProxy.value = savedColor;
+    }
+  
+    menuList.querySelectorAll('.color-swatch').forEach(swatch => {
+      swatch.addEventListener('click', function(e) {
+        e.stopPropagation(); 
+        applySelectedColor(this, true);
+      });
+    });
+  
+    function applySelectedColor(element, shouldToggleOn = false) {
+      menuList.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+      element.classList.add('active');
+      
+      const hexColor = element.getAttribute('data-color');
+      inputProxy.value = hexColor;
+      indicator.style.backgroundColor = hexColor;
+      
+      if (shouldToggleOn && !toggleCheckbox.checked) {
+        toggleCheckbox.checked = true;
+        toggleCheckbox.dispatchEvent(new Event('change'));
+      }
+      
+      sessionStorage.setItem("selectedNotesLine", hexColor);
+      inputProxy.dispatchEvent(new Event('change'));
+  
+      // Explicitly hide the Bootstrap Dropdown menu on deliberate selection click
+      if (shouldToggleOn) {
+        // Method 2: Bulletproof Fallback (simulates clicking the toggle arrow again to force close)
+        if (menuButton.classList.contains('show')) {
+          menuButton.click();
+        }
+      }
+    }
   }
 
   handleVideos() {
