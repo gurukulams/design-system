@@ -1,13 +1,101 @@
 <table class="table table-bordered table-striped table-hover">
-    <thead>
-      {{- range .THead -}}
-        <tr>
-          {{- range . -}}
-            <th>{{ .Text }}</th>
-          {{- end -}}
-        </tr>
-      {{- end -}}
-    </thead>
+{{/* Detect whether any header uses :: */}}
+{{ $merged := false }}
+
+{{ range .THead }}
+  {{ range . }}
+    {{ if in .Text "::" }}
+      {{ $merged = true }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+<thead>
+
+{{ if not $merged }}
+
+  {{ range .THead }}
+  <tr>
+    {{ range . }}
+      <th>{{ .Text }}</th>
+    {{ end }}
+  </tr>
+  {{ end }}
+
+{{ else }}
+
+<tr>
+
+{{ $headers := index .THead 0 }}
+
+{{ $current := "" }}
+{{ $count := 0 }}
+
+{{ range $i, $h := $headers }}
+
+    {{ $text := $h.Text }}
+
+    {{ if in $text "::" }}
+
+        {{ $parts := split $text "::" }}
+        {{ $parent := index $parts 0 }}
+
+        {{ if eq $current "" }}
+            {{ $current = $parent }}
+            {{ $count = 1 }}
+
+        {{ else if eq $current $parent }}
+
+            {{ $count = add $count 1 }}
+
+        {{ else }}
+
+            <th colspan="{{ $count }}">{{ $current }}</th>
+
+            {{ $current = $parent }}
+            {{ $count = 1 }}
+
+        {{ end }}
+
+    {{ else }}
+
+        {{ if gt $count 0 }}
+            <th colspan="{{ $count }}">{{ $current }}</th>
+            {{ $count = 0 }}
+            {{ $current = "" }}
+        {{ end }}
+
+        <th rowspan="2">{{ $text }}</th>
+
+    {{ end }}
+
+{{ end }}
+
+{{ if gt $count 0 }}
+<th colspan="{{ $count }}">{{ $current }}</th>
+{{ end }}
+
+</tr>
+
+<tr>
+
+{{ range $headers }}
+
+    {{ if in .Text "::" }}
+
+        {{ $parts := split .Text "::" }}
+
+        <th>{{ index $parts 1 }}</th>
+
+    {{ end }}
+
+{{ end }}
+
+</tr>
+
+{{ end }}
+
+</thead>
     <tbody>
       {{- range .TBody -}}
         <tr>
