@@ -182,3 +182,15 @@ ol {
     z-index: 1020;
   }
 }
+
+/* Universal Bootstrap 5 override for ANY fullscreen element */
+:fullscreen {
+  background-color: var(--bs-body-bg, #ffffff) !important;
+  color: var(--bs-body-color, #212529) !important;
+}
+
+/* Safari variant */
+:-webkit-full-screen {
+  background-color: var(--bs-body-bg, #ffffff) !important;
+  color: var(--bs-body-color, #212529) !important;
+}
