@@ -28,7 +28,32 @@ aria-labelledby="referencepanelLabel">
   <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 </div>
 <div class="offcanvas-body">
-  {{ partial "docs/docs-references-listing" . }}
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs justify-content-center border-bottom-0" id="resourceTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active px-4 py-2 fw-semibold" id="web-tab" data-bs-toggle="tab" data-bs-target="#web-content" type="button" role="tab" aria-controls="web-content" aria-selected="true">
+          <i class="bi bi-globe me-2"></i>Web
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link px-4 py-2 fw-semibold" id="books-tab" data-bs-toggle="tab" data-bs-target="#books-content" type="button" role="tab" aria-controls="books-content" aria-selected="false">
+          <i class="bi bi-book me-2"></i>Books
+        </button>
+      </li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content border rounded-3 p-4 shadow-sm" id="resourceTabsContent">
+      <!-- Web Content Pane -->
+      <div class="tab-pane fade show active" id="web-content" role="tabpanel" aria-labelledby="web-tab">
+        {{ partial "docs/docs-references-listing" . }}
+      </div>
+      
+      <!-- Books Content Pane -->
+      <div class="tab-pane fade" id="books-content" role="tabpanel" aria-labelledby="books-tab">
+        {{ partial "docs/docs-books-listing" . }}
+      </div>
+    </div>
+  
 </div>
 </div>
 
@@ -118,26 +143,7 @@ aria-labelledby="videopanelLabel">
 </div>
 </div>
 
-<div
-class="offcanvas offcanvas-end"
-tabindex="-1"
-id="bookspanel"
-data-bs-keyboard="false"
-data-bs-backdrop="false"
-aria-labelledby="bookspanelLabel">
-<div class="offcanvas-header">
-  <h5 class="offcanvas-title" id="bookspanelLabel">{{ partial "docs/text/i18n" "Books" }}</h5>
-  <button
-    type="button"
-    class="btn-close"
-    data-bs-dismiss="offcanvas"
-    aria-label="Close"
-  ></button>
-</div>
-<div class="offcanvas-body">
-  {{ partial "docs/docs-books-listing" . }}
-</div>
-</div>
+
 
 <script>
   // Your login function
