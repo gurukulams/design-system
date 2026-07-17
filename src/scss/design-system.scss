@@ -187,10 +187,18 @@ ol {
 :fullscreen {
   background-color: var(--bs-body-bg, #ffffff) !important;
   color: var(--bs-body-color, #212529) !important;
+  
+  /* Re-enables scrolling inside the full-screen element */
+  overflow-y: auto !important; 
+  height: 100vh !important;
 }
 
 /* Safari variant */
 :-webkit-full-screen {
   background-color: var(--bs-body-bg, #ffffff) !important;
   color: var(--bs-body-color, #212529) !important;
+  
+  /* Re-enables scrolling inside the full-screen element */
+  overflow-y: auto !important;
+  height: 100vh !important;
 }
