@@ -203,3 +203,22 @@ ol {
   overflow-y: auto !important;
   height: 100vh !important;
 }
+
+#document-article-toc>.sticky-top {
+  position: fixed;
+    /* Aligns the fixed box down below your top navigation bar */
+    top: 8rem; 
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    
+    /* FIX 1: Stretches the background color all the way to the bottom of the screen */
+    height: calc(100vh - 10.5rem);
+    background-color: var(--bs-light-subtle);
+    
+    /* Limits width to match its parent Bootstrap column */
+    width: inherit;
+    max-width: 360px; 
+    
+    /* FIX 2: Restricts only the text inside to scroll if it gets too long */
+    overflow-y: auto;
+}
