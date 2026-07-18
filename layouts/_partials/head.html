@@ -30,9 +30,20 @@
       <link rel="manifest" href="{{ $manifest.RelPermalink }}">
     {{ end }}
 
-    {{- range .Translations }}
-      <link rel="alternate" hreflang="{{ default .Site.LanguageCode .Language.Lang }}" href="{{ .Permalink }}" title="{{ partial "utils/title" . }}">
-    {{- end -}}
+    {{ if .IsTranslated }}
+    <!-- 1. The primary canonical version (Optional fallback for engines like Google) -->
+    {{ range first 1 .AllTranslations }}
+      <link rel="alternate" hreflang="x-default" href="{{ .Permalink }}" />
+    {{ end }}
+  
+    <!-- 2. Loop through all language variations, including the current page -->
+    {{ range .AllTranslations }}
+      <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}" />
+    {{ end }}
+  {{ end }}
+  
+  <!-- 3. Standard self-canonical element -->
+  <link rel="canonical" href="{{ .Permalink }}"><link rel="alternate" hreflang="en" href="http://localhost:1234/design-system/docs/documentation/" /> 
     
     {{/* Logo and SVG Assets (Can be used for OpenGraph or Schema) */}}
     {{ $logo := resources.Get "logo_full.svg" }}
