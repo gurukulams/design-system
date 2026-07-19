@@ -17,18 +17,120 @@
               {{ end }}
             </ul>
           </div>
-          <!-- Main Artcle -->
-          <article class="main-article">
-            {{ .Content }}
-          </article>
+          <!-- Main Article (Takes full width by default, scales down when shared) -->
+  <article class="w-100">
+    {{ .Content }}
+  </article>
 
-          <!-- Translated Artcle -->
-          <article class="side-article">
-            Side Content
-          </article>
+  <!-- Side Article (Hidden by default on normal screens) -->
+  <article class="side-article w-100">
+    Side Content
+  </article>
           
         </section>
   
         {{ partial "toc.html" . }}
     </div>
 </div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const dropdown = document.getElementById("fullscreen-translate-dropdown");
+    const container = document.getElementById("article-container");
+    
+    if (!dropdown || !container) return;
+  
+    // Locate the actual trigger button inside the dropdown container wrapper
+    const triggerBtn = dropdown.querySelector("button") || dropdown;
+    const toggleIcon = dropdown.querySelector("i.bi");
+    dropdown.addEventListener("click", async (e) => {
+      // 1. CLOSE TRACKER: If close icon 'X' is active, close the layout split
+      if (toggleIcon && toggleIcon.classList.contains("bi-x-lg")) {
+        e.preventDefault();
+        e.stopPropagation();
+        container.classList.remove("split-active");
+        toggleIcon.classList.remove("bi-x-lg");
+        toggleIcon.classList.add("bi-translate");
+        return;
+      }
+    
+      // 2. OPEN TRACKER: Intercept click on language link
+      const selectedLangItem = e.target.closest(".dropdown-item");
+      if (!selectedLangItem) return;
+    
+      e.preventDefault(); // Stop standard page navigation
+    
+      const targetUrl = selectedLangItem.getAttribute("href");
+      const languageName = selectedLangItem.textContent.trim();
+      const sideArticle = container.querySelector(".side-article");
+    
+      if (!sideArticle || !targetUrl) return;
+    
+      // Render temporary Bootstrap spinner loading UI
+      sideArticle.innerHTML = `
+        <div class="d-flex flex-column align-items-center justify-content-center h-100 p-5 text-muted">
+          <div class="spinner-border text-primary mb-3" role="status"></div>
+          <p>Loading ${languageName} translation...</p>
+        </div>
+      `;
+    
+      // Turn on CSS splits and change button icons
+      container.classList.add("split-active");
+      if (toggleIcon) {
+        toggleIcon.classList.remove("bi-translate");
+        toggleIcon.classList.add("bi-x-lg"); 
+      }
+    
+      // Engage browser native fullscreen layout
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        container.requestFullscreen?.() || container.webkitRequestFullscreen?.();
+      }
+    
+      // 3. THE LIVE ASYNC FETCH & INJECTION
+      try {
+        const response = await fetch(targetUrl);
+        if (!response.ok) throw new Error("Network response failed.");
+    
+        const htmlString = await response.text();
+        
+        // Parse the retrieved text string into an actionable DOM document object
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlString, "text/html");
+        
+        // Extract the exact core target node from the foreign translation page
+        const remoteMainContent = doc.querySelector(".main-content-panel") || doc.querySelector("article");
+    
+        if (remoteMainContent) {
+          sideArticle.innerHTML = remoteMainContent.innerHTML;
+        } else {
+          sideArticle.innerHTML = `<div class="alert alert-warning m-3">Could not locate main article container on fetched page.</div>`;
+        }
+      } catch (error) {
+        console.error("Translation Fetch Error:", error);
+        sideArticle.innerHTML = `<div class="alert alert-danger m-3">Failed to load translation data.</div>`;
+      }
+    });
+    // Helper function to force reset UI elements back to standard defaults
+    const resetUIElements = () => {
+      container.classList.remove("split-active");
+      if (toggleIcon) {
+        toggleIcon.classList.remove("bi-x-lg");
+        toggleIcon.classList.add("bi-translate");
+      }
+    };
+  
+    // Cleanup: If the user presses 'ESC' to exit fullscreen completely, reset the layout state
+    document.addEventListener("fullscreenchange", () => {
+      if (!document.fullscreenElement) {
+        resetUIElements();
+      }
+    });
+    
+    document.addEventListener("webkitfullscreenchange", () => {
+      if (!document.webkitFullscreenElement) {
+        resetUIElements();
+      }
+    });
+  });
+</script>

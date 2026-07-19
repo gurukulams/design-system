@@ -301,32 +301,38 @@ ol {
 /* ==========================================================================
    1. NORMAL SCREEN MODE
    ========================================================================== */
-/* Hide the second article (Translated Article) by default */
-#article-container > article:nth-of-type(2) {
-  display: none;
+   #article-container .side-article {
+    display: none;
 }
 
 /* ==========================================================================
- 2. FULLSCREEN MODE (Triggers automatically via browser API)
- ========================================================================== */
-:fullscreen#article-container,
-:-webkit-full-screen#article-container {
-  display: grid !important;
-  /* Create two identical columns taking up exactly 50% of available space */
-  grid-template-columns: 1fr 1fr !important; 
-  gap: 3rem !important;
-  align-items: start !important;
-  padding: 3rem !important;
-  
-  /* Fullscreen fixes: Inherit app theme colors & allow long articles to scroll */
-  background-color: var(--bs-body-bg, #ffffff) !important;
-  color: var(--bs-body-color, #212529) !important;
-  overflow-y: auto !important;
-  box-sizing: border-box !important;
+   2. BOOTSTRAP 5 SIMPLIFIED FULLSCREEN MODE (Hidden by default)
+   ========================================================================== */
+   #article-container:fullscreen {
+    /* Kept as block by default so Main Article expands to full space natively */
+    display: block !important;
+    padding: 3rem !important;
+    background-color: var(--bs-body-bg, #ffffff) !important;
+    color: var(--bs-body-color, #212529) !important;
+    overflow-y: auto !important;
 }
 
-/* Make the second article visible when the container goes fullscreen */
-:fullscreen#article-container > article:nth-of-type(2),
-:-webkit-full-screen#article-container > article:nth-of-type(2) {
-  display: block !important;
+/* By default in fullscreen, hide the side article */
+#article-container:fullscreen .side-article {
+    display: none;
 }
+
+/* ==========================================================================
+   3. ACTIVE TOGGLE STATE (Triggered only via JS checkbox)
+   ========================================================================== */
+#article-container:fullscreen.split-active {
+    display: flex !important; /* Switch to flex layout only when activated */
+    gap: 3rem !important;
+    align-items: flex-start !important;
+}
+
+/* Show the side article and force equal sizing under the active flex state */
+#article-container:fullscreen.split-active .side-article {
+    display: block !important;
+}
+
