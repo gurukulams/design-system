@@ -1,6 +1,21 @@
 <div class="container-fluid px-4">
     <div class="row">
         <article id="document-article" class="col-lg-9 py-4 pe-lg-5">
+          <div id="fullscreen-translate-dropdown" class="dropdown">
+            <button class="btn rounded-circle shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Translate">
+              <i class="bi bi-translate"></i>
+            </button>
+            
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+              {{ range .Translations }}
+              <li>
+                <a class="dropdown-item" data-code="{{ .Language.Lang }}" href="{{ .Permalink }}">
+                  {{ .Language.LanguageName }}
+                </a>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
           {{ .Content }}
         </article>
   

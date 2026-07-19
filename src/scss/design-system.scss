@@ -222,3 +222,78 @@ ol {
     /* FIX 2: Restricts only the text inside to scroll if it gets too long */
     overflow-y: auto;
 }
+
+
+/* 1. Hide the dropdown wrapper by default in normal screen mode */
+#fullscreen-translate-dropdown {
+  display: none;
+  position: fixed;
+  top: 4.5rem;
+  right: 1.5rem;
+  z-index: 9999; /* Ensures it layers above your fullscreen presentation elements */
+}
+
+/* Perfect alignment for the round toggle button */
+#fullscreen-translate-dropdown button {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+/* Adjust dropdown position slightly downward so it doesn't clip off the screen edge */
+#fullscreen-translate-dropdown .dropdown-menu {
+  margin-top: 0.5rem !important;
+}
+
+/* 2. Display the element ONLY when the browser goes into fullscreen mode */
+:fullscreen #fullscreen-translate-dropdown {
+  display: block;
+}
+
+/* Vendor engine fallbacks for older browsers */
+:-webkit-full-screen #fullscreen-translate-dropdown {
+  display: block;
+}
+:-ms-fullscreen #fullscreen-translate-dropdown {
+  display: block;
+}
+
+/* ==========================================================
+   HOVER EFFECTS FOR FULLSCREEN TRANSLATE DROPDOWN
+   ========================================================== */
+
+/* 1. Main Floating Button Hover & Active States */
+#fullscreen-translate-dropdown button {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+#fullscreen-translate-dropdown button:hover {
+  transform: scale(1.08); /* Subtle pop-out animation */
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.25) !important; /* Deeper shadow on hover */
+}
+
+#fullscreen-translate-dropdown button:active {
+  transform: scale(0.95); /* Slight click feedback */
+}
+
+/* 2. Dropdown Menu Item Hover States */
+#fullscreen-translate-dropdown .dropdown-item {
+  padding: 0.5rem 1.25rem;
+  transition: background-color 0.15s ease, color 0.15s ease, padding-left 0.15s ease;
+}
+
+/* Smooth shift and highlight when hovering over language choices */
+#fullscreen-translate-dropdown .dropdown-item:hover {
+  background-color: var(--bs-primary-bg-subtle, #e9ecef); 
+  color: var(--bs-primary, #0d6efd);
+  padding-left: 1.5rem; /* Subtle slide-right effect */
+}
