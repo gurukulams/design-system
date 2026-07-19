@@ -297,3 +297,36 @@ ol {
   color: var(--bs-primary, #0d6efd);
   padding-left: 1.5rem; /* Subtle slide-right effect */
 }
+
+/* ==========================================================================
+   1. NORMAL SCREEN MODE
+   ========================================================================== */
+/* Hide the second article (Translated Article) by default */
+#article-container > article:nth-of-type(2) {
+  display: none;
+}
+
+/* ==========================================================================
+ 2. FULLSCREEN MODE (Triggers automatically via browser API)
+ ========================================================================== */
+:fullscreen#article-container,
+:-webkit-full-screen#article-container {
+  display: grid !important;
+  /* Create two identical columns taking up exactly 50% of available space */
+  grid-template-columns: 1fr 1fr !important; 
+  gap: 3rem !important;
+  align-items: start !important;
+  padding: 3rem !important;
+  
+  /* Fullscreen fixes: Inherit app theme colors & allow long articles to scroll */
+  background-color: var(--bs-body-bg, #ffffff) !important;
+  color: var(--bs-body-color, #212529) !important;
+  overflow-y: auto !important;
+  box-sizing: border-box !important;
+}
+
+/* Make the second article visible when the container goes fullscreen */
+:fullscreen#article-container > article:nth-of-type(2),
+:-webkit-full-screen#article-container > article:nth-of-type(2) {
+  display: block !important;
+}

@@ -14,22 +14,22 @@ class DocsManager {
         searchInput.focus();
     });
 
-    const articleEl = document.getElementById("document-article");
+    const articleContainer = document.getElementById("article-container");
 
 
 
-    this.handleNotes(articleEl);
+    this.handleNotes(articleContainer);
     
 
     this.handleVideos();
 
-    this.handleScrolling(articleEl,
-        document.getElementById("document-article-toc"));
+    this.handleScrolling(articleContainer,
+        document.getElementById("article-container-toc"));
 
   }
 
-  handleNotes(articleEl) {
-    const nm = new NotesMaker(articleEl, (msg) => {
+  handleNotes(articleContainer) {
+    const nm = new NotesMaker(articleContainer, (msg) => {
       console.log("NotesMaker Notification:", msg);
     });
     const pencilToggle = document.getElementById("notes-pencil-toggle");
@@ -226,7 +226,7 @@ class DocsManager {
     });
   }
 
-  handleScrolling(articleEl, asideEl) {
+  handleScrolling(articleContainer, asideEl) {
     // A flag to keep track of whether a sidebar click is currently driving the scroll position
     this.isClickScrolling = false;
     this.clickTimeout = null;
@@ -235,7 +235,7 @@ class DocsManager {
         this.setActiveHeading(asideEl, window.location.hash);
     }
 
-    const headings = articleEl.querySelectorAll('h1, h2, h3');
+    const headings = articleContainer.querySelectorAll('h1, h2, h3');
   
     const options = {
       rootMargin: '0px 0px -75% 0px',
@@ -288,7 +288,7 @@ class DocsManager {
       setActiveAnchor(link);
     });
 
-    const articleLinks = articleEl.querySelectorAll(
+    const articleLinks = articleContainer.querySelectorAll(
       'h1 a.anchor, h2 a.anchor, h3 a.anchor, h4 a.anchor, h5 a.anchor, h6 a.anchor'
     );
     

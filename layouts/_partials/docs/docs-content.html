@@ -1,7 +1,8 @@
 <div class="container-fluid px-4">
     <div class="row">
-        <article id="document-article" class="col-lg-9 py-4 pe-lg-5">
-          <div id="fullscreen-translate-dropdown" class="dropdown">
+        <section id="article-container" class="col-lg-9 py-4 pe-lg-5">
+          <div id="fullscreen-translate-dropdown">
+
             <button class="btn rounded-circle shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Translate">
               <i class="bi bi-translate"></i>
             </button>
@@ -16,8 +17,17 @@
               {{ end }}
             </ul>
           </div>
-          {{ .Content }}
-        </article>
+          <!-- Main Artcle -->
+          <article class="main-article">
+            {{ .Content }}
+          </article>
+
+          <!-- Translated Artcle -->
+          <article class="side-article">
+            Side Content
+          </article>
+          
+        </section>
   
         {{ partial "toc.html" . }}
     </div>
