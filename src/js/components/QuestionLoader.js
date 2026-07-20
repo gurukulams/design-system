@@ -22,7 +22,34 @@ export default class QuestionLoader {
           this.buildInstance(modeSelect.value);
         });
 
-
+        document.querySelectorAll('.repo-select-item').forEach(item => {
+          item.addEventListener('click', function () {
+      
+              const name = this.dataset.name;
+              const img = this.querySelector('img').src;
+      
+              // Update button avatar
+              const avatar = document.getElementById('repoSelectedAvatar');
+              avatar.src = img;
+              avatar.alt = name;
+      
+              // Update button title
+              const btn = document.getElementById('repoDropdownBtn');
+              btn.title = name;
+              btn.setAttribute('aria-label', name);
+    
+      
+              // Optional: mark selected item
+              document.querySelectorAll('.repo-select-item')
+                  .forEach(el => el.classList.remove('active'));
+      
+              this.classList.add('active');
+      
+              // Show reset badge if needed
+              document.getElementById('repoResetBadge')
+                  .classList.remove('d-none');
+          });
+      });
     }
 
     buildInstance(mode) {
