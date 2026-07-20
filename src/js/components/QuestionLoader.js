@@ -44,10 +44,6 @@ export default class QuestionLoader {
                   .forEach(el => el.classList.remove('active'));
       
               this.classList.add('active');
-      
-              // Show reset badge if needed
-              document.getElementById('repoResetBadge')
-                  .classList.remove('d-none');
           });
       });
     }
