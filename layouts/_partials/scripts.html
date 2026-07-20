@@ -86,6 +86,24 @@ aria-labelledby="practicepanelLabel"
   
     <!-- Dropdown Menu Options -->
     <ul class="dropdown-menu dropdown-menu-end shadow border-0" id="repoDropdownMenu">
+      <li>
+        <a class="dropdown-item d-flex align-items-center gap-3 py-2 repo-select-item d-none" 
+           href="javascript://"
+           data-bs-toggle="tooltip" 
+           data-bs-placement="left" 
+           title="Book back Questions">
+          
+          <img src="{{ if .Site.Params.GithubOrg }}https://github.com/{{ .Site.Params.GithubOrg }}.png{{ else }}{{ "apple-touch-icon.png" | relURL }}{{ end }}" 
+               class="rounded-circle border border-secondary-subtle" 
+               width="24" 
+               height="24"
+               loading="lazy"
+               alt="">
+
+
+          <span class="small text-monospace">Book back Questions</span>
+        </a>
+      </li>
       {{ range .Site.Params.question_repositories }}
       <li>
         <a class="dropdown-item d-flex align-items-center gap-3 py-2 repo-select-item" 

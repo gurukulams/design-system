@@ -41,9 +41,9 @@ export default class QuestionLoader {
       
               // Optional: mark selected item
               document.querySelectorAll('.repo-select-item')
-                  .forEach(el => el.classList.remove('active'));
+                  .forEach(el => el.classList.remove('d-none'));
       
-              this.classList.add('active');
+              this.classList.add('d-none');
           });
       });
     }
