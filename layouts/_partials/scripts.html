@@ -66,7 +66,63 @@ id="practicepanel"
 aria-labelledby="practicepanelLabel"
 >
 <div class="offcanvas-header d-flex align-items-center">
-  <h5 class="offcanvas-title mb-0" id="practicepanelLabel">
+  {{ if .Site.Params.question_repositories }}
+  <!-- CONDITIONAL PATH A: Repositories exist -> Render interactive Dropdown -->
+  <div class="dropdown" id="question-repo-dropdown-wrapper">
+    <button class="btn btn-outline-secondary d-flex align-items-center justify-content-center p-0 rounded-circle shadow-sm position-relative overflow-hidden" 
+            type="button" 
+            id="repoDropdownBtn"
+            data-bs-toggle="dropdown" 
+            aria-expanded="false"
+            style="width: 40px; height: 40px;">
+      
+      <!-- Profile Avatar (Fills the entire 40x40px circle) -->
+      <img id="repoSelectedAvatar" 
+           src="{{ if .Site.Params.GithubOrg }}https://github.com/{{ .Site.Params.GithubOrg }}.png{{ else }}{{ "apple-touch-icon.png" | relURL }}{{ end }}" 
+           class="rounded-circle w-100 h-100 object-fit-cover"
+           alt="avatar">
+
+      <!-- Visual indicator for active reset option (hidden by default) -->
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger p-1 d-none" id="repoResetBadge" style="font-size: 0.5rem; z-index: 2;">
+        <i class="bi bi-x-lg text-white"></i>
+      </span>
+    </button>
+  
+    <!-- Dropdown Menu Options -->
+    <ul class="dropdown-menu dropdown-menu-end shadow border-0" id="repoDropdownMenu">
+      {{ range .Site.Params.question_repositories }}
+      <li>
+        <a class="dropdown-item d-flex align-items-center gap-3 py-2 repo-select-item" 
+           href="javascript://"
+           data-handle="{{ .githubhandle }}"
+           data-name="{{ .name }}"
+           data-bs-toggle="tooltip" 
+           data-bs-placement="left" 
+           title="{{ .name }}">
+          
+          <img src="https://github.com/{{ .githubhandle }}.png?size=40" 
+               class="rounded-circle border border-secondary-subtle" 
+               width="24" 
+               height="24"
+               loading="lazy"
+               alt="">
+               
+          <span class="small text-monospace">{{ .name }}</span>
+        </a>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+
+{{ else }}
+  <!-- CONDITIONAL PATH B: No Repositories -> Render plain static profile image -->
+  <div class="d-inline-block rounded-circle shadow-sm border border-secondary-subtle overflow-hidden" style="width: 40px; height: 40px;">
+    <img src="{{ if .Site.Params.GithubOrg }}https://github.com/{{ .Site.Params.GithubOrg }}.png{{ else }}{{ "apple-touch-icon.png" | relURL }}{{ end }}" 
+         class="w-100 h-100 object-fit-cover"
+         alt="avatar">
+  </div>
+{{ end }}
+  <h5 class="offcanvas-title mb-0 ms-2" id="practicepanelLabel">
     {{ partial "docs/text/i18n" "Practices" }}
   </h5>
 

@@ -51,7 +51,15 @@ getenv = ['^HUGO_','CONTEXT','BUILD_PRODUCTION']
 
 [params]
   LoginMode = "Google" ## Google, Github
+  [[params.question_repositories]]
+    githubhandle = "torvalds"
+    name = "Linux Kernel Questions"
+    url = "http://localhost:1234/design-system/docs/documentation/kernel"
 
+  [[params.question_repositories]]
+    githubhandle = "twbs"
+    name = "Bootstrap Main Repo"
+    url = "http://localhost:1234/design-system/docs/documentation/bootstrap"
 
 [menu]
 
