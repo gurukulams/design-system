@@ -80,7 +80,8 @@ aria-labelledby="practicepanelLabel"
       <img id="repoSelectedAvatar" 
            src="{{ if .Site.Params.GithubOrg }}https://github.com/{{ .Site.Params.GithubOrg }}.png{{ else }}{{ "apple-touch-icon.png" | relURL }}{{ end }}" 
            class="rounded-circle w-100 h-100 object-fit-cover"
-           alt="avatar">
+           alt="avatar"
+           data-baseUrl="{{ site.Home.RelPermalink }}">
 
     </button>
   
@@ -98,7 +99,8 @@ aria-labelledby="practicepanelLabel"
                width="24" 
                height="24"
                loading="lazy"
-               alt="">
+               alt=""
+               data-baseUrl="{{ site.Home.RelPermalink }}">
 
 
           <span class="small text-monospace">Book back Questions</span>
@@ -119,7 +121,8 @@ aria-labelledby="practicepanelLabel"
                width="24" 
                height="24"
                loading="lazy"
-               alt="">
+               alt=""
+               data-baseUrl="{{ .url }}">
                
           <span class="small text-monospace">{{ .name }}</span>
         </a>

@@ -23,15 +23,17 @@ export default class QuestionLoader {
         });
 
         document.querySelectorAll('.repo-select-item').forEach(item => {
-          item.addEventListener('click', function () {
+          item.addEventListener('click', (e) => {
       
-              const name = this.dataset.name;
-              const img = this.querySelector('img').src;
+              const name = item.dataset.name;
+              const img = item.querySelector('img').src;
+              const baseUrl = item.querySelector('img').dataset.baseurl;
       
               // Update button avatar
               const avatar = document.getElementById('repoSelectedAvatar');
               avatar.src = img;
               avatar.alt = name;
+              avatar.dataset.baseurl = baseUrl;
       
               // Update button title
               const btn = document.getElementById('repoDropdownBtn');
@@ -43,7 +45,9 @@ export default class QuestionLoader {
               document.querySelectorAll('.repo-select-item')
                   .forEach(el => el.classList.remove('d-none'));
       
-              this.classList.add('d-none');
+              item.classList.add('d-none');
+
+              this.buildInstance(modeSelect.value);
           });
       });
     }
@@ -70,8 +74,8 @@ export default class QuestionLoader {
         );
 
         let baseUrl = document
-        .querySelector("body > header > nav > div > div.d-flex.align-items-center > div > a")
-        .href;
+        .getElementById("repoSelectedAvatar")
+        .dataset.baseurl;
 
         console.log("base Url is " + baseUrl);
 
