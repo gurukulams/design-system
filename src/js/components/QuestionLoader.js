@@ -22,32 +22,68 @@ export default class QuestionLoader {
           this.buildInstance(modeSelect.value);
         });
 
+        
+
+        const setupRepo = (item) => {
+          
+          const name = item.dataset.name;
+          const img = item.querySelector('img').src;
+          const baseUrl = item.querySelector('img').dataset.baseurl;
+
+          sessionStorage.setItem('q-repo', name)
+  
+          // Update button avatar
+          const avatar = document.getElementById('repoSelectedAvatar');
+          avatar.src = img;
+          avatar.alt = name;
+          avatar.dataset.baseurl = baseUrl;
+  
+          // Update button title
+          const btn = document.getElementById('repoDropdownBtn');
+          btn.title = name;
+          btn.setAttribute('aria-label', name);
+
+  
+          // Optional: mark selected item
+          document.querySelectorAll('.repo-select-item')
+              .forEach(el => el.classList.remove('d-none'));
+  
+          item.classList.add('d-none');
+
+          this.buildInstance(modeSelect.value);
+        };
+
+        const getSelectedRepo = (reposName) => {
+          const menu = document.getElementById("repoDropdownMenu");
+          if (!menu) return null;
+        
+          // Query all dropdown items
+          const items = menu.querySelectorAll(".repo-select-item");
+        
+          for (const item of items) {
+            const text = item.querySelector("span")?.textContent.trim();
+            const title = item.getAttribute("title");
+            const name = item.getAttribute("data-name");
+        
+            // Check if reposName matches span text, title, or data-name attribute
+            if (text === reposName || title === reposName || name === reposName) {
+              return item;
+            }
+          }
+        
+          return null;
+        }
+
+        const repoName = sessionStorage.getItem('q-repo');
+        if(repoName) {
+          const item = getSelectedRepo(sessionStorage.getItem('q-repo'));
+          setupRepo(item);
+        }
+        
+
         document.querySelectorAll('.repo-select-item').forEach(item => {
           item.addEventListener('click', (e) => {
-      
-              const name = item.dataset.name;
-              const img = item.querySelector('img').src;
-              const baseUrl = item.querySelector('img').dataset.baseurl;
-      
-              // Update button avatar
-              const avatar = document.getElementById('repoSelectedAvatar');
-              avatar.src = img;
-              avatar.alt = name;
-              avatar.dataset.baseurl = baseUrl;
-      
-              // Update button title
-              const btn = document.getElementById('repoDropdownBtn');
-              btn.title = name;
-              btn.setAttribute('aria-label', name);
-    
-      
-              // Optional: mark selected item
-              document.querySelectorAll('.repo-select-item')
-                  .forEach(el => el.classList.remove('d-none'));
-      
-              item.classList.add('d-none');
-
-              this.buildInstance(modeSelect.value);
+            setupRepo(item);
           });
       });
     }
