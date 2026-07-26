@@ -135,8 +135,10 @@ aria-labelledby="practicepanelLabel"
   <!-- CONDITIONAL PATH B: No Repositories -> Render plain static profile image -->
   <div class="d-inline-block rounded-circle shadow-sm border border-secondary-subtle overflow-hidden" style="width: 40px; height: 40px;">
     <img src="{{ if .Site.Params.GithubOrg }}https://github.com/{{ .Site.Params.GithubOrg }}.png{{ else }}{{ "apple-touch-icon.png" | relURL }}{{ end }}" 
-         class="w-100 h-100 object-fit-cover"
-         alt="avatar">
+    id="repoSelectedAvatar" 
+        class="w-100 h-100 object-fit-cover"
+         alt="avatar"
+         data-baseUrl="{{ site.Home.RelPermalink }}">
   </div>
 {{ end }}
   <h5 class="offcanvas-title mb-0 ms-2" id="practicepanelLabel">

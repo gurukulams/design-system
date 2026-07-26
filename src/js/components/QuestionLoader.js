@@ -77,7 +77,9 @@ export default class QuestionLoader {
         const repoName = sessionStorage.getItem('q-repo');
         if(repoName) {
           const item = getSelectedRepo(sessionStorage.getItem('q-repo'));
-          setupRepo(item);
+          if(item) {
+            setupRepo(item);
+          }
         }
         
 
