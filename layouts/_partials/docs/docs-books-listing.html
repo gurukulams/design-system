@@ -1,44 +1,48 @@
 {{ with .Params.references.books }}
-<section class="docs-book-sequence border-top">
-<br>
-    <ol class="list-unstyled p-0 m-0">
+<section class="docs-book-sequence border-top pt-4">
+    <ul class="list-unstyled p-0 m-0">
         {{ range $index, $element := . }}
             {{ range $key, $book := . }}
-            <li class="mb-4">
-                <div class="card border-1 h-100">
-                    <div class="card-body p-4">
-                        <div class="row align-items-center">
-                            <div class="col-auto">
-                                <div class="d-flex flex-column align-items-center">
-                                    <span class="text-primary fw-bold mb-1">{{ add $index 1 }}</span>
-                                    <div class="text-success rounded-3 p-3 shadow-sm">
-                                        <i class="bi bi-journal-bookmark-fill fs-3"></i>
-                                    </div>
-                                </div>
-                            </div>
+            <li class="mb-3">
+                <div class="card border h-100 shadow-sm">
+                    <div class="card-body p-3">
+                        <!-- Book Title (Linked if URL exists) -->
+                        <h5 class="card-title fw-bold mb-1" style="line-height: 1.4;">
+                            {{ if $book.url }}
+                            <a href="{{ $book.url }}" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-dark">
+                                {{ $book.title }}
+                            </a>
+                            {{ else }}
+                            {{ $book.title }}
+                            {{ end }}
+                        </h5>
 
-                            <div class="col ms-2">
-                                <h5 class="card-title fw-bold mb-2" style="line-height: 1.4;">
-                                    {{ $book.title }}
-                                </h5>
-                                <div class="d-flex flex-wrap gap-2 mb-3">
-                                    <span class="badge bg-body text-muted border">Hardcover / PDF</span>
-                                    <span class="badge bg-body text-muted border">Reference Material</span>
-                                </div>
-                                {{ if $book.url }}
-                                <a href="{{ $book.url }}" target="_blank" class="btn btn-outline-success btn-sm rounded-pill px-4 transition-all">
-                                    <i class="bi bi-box-arrow-up-right me-2"></i>View Source
-                                </a>
-                                {{ end }}
-                            </div>
+                        <!-- Authors -->
+                        {{ if $book.authors }}
+                        <p class="card-subtitle text-body-secondary mb-2 small fw-medium">
+                            {{ delimit $book.authors ", " " & " }}
+                        </p>
+                        {{ end }}
+
+                        <!-- Publisher & Edition Badges -->
+                        <div class="d-flex flex-wrap gap-2">
+                            {{ if $book.publisher }}
+                            <span class="badge bg-body-tertiary text-secondary border">
+                                {{ $book.publisher }}
+                            </span>
+                            {{ end }}
+
+                            {{ if $book.edition }}
+                            <span class="badge bg-body-tertiary text-secondary border">
+                                {{ $book.edition }}
+                            </span>
+                            {{ end }}
                         </div>
                     </div>
                 </div>
             </li>
             {{ end }}
         {{ end }}
-    </ol>
+    </ul>
 </section>
-
-
 {{ end }}

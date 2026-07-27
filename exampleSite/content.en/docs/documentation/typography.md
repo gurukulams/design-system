@@ -11,11 +11,33 @@ references:
         - "[W3C Typography Accessibility](https://www.w3.org/WAI/tutorials/page-structure/headings/)"
     books:
         - b1:
-            title: "The Elements of Typographic Style by Robert Bringhurst"
-            url: "https://en.wikipedia.org/wiki/The_Elements_of_Typographic_Style"
+            title: "On Web Typography"
+            authors:
+            - "Jason Santa Maria"
+            publisher: "A Book Apart"
+            url: "https://www.amazon.com/s?k=On+Web+Typography+Jason+Santa+Maria"
+
         - b2:
-            title: "Fundamentals of Sound and Vibration"
-            url: "http://people.bath.ac.uk/ensmjc/Notes/acoustics.pdf"
+            title: "Better Web Typography for a Better Web"
+            authors:
+            - "Matej Latin"
+            publisher: "Self-Published"
+            edition: "2nd Edition"
+            url: "https://www.amazon.com/s?k=Better+Web+Typography+for+a+Better+Web+Matej+Latin"
+
+        - b3:
+            title: "CSS Fonts: Web Typography Possibilities"
+            authors:
+            - "Eric A. Meyer"
+            publisher: "O'Reilly Media"
+
+        - b4:
+            title: "CSS Secrets: Better Solutions to Everyday Web Design Problems"
+            authors:
+            - "Lea Verou"
+            publisher: "O'Reilly Media"
+            edition: "1st Edition"
+            url: "https://www.amazon.com/s?k=CSS+Secrets+Lea+Verou"
 ---
 
 Typography is the art and technique of arranging type to make written language **legible, readable, and appealing**. In a technical design system like ours, typography serves three main purposes:
