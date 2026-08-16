@@ -35,8 +35,8 @@ You can open the brower with `http://localhost:1234/design-system`
 `@gurukulams/practice-js` updates flow in without manual intervention:
 
 ```
-practice-js: git push --tags  ->  publish-package.yml  ->  GitHub Packages
-                                                              |
+practice-js: bump version in package.json, git push to main  ->  publish-package.yml  ->  GitHub Packages
+                                                                                             |
 design-system: Dependabot (daily)  ->  bump PR  ->  ci.yml  ->  auto-merge  ->  Pages deploy
 ```
 
