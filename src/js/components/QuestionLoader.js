@@ -1,4 +1,4 @@
-import PracticeMaker from 'practice-js'
+import PracticeMaker from '@gurukulams/practice-js'
 
 
 export default class QuestionLoader {

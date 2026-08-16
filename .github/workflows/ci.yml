@@ -1,0 +1,67 @@
+name: CI
+
+# Validates pull requests without deploying. This is the gate that dependency
+# bumps (including @gurukulams/practice-js) must pass before auto-merge.
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '22.x'
+  HUGO_VERSION: '0.153.0'
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # Set at job level because package.json#postinstall runs the full build,
+    # so `npm ci` needs these too — not just the explicit build step.
+    env:
+      QUESTIONS_FOLDER: ${{ github.workspace }}/exampleSite/questions
+      PUBLIC_FOLDER: ${{ github.workspace }}/static
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v3
+      with:
+        hugo-version: ${{ env.HUGO_VERSION }}
+        extended: true
+
+    - name: Install dependencies
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: npm ci
+
+    - name: Build assets
+      run: npm run build
+
+    - name: Verify practice-js is bundled
+      run: |
+        # rollup resolves @gurukulams/practice-js into the docs bundle; if the
+        # dependency broke, the import survives the build as a bare specifier.
+        test -f assets/js/docs-bundle.js || { echo "::error::docs-bundle.js was not produced"; exit 1; }
+        if grep -q "from *['\"]@gurukulams/practice-js['\"]" assets/js/docs-bundle.js; then
+          echo "::error::@gurukulams/practice-js was left unresolved in the bundle"
+          exit 1
+        fi
+        if ! grep -q "PracticeMaker" assets/js/docs-bundle.js; then
+          echo "::error::PracticeMaker missing from the bundle"
+          exit 1
+        fi
+
+    - name: Build example site
+      env:
+        HUGO_PARAMS_LOGINMODE: ""
+      run: hugo -s exampleSite --themesDir ../.. --minify

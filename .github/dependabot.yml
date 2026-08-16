@@ -1,0 +1,29 @@
+version: 2
+
+# GitHub Packages requires auth even for public packages, so Dependabot needs its
+# own credential. Add a PAT with the read:packages scope as a *Dependabot* secret
+# named GURUKULAMS_PACKAGES_TOKEN:
+#   Settings -> Secrets and variables -> Dependabot -> New repository secret
+# (Actions secrets are a separate store and are NOT visible to Dependabot.)
+registries:
+  github-packages:
+    type: npm-registry
+    url: https://npm.pkg.github.com
+    token: ${{secrets.GURUKULAMS_PACKAGES_TOKEN}}
+
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    registries:
+      - github-packages
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "deps"
+    groups:
+      # Keep first-party bumps in their own PR so auto-merge can target them
+      # without dragging third-party upgrades along.
+      gurukulams:
+        patterns:
+          - "@gurukulams/*"
