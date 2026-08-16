@@ -7,9 +7,11 @@ on:
   # push:
   #   branches: ["main"]
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages,
+# plus read access to GitHub Packages for the theme's @gurukulams dependencies
 permissions:
   contents: read
+  packages: read
   pages: write
   id-token: write
 
@@ -51,14 +53,14 @@ jobs:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
           HUGO_ENVIRONMENT: production
           HUGO_PARAMS_GITHUBORG: ${{ github.repository_owner }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git submodule add -f https://github.com/gurukulams/design-system themes/design-system
-          rm themes/design-system/package-lock.json
-          export QUESTIONS_FOLDER="$PWD/questions" && export PUBLIC_FOLDER="$PWD/public" && npm i --prefix themes/design-system/
+          export QUESTIONS_FOLDER="$PWD/questions" && export PUBLIC_FOLDER="$PWD/public" && npm ci --prefix themes/design-system/
           hugo \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
-          npm i --prefix themes/design-system/
+          npm ci --prefix themes/design-system/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

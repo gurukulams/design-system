@@ -46,6 +46,6 @@
     "bootstrap-icons": "^1.13.1",
     "@popperjs/core": "^2.11.8",
     "openseadragon": "^6.0.2",
-    "practice-js": "github:gurukulams/practice-js"
+    "@gurukulams/practice-js": "^1.0.0"
   }
 }
