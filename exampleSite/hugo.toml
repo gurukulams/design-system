@@ -31,13 +31,13 @@ enableGitInfo = true
 [languages]
 [languages.en]
   title = 'Design System'
-  label = 'English'
+  languageName = 'English'
   contentDir = 'content.en'
   weight = 1
 
 [languages.ta]
   title = "வடிவமைப்பு"
-  label = 'தமிழ்'
+  languageName = 'தமிழ்'
   contentDir = 'content.ta'
   weight = 2
 
