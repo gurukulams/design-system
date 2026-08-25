@@ -5,7 +5,5 @@ exampleSite/public/
 resources/
 node_modules/
 
-assets/js
-assets/css
 static/data
 
