@@ -146,14 +146,18 @@ aria-labelledby="practicepanelLabel"
   </h5>
 
   <div class="ms-auto d-flex align-items-center gap-2">
+    <!-- Gear Button -->
+    <button id="settingsBtn" class="btn btn-outline-secondary btn-sm border-0" type="button" title="Settings">
+      <i class="bi bi-gear fs-5"></i>
+    </button>
     <div class="d-flex align-items-center gap-1">
-      <label
+      {{/*  <label
         class="form-label mb-0 text-nowrap small fw-semibold"
         for="modeSelect"
         data-i18n="modeLabel"
       >
         Mode
-      </label>
+      </label>  */}}
       <select
         class="form-select form-select-sm"
         id="modeSelect"
@@ -164,23 +168,7 @@ aria-labelledby="practicepanelLabel"
       </select>
     </div>
 
-    <div class="d-flex align-items-center gap-1">
-      <label
-        class="form-label mb-0 text-nowrap small fw-semibold"
-        for="complexityCmb"
-        data-i18n="modeLabel"
-      >
-        Complexity
-      </label>
-      <select id="complexityCmb" 
-      class="form-select form-select-sm"
-      aria-label="Default select example">
-        <option value="">Low</option>
-        <option value="M">Medium</option>
-        <option value="H">High</option>
-      </select>
 
-    </div>
 
     <button
       type="button"
@@ -201,6 +189,7 @@ aria-labelledby="practicepanelLabel"
       {{- end -}}
 <div  id="practice-container" data-practice-category="{{ (strings.TrimPrefix "/" $page) | safeURL }}" {{ if ne .Language.Lang "en" }}data-practice-lang="{{ .Language.Lang }}"{{ end }}  class="offcanvas-body">
 <p>Question and Options section</p>
+
 </div>
 </div>
 
@@ -218,7 +207,46 @@ aria-labelledby="videopanelLabel">
 </div>
 </div>
 
+<!-- Place this AT THE BOTTOM of your page (Outside the offcanvas container) -->
 
+<div id="settingsOverlay" 
+     class="d-none position-fixed top-50 start-50 translate-middle bg-body text-body border rounded shadow-lg p-3" 
+     style="z-index: 2000; min-width: 280px;">
+  
+  <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+    <h6 class="m-0 fw-bold">Settings</h6>
+    <button type="button" id="closeSettingsBtn" class="btn-close btn-sm" aria-label="Close"></button>
+  </div>
+
+  <div class="form-check mb-2">
+    <label
+      class="form-label mb-0 text-nowrap small fw-semibold"
+      for="complexityCmb"
+      data-i18n="modeLabel"
+    >
+      Complexity
+    </label>
+    <select id="complexityCmb" 
+    class="form-select form-select-sm"
+    aria-label="Default select example">
+      <option value="">Low</option>
+      <option value="M">Medium</option>
+      <option value="H">High</option>
+    </select>
+  </div>
+
+
+
+  {{/*  <div class="form-check mb-3">
+    <input class="form-check-input" type="checkbox" id="setting2">
+    <label class="form-check-label small" for="setting2">Setting 2</label>
+  </div>  */}}
+
+  {{/*  <div class="d-flex justify-content-end gap-2 pt-2 border-top">
+    <button type="button" id="cancelSettingsBtn" class="btn btn-sm btn-outline-secondary">Cancel</button>
+    <button type="button" id="applySettingsBtn" class="btn btn-sm btn-primary">Apply</button>
+  </div>  */}}
+</div>
 
 <script>
   // Your login function
@@ -346,4 +374,38 @@ const cleanUpExitBtn = () => {
 };
 document.addEventListener('fullscreenchange', cleanUpExitBtn);
 document.addEventListener('webkitfullscreenchange', cleanUpExitBtn);
+
+
+
+const settingsBtn = document.getElementById('settingsBtn');
+const settingsOverlay = document.getElementById('settingsOverlay');
+const closeSettingsBtn = document.getElementById('closeSettingsBtn');
+const cancelSettingsBtn = document.getElementById('cancelSettingsBtn');
+const applySettingsBtn = document.getElementById('applySettingsBtn');
+
+// Open panel
+settingsBtn.addEventListener('click', () => {
+  console.log("settingsBtn clicked")
+  settingsOverlay.classList.remove('d-none');
+});
+
+// Close functions
+const closeOverlay = () => {
+  settingsOverlay.classList.add('d-none');
+};
+
+closeSettingsBtn.addEventListener('click', closeOverlay);
+cancelSettingsBtn.addEventListener('click', closeOverlay);
+
+// Apply & Close
+applySettingsBtn.addEventListener('click', () => {
+  const setting1Val = document.getElementById('setting1').checked;
+  const setting2Val = document.getElementById('setting2').checked;
+
+  console.log("Setting 1:", setting1Val);
+  console.log("Setting 2:", setting2Val);
+
+  closeOverlay();
+});
+
 </script>
