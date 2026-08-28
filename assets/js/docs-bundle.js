@@ -40812,10 +40812,7 @@ class QuestionLoader {
           complexityCmb.value = savedComplexity;
         }
 
-        complexityCmb.addEventListener('change', () => {
-          sessionStorage.setItem("selectedComplexity", this.value);
-          this.buildInstance(modeSelect.value);
-        });
+
 
         
 
@@ -40883,15 +40880,51 @@ class QuestionLoader {
             setupRepo(item);
           });
       });
+
+      this.manageSettigs();
+    }
+
+    manageSettigs() {
+      const settingsBtn = document.getElementById('settingsBtn');
+      const settingsOverlay = document.getElementById('settingsOverlay');
+      const closeSettingsBtn = document.getElementById('closeSettingsBtn');
+      const cancelSettingsBtn = document.getElementById('cancelSettingsBtn');
+      const applySettingsBtn = document.getElementById('applySettingsBtn');
+
+      // Open panel
+      settingsBtn.addEventListener('click', () => {
+        console.log("settingsBtn clicked");
+        settingsOverlay.classList.remove('d-none');
+      });
+
+      // Close functions
+      const closeOverlay = () => {
+        settingsOverlay.classList.add('d-none');
+      };
+
+      closeSettingsBtn.addEventListener('click', closeOverlay);
+      cancelSettingsBtn.addEventListener('click', closeOverlay);
+
+      // Apply & Close
+      applySettingsBtn.addEventListener('click', () => {
+        
+        sessionStorage.setItem("selectedComplexity", document.getElementById("complexityCmb").value);
+        this.buildInstance(modeSelect.value);
+        closeOverlay();
+      });
     }
 
     buildInstance(mode) {
       const contentRoot = document.getElementById("practice-container");
         contentRoot.innerHTML = '';
-        var complexity = null;
+        var complexity = null, timer;
 
         if(document.getElementById("complexityCmb").value.trim() !== "") {
           complexity = document.getElementById("complexityCmb").value;
+        }
+
+        if(document.getElementById("timerInput").value.trim() !== "") {
+          timer = parseInt(document.getElementById('timerInput').value);
         }
 
         // Initialize your logic here
@@ -40900,6 +40933,7 @@ class QuestionLoader {
           { 
             "complexity":complexity,
             "mode":mode,
+            "timer": timer,
             "error":(message) => {
                 window.error(message);
             }
