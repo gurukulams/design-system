@@ -1,4 +1,6 @@
 ---
+tags:
+  - tech
 choices:
   - UI அமைப்பு (UI Layout)
   - தொகுதி தொகுப்பு (Module Bundling)

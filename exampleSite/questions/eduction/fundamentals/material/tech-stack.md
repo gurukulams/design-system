@@ -1,4 +1,6 @@
 ---
+tags:
+  - tech
 choices:
   - UI Layout
   - Module Bundling

@@ -1,5 +1,7 @@
 ---
 complexity: "M"
+tags:
+  - quality
 choices:
   - "![Guided](/docs/documentation/guru.jpeg)"
   - Focused
