@@ -11,8 +11,6 @@ This theme depends on [`@gurukulams/practice-js`](https://github.com/gurukulams/
 **Linux / macOS**
 ```bash
 export NODE_AUTH_TOKEN="<your PAT with read:packages>"
-export QUESTIONS_FOLDER="$PWD/exampleSite/questions"
-export PUBLIC_FOLDER="$PWD/static" 
 npm i
 npm run dev
 ```
@@ -20,8 +18,6 @@ npm run dev
 **Windows (Cmd)**
 ```bash
 set NODE_AUTH_TOKEN=<your PAT with read:packages>
-set QUESTIONS_FOLDER=%cd%\exampleSite\questions
-set PUBLIC_FOLDER=%cd%\static
 npm i
 npm run dev
 ```
