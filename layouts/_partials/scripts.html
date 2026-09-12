@@ -81,7 +81,7 @@ aria-labelledby="practicepanelLabel"
            src="{{ if .Site.Params.GithubOrg }}https://github.com/{{ .Site.Params.GithubOrg }}.png{{ else }}{{ "apple-touch-icon.png" | relURL }}{{ end }}" 
            class="rounded-circle w-100 h-100 object-fit-cover"
            alt="avatar"
-           data-baseUrl="{{ .Site.Params.questionrepository_url | default site.Home.RelPermalink }}">
+           data-baseUrl="{{ .Site.Params.questionrepository | default site.Home.RelPermalink }}">
 
     </button>
   

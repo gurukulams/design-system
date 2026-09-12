@@ -51,19 +51,18 @@ jobs:
       - name: Set Question Repository Variable
         run: |
           REPO_NAME="${GITHUB_REPOSITORY##*/}"
-          echo "HUGO_PARAMS_QUESTIONREPOSITORY_URL=${REPO_NAME}_questions" >> $GITHUB_ENV
+          echo "HUGO_PARAMS_QUESTIONREPOSITORY=${REPO_NAME}_questions" >> $GITHUB_ENV
 
       - name: Build with Hugo
         env:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
           HUGO_ENVIRONMENT: production
           HUGO_PARAMS_GITHUBORG: ${{ github.repository_owner }}
-          HUGO_PARAMS_QUESTIONREPOSITORY_URL: ${{ env.HUGO_PARAMS_QUESTIONREPOSITORY_URL }}
+          HUGO_PARAMS_QUESTIONREPOSITORY: ${{ env.HUGO_PARAMS_QUESTIONREPOSITORY }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo $HUGO_PARAMS_QUESTIONREPOSITORY_URL
           git submodule add -f https://github.com/gurukulams/design-system themes/design-system
-          HUGO_PARAMS_QUESTIONREPOSITORY_URL="${REPO_NAME}_questions" hugo \
+          hugo \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
       - name: Upload artifact
