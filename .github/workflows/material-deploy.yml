@@ -60,6 +60,7 @@ jobs:
           HUGO_PARAMS_GITHUBORG: ${{ github.repository_owner }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          echo $HUGO_PARAMS_QUESTIONREPOSITORY_URL 
           git submodule add -f https://github.com/gurukulams/design-system themes/design-system
           export QUESTIONS_FOLDER="$PWD/questions" && export PUBLIC_FOLDER="$PWD/public" && npm ci --prefix themes/design-system/
           hugo \
