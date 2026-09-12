@@ -65,7 +65,7 @@ jobs:
           git submodule add -f https://github.com/gurukulams/design-system themes/design-system
           hugo \
             --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"
+            --baseURL "${{ steps.pages.outputs.base_url }}/" \
             --params "questionRepository_url=${GITHUB_REPOSITORY##*/}_questions"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
