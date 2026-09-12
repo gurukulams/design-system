@@ -161,7 +161,7 @@ export default class QuestionLoader {
         console.log('Load Questions for category ' + category);
         console.log('Load Questions for languageCode ' + languageCode);
 
-        const questionsUrl = baseUrl + 'data/' + category;
+        const questionsUrl = baseUrl + '/data/' + category;
         console.log('Load Questions from ' + questionsUrl);
 
         this.loadQuestions(questionsUrl, undefined, languageCode);
