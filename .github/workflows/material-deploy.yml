@@ -63,10 +63,9 @@ jobs:
         run: |
           echo $HUGO_PARAMS_QUESTIONREPOSITORY_URL
           git submodule add -f https://github.com/gurukulams/design-system themes/design-system
-          hugo \
+          HUGO_PARAMS_QUESTIONREPOSITORY_URL="${REPO_NAME}_questions" hugo \
             --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/" \
-            --params "questionrepository_url=${GITHUB_REPOSITORY##*/}_questions"
+            --baseURL "${{ steps.pages.outputs.base_url }}/"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
