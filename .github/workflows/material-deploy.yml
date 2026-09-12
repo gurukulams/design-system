@@ -48,12 +48,16 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Install Node.js dependencies
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
+      - name: Set Question Repository Variable
+        run: |
+          # Extracts 'my-repo' from 'owner/my-repo'
+          REPO_NAME="${GITHUB_REPOSITORY##*/}"
+          echo "HUGO_PARAMS_QUESTIONREPOSITORY_URL=${REPO_NAME}_questions" >> $GITHUB_ENV
       - name: Build with Hugo
         env:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
           HUGO_ENVIRONMENT: production
           HUGO_PARAMS_GITHUBORG: ${{ github.repository_owner }}
-          HUGO_PARAMS_QUESTIONREPOSITORY_URL: "${{ github.event.repository.name }}_questions"
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git submodule add -f https://github.com/gurukulams/design-system themes/design-system
