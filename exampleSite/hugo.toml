@@ -50,7 +50,7 @@ enableGitInfo = true
 
 [params]
   LoginMode = "Google" ## Google, Github
-  # questionRepository_url = "https://github.com/your-org/your-repo"
+  # questionrepository_url = "https://github.com/your-org/your-repo"
   [[params.question_repositories]]
     githubhandle = "techatpark"
     name = "Model School"
