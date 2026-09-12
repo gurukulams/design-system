@@ -50,8 +50,8 @@ jobs:
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
       - name: Set Question Repository Variable
         run: |
-          REPO_NAME="${GITHUB_REPOSITORY##*/}"
-          echo "/HUGO_PARAMS_QUESTIONREPOSITORY=${REPO_NAME}_questions" >> $GITHUB_ENV
+          REPO_NAME="/${GITHUB_REPOSITORY##*/}"
+          echo "HUGO_PARAMS_QUESTIONREPOSITORY=${REPO_NAME}_questions" >> $GITHUB_ENV
 
       - name: Build with Hugo
         env:
@@ -61,8 +61,9 @@ jobs:
           HUGO_PARAMS_QUESTIONREPOSITORY: ${{ env.HUGO_PARAMS_QUESTIONREPOSITORY }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          echo ${REPO_NAME}_questions
           git submodule add -f https://github.com/gurukulams/design-system themes/design-system
-          HUGO_PARAMS_QUESTIONREPOSITORY="/${REPO_NAME}_questions" hugo \
+          HUGO_PARAMS_QUESTIONREPOSITORY="${REPO_NAME}_questions" hugo \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
       - name: Upload artifact
