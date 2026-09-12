@@ -51,7 +51,7 @@ jobs:
       - name: Set Question Repository Variable
         run: |
           REPO_NAME="${GITHUB_REPOSITORY##*/}"
-          echo "HUGO_PARAMS_QUESTIONREPOSITORY=${REPO_NAME}_questions" >> $GITHUB_ENV
+          echo "/HUGO_PARAMS_QUESTIONREPOSITORY=${REPO_NAME}_questions" >> $GITHUB_ENV
 
       - name: Build with Hugo
         env:
