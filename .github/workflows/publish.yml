@@ -54,7 +54,8 @@ jobs:
         cd practice-js
         npm i
         npm run build:questions
-        cp -rf dist ../public
+        cp -rf dist/ ../public
+        ls ../public
 
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
