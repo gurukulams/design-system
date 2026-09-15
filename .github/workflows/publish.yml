@@ -45,6 +45,7 @@ jobs:
         npm run build --if-present
         cd exampleSite
         export HUGO_PARAMS_LOGINMODE="" 
+        export HUGO_PARAMS_QUESTIONREPOSITORY="https://designsystem.gurukulams.com/""
         hugo \
             --themesDir ../..  \
             --minify \
