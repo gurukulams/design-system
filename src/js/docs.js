@@ -1,8 +1,13 @@
 import QuestionLoader from "./components/QuestionLoader";
 import NotesMaker from "./components/NotesMaker";
+import * as bootstrap from "bootstrap";
+
+// Expose bootstrap globally so HTML data-bs-* attributes work automatically
+window.bootstrap = bootstrap;
 
 class DocsManager {
   constructor() {
+
     
     new QuestionLoader();
 
@@ -16,10 +21,7 @@ class DocsManager {
 
     const articleContainer = document.getElementById("article-container");
 
-
-
-    this.handleNotes(articleContainer);
-    
+    this.handleNotes(articleContainer);    
 
     this.handleVideos();
 
@@ -29,6 +31,8 @@ class DocsManager {
     this.handleMaths();    
 
     this.handleSideContent();
+
+    this.handleInnerTagging(articleContainer);
 
   }
 
@@ -143,6 +147,43 @@ class DocsManager {
       throwOnError : false
     });
   }
+
+  handleInnerTagging(articleContainer) {
+
+    // Initialize Bootstrap 5 Offcanvas Instance
+    const offcanvasElement = document.getElementById("innerTagOffcanvas");
+    const offcanvasInstance = new bootstrap.Offcanvas(offcanvasElement);
+
+    const offcanvasTitle = document.getElementById("offcanvasLabel");
+    const offcanvasBody = document.getElementById("innerTagOffcanvasBody");
+
+
+    const dollarAnchors = articleContainer.querySelectorAll('a[href^="$"]');
+
+    dollarAnchors.forEach((anchor) => {
+        // 1. Extract the raw value (e.g., "$group1,$group2")
+        const targetValue = anchor.getAttribute("href");
+
+        // 2. Store the value in a custom data attribute (data-target-groups)
+        anchor.dataset.targetGroups = targetValue;
+
+        // 3. Remove the href attribute to prevent link navigation
+        anchor.setAttribute("href", "javascript://");
+
+        anchor.addEventListener("click", (e) => {
+            e.preventDefault();
+            // Set offcanvas header to anchor inner HTML
+            offcanvasTitle.innerHTML = anchor.innerHTML;
+            offcanvasBody.innerHTML = articleContainer.innerHTML;
+            // Show offcanvas
+            offcanvasInstance.show();
+        });
+
+
+
+    });
+
+}
 
   handleNotes(articleContainer) {
     const nm = new NotesMaker(articleContainer, (msg) => {

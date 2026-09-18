@@ -5,3 +5,13 @@
 {{ with $js }}
   <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
 {{ end }}
+
+<div class="offcanvas offcanvas-end w-100" tabindex="-1" id="innerTagOffcanvas" aria-labelledby="offcanvasLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title text-primary lead" id="offcanvasLabel">Question Title</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <article class="offcanvas-body lead" id="innerTagOffcanvasBody">
+    <!-- Matched context groups will be injected here -->
+  </article>
+</div>
