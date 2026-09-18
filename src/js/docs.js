@@ -1,9 +1,9 @@
 import QuestionLoader from "./components/QuestionLoader";
 import NotesMaker from "./components/NotesMaker";
-import * as bootstrap from "bootstrap";
+// import * as bootstrap from "bootstrap";
 
-// Expose bootstrap globally so HTML data-bs-* attributes work automatically
-window.bootstrap = bootstrap;
+// // Expose bootstrap globally so HTML data-bs-* attributes work automatically
+// window.bootstrap = bootstrap;
 
 class DocsManager {
   constructor() {
@@ -32,7 +32,7 @@ class DocsManager {
 
     this.handleSideContent();
 
-    this.handleInnerTagging(articleContainer);
+    // this.handleInnerTagging(articleContainer);
 
   }
 
@@ -116,22 +116,31 @@ class DocsManager {
     // Helper function to force reset UI elements back to standard defaults
     const resetUIElements = () => {
       container.classList.remove("split-active");
+      container.classList.remove("lead");
       if (toggleIcon) {
         toggleIcon.classList.remove("bi-x-lg");
         toggleIcon.classList.add("bi-translate");
       }
+    };
+
+    const backToNorml = () => {
+      container.classList.add("lead");
     };
   
     // Cleanup: If the user presses 'ESC' to exit fullscreen completely, reset the layout state
     document.addEventListener("fullscreenchange", () => {
       if (!document.fullscreenElement) {
         resetUIElements();
+      } else {
+        backToNorml();
       }
     });
     
     document.addEventListener("webkitfullscreenchange", () => {
       if (!document.webkitFullscreenElement) {
         resetUIElements();
+      } else {
+        backToNorml();
       }
     });
   }
