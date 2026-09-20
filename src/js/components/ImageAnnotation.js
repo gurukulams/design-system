@@ -32,7 +32,7 @@ export default class ImageAnnotation {
     this.bindFigures();
   }
   setNotesIntent(_intent) {
-    console.log('Image _intent is ' + _intent);
+    
   }
   setAnnotatingEnabled(_editable) {
     this.annotatingEnabled = _editable;

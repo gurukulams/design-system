@@ -149,7 +149,7 @@ export default class QuestionLoader {
         .getElementById("repoSelectedAvatar")
         .dataset.baseurl;
 
-        console.log("base Url is " + baseUrl);
+
 
         const category = contentRoot.dataset.practiceCategory;
         const languageCode = contentRoot.dataset.practiceLang;
@@ -158,11 +158,9 @@ export default class QuestionLoader {
           baseUrl = baseUrl.replace("/"+languageCode, ""); 
         }
         
-        console.log('Load Questions for category ' + category);
-        console.log('Load Questions for languageCode ' + languageCode);
+        
 
         const questionsUrl = baseUrl + '/data/' + category;
-        console.log('Load Questions from ' + questionsUrl);
 
         this.loadQuestions(questionsUrl, undefined, languageCode);
     }
@@ -170,7 +168,6 @@ export default class QuestionLoader {
     loadQuestions(questionsUrl, maxQuestions = null, locale = null) {
         this.getQuestions(questionsUrl, maxQuestions, locale).then((questions) => {
           this.originalQuestions = JSON.parse(JSON.stringify(questions));
-          console.log(questions);
           this.practiceMaker.setQuestions(questions);
         });
    }

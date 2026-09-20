@@ -40944,7 +40944,7 @@ class QuestionLoader {
         .getElementById("repoSelectedAvatar")
         .dataset.baseurl;
 
-        console.log("base Url is " + baseUrl);
+
 
         const category = contentRoot.dataset.practiceCategory;
         const languageCode = contentRoot.dataset.practiceLang;
@@ -40953,11 +40953,9 @@ class QuestionLoader {
           baseUrl = baseUrl.replace("/"+languageCode, ""); 
         }
         
-        console.log('Load Questions for category ' + category);
-        console.log('Load Questions for languageCode ' + languageCode);
+        
 
         const questionsUrl = baseUrl + '/data/' + category;
-        console.log('Load Questions from ' + questionsUrl);
 
         this.loadQuestions(questionsUrl, undefined, languageCode);
     }
@@ -40965,7 +40963,6 @@ class QuestionLoader {
     loadQuestions(questionsUrl, maxQuestions = null, locale = null) {
         this.getQuestions(questionsUrl, maxQuestions, locale).then((questions) => {
           this.originalQuestions = JSON.parse(JSON.stringify(questions));
-          console.log(questions);
           this.practiceMaker.setQuestions(questions);
         });
    }
@@ -44303,7 +44300,7 @@ class TextAnnotation {
         annotation.intent = this.intent;
       }
       
-      console.log("Created Anno {}", annotation);
+    
       
       this.saveAnnotations();
       
@@ -44352,7 +44349,6 @@ class TextAnnotation {
   }
 
   setNotesIntent(_intent) {
-    console.log('Text _intent is ' + _intent);
     this.intent = _intent;
   }
 
@@ -44500,7 +44496,7 @@ class TextAnnotation {
 
     // STEP 4: Safety Check & Execution Block
     if (rect && rect.width > 0 && rect.height > 0) {
-      console.log("Going to open", annotation);
+      
       
       const placementConfig = this.calculateSmartPlacement(rect);
 
@@ -44519,7 +44515,7 @@ class TextAnnotation {
       // If we still don't have a selection boundary box but an annotation exists, 
       // we place the popover relative to the mouse pointer position or container midpoint
       if (this.contentRoot) {
-        console.log("Triggering emergency UI boundary anchor point fallback.");
+        
         const rootRect = this.contentRoot.getBoundingClientRect();
         const fallbackRect = {
           left: rootRect.left + (rootRect.width / 2) - 10,
@@ -115282,7 +115278,7 @@ class ImageAnnotation {
     this.bindFigures();
   }
   setNotesIntent(_intent) {
-    console.log('Image _intent is ' + _intent);
+    
   }
   setAnnotatingEnabled(_editable) {
     this.annotatingEnabled = _editable;
@@ -115551,7 +115547,7 @@ class ImageAnnotation {
 class NotesMaker {
 
   constructor(_contentRoot, _notiFyFn) {
-    console.log("Taking Notes");
+
 
     this.textanno = new TextAnnotation(_contentRoot);
     this.imageAnno = new ImageAnnotation(_contentRoot);
@@ -117731,7 +117727,7 @@ class DocsManager {
 }
 
 setActiveHeading(asideEl, hashValue) {
-    console.log("setActiveHeading " + hashValue);
+ 
     if (!asideEl || !hashValue) return;
   
     const cleanHash = `#${hashValue.replace(/^#+/, '')}`;

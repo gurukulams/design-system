@@ -86,7 +86,7 @@ export default class TextAnnotation {
         annotation.intent = this.intent;
       }
       
-      console.log("Created Anno {}", annotation);
+    
       
       this.saveAnnotations();
       
@@ -135,7 +135,6 @@ export default class TextAnnotation {
   }
 
   setNotesIntent(_intent) {
-    console.log('Text _intent is ' + _intent);
     this.intent = _intent;
   }
 
@@ -283,7 +282,7 @@ export default class TextAnnotation {
 
     // STEP 4: Safety Check & Execution Block
     if (rect && rect.width > 0 && rect.height > 0) {
-      console.log("Going to open", annotation);
+      
       
       const placementConfig = this.calculateSmartPlacement(rect);
 
@@ -302,7 +301,7 @@ export default class TextAnnotation {
       // If we still don't have a selection boundary box but an annotation exists, 
       // we place the popover relative to the mouse pointer position or container midpoint
       if (this.contentRoot) {
-        console.log("Triggering emergency UI boundary anchor point fallback.");
+        
         const rootRect = this.contentRoot.getBoundingClientRect();
         const fallbackRect = {
           left: rootRect.left + (rootRect.width / 2) - 10,

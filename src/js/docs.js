@@ -465,7 +465,7 @@ class DocsManager {
 }
 
 setActiveHeading(asideEl, hashValue) {
-    console.log("setActiveHeading " + hashValue);
+ 
     if (!asideEl || !hashValue) return;
   
     const cleanHash = `#${hashValue.replace(/^#+/, '')}`;

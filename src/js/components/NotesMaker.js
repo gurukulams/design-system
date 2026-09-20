@@ -4,7 +4,7 @@ import ImageAnnotation from './ImageAnnotation'
 export default class NotesMaker {
 
   constructor(_contentRoot, _notiFyFn) {
-    console.log("Taking Notes");
+
 
     this.textanno = new TextAnnotation(_contentRoot)
     this.imageAnno = new ImageAnnotation(_contentRoot)
