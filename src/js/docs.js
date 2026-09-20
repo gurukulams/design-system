@@ -31,7 +31,35 @@ class DocsManager {
 
     this.handleSideContent();
 
-    this.handleInnerTagging(articleContainer);
+    const cleanPath = window.location.pathname.replace(/\/+$/, '');
+  const annoUrl = `${window.location.origin}${cleanPath}.anno.json`;
+
+  fetch(annoUrl)
+    .then(response => {
+      if (response.status === 404) {
+        console.warn(`.anno file not found (404) at: ${annoUrl}`);
+        return null;
+      }
+      if (!response.ok) {
+        throw new Error(`HTTP error ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(annotationData => {
+      if (!annotationData) return; // Exit if 404
+
+      // Continue working with annotationData...
+      console.log("Loaded annotations:", annotationData);
+
+      this.handleInnerTagging(articleContainer, annotationData);
+
+    })
+    .catch(error => {
+      console.error("Failed to load annotation data:", error);
+    });
+
+
+    
 
   }
 
@@ -156,11 +184,14 @@ class DocsManager {
     });
   }
 
-  handleInnerTagging(articleContainer) {
+  
+
+  handleInnerTagging(articleContainer, annotationData) {
     const offcanvasElement = document.getElementById("innerTagOffcanvas");
     const offcanvasTitle = document.getElementById("offcanvasLabel");
     const offcanvasBody = document.getElementById("innerTagOffcanvasBody");
-
+    
+  
     if (!articleContainer || !offcanvasElement || !offcanvasTitle || !offcanvasBody) {
       return;
     }
@@ -181,8 +212,10 @@ class DocsManager {
       offcanvasTitle.textContent = anchor.textContent.trim();
       offcanvasBody.innerHTML = article.innerHTML;
 
+      const annoTagId = anchor.getAttribute('href').slice(1);
+
       // Place the Annotation Here
-      const annonation = [{"id":"ab6a9025-fb5d-4fbd-8453-3c386afef303","bodies":[{"type":"TextualBody","value":"A","purpose":"commenting","format":"text/plain","annotation":"ab6a9025-fb5d-4fbd-8453-3c386afef303"}],"target":{"annotation":"ab6a9025-fb5d-4fbd-8453-3c386afef303","selector":[{"quote":"Welcome to the heart of the Gurukulams Design System. The Documentation module serves as the “source of truth” for our visual and structural standards, ensuring that every educational tool","start":240,"end":428,"range":{}}],"created":"2026-09-20T04:58:33.301Z","creator":{"isGuest":true,"id":"PE3_IylgxDCli6lwAIpQ"},"updated":"2026-09-20T04:58:34.652Z"}}];
+      const annonation = annotationData[annoTagId];
 
       const anno = createTextAnnotator(offcanvasBody);
       anno.setAnnotations(annonation);

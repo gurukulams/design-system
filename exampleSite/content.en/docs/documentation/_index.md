@@ -35,5 +35,5 @@ To begin contributing or implementing these styles, please refer to the specific
 
 ### Quetions
 
-1. [What is Documentation Module ?]($10)
-2. [What is Iconography ?]($20)
+1. [What is Documentation Module ?]($design-system)
+2. [What is Iconography ?]($iconography)
