@@ -2,6 +2,8 @@ import QuestionLoader from "./components/QuestionLoader";
 import NotesMaker from "./components/NotesMaker";
 import Offcanvas from "bootstrap/js/dist/offcanvas";
 
+import { createTextAnnotator } from "@recogito/text-annotator";
+
 class DocsManager {
   constructor() {
 
@@ -179,11 +181,12 @@ class DocsManager {
       offcanvasTitle.textContent = anchor.textContent.trim();
       offcanvasBody.innerHTML = article.innerHTML;
 
-      offcanvasBody.querySelectorAll("[data-answer-id]").forEach((passage) => {
-        if (passage.dataset.answerId === answerId) {
-          passage.classList.add("bg-warning-subtle");
-        }
-      });
+      // Place the Annotation Here
+      const annonation = [{"id":"ab6a9025-fb5d-4fbd-8453-3c386afef303","bodies":[{"type":"TextualBody","value":"A","purpose":"commenting","format":"text/plain","annotation":"ab6a9025-fb5d-4fbd-8453-3c386afef303"}],"target":{"annotation":"ab6a9025-fb5d-4fbd-8453-3c386afef303","selector":[{"quote":"Welcome to the heart of the Gurukulams Design System. The Documentation module serves as the “source of truth” for our visual and structural standards, ensuring that every educational tool","start":240,"end":428,"range":{}}],"created":"2026-09-20T04:58:33.301Z","creator":{"isGuest":true,"id":"PE3_IylgxDCli6lwAIpQ"},"updated":"2026-09-20T04:58:34.652Z"}}];
+
+      const anno = createTextAnnotator(offcanvasBody);
+      anno.setAnnotations(annonation);
+
 
       offcanvasInstance.show();
     };

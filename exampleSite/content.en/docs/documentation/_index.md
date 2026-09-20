@@ -6,9 +6,9 @@ categories:
   - material
 ---
 
-{{< answer id="10" block="true" >}}Welcome to the heart of the **Gurukulams Design System**. The Documentation module serves as the "source of truth" for our visual and structural standards, ensuring that every educational tool we build remains consistent, accessible, and professional.{{< /answer >}}
+Welcome to the heart of the **Gurukulams Design System**. The Documentation module serves as the "source of truth" for our visual and structural standards, ensuring that every educational tool we build remains consistent, accessible, and professional.
 
-{{< answer id="10" >}}The **Documentation Module** defines the foundational DNA of the Gurukulams Design System.{{< /answer >}} It provides the essential frameworks for content structure, visual hierarchy, and interface design to ensure a unified experience across all learning platforms.
+The **Documentation Module** defines the foundational DNA of the Gurukulams Design System. It provides the essential frameworks for content structure, visual hierarchy, and interface design to ensure a unified experience across all learning platforms.
 
 ## Core Pillars
 
@@ -28,7 +28,7 @@ Our type system is engineered for readability, especially for complex scientific
 The fundamental building blocks of our UI:
 * **Color Palette:** Our semantic color system (Primary, Success, Warning, Info).
 * **Spacing & Grids:** A consistent 8px spacing scale and responsive Bootstrap-based grid layouts.
-* {{< answer id="20" >}}**Iconography:** Utilizing Bootstrap Icons to provide visual cues for navigation and actions.{{< /answer >}}
+* **Iconography:** Utilizing Bootstrap Icons to provide visual cues for navigation and actions.
 
 ## Getting Started
 To begin contributing or implementing these styles, please refer to the specific guides in the sidebar. Each section includes live examples and the corresponding HTML/CSS snippets required for implementation.

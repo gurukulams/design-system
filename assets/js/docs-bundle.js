@@ -40031,7 +40031,7 @@ class PracticeMaker {
     _contentRoot.innerHTML = `
     <div id="content" class="d-none" data-type="question">
     <header
-       class="navbar navbar-expand-lg navbar-light border-bottom bg-body py-2 shadow-sm"
+       class="navbar navbar-expand-lg navbar-light border-bottom sticky-md-top bg-body py-2 shadow-sm"
     >
        <div class="d-flex align-items-center w-100">
           
@@ -40041,14 +40041,6 @@ class PracticeMaker {
           <ul
              class="navbar-nav ms-auto d-flex flex-row justify-content-evenly justify-content-lg-end mt-lg-0 pb-lg-0"
           >
-
-          <li class="nav-item">
-          <div
-          id="quizTimer"
-          class="d-none fw-bold fs-5 align-self-center me-3"
-       ></div>
-          </li>
-
           <li class="nav-item">
           <span id="editModeBadge" class="btn badge bg-warning text-dark d-none"
              >${L('editModeBadge')}</span
@@ -40115,7 +40107,10 @@ class PracticeMaker {
     <div id="navPane" class="d-flex align-items-center mt-2">
        
 
-       
+       <div
+          id="quizTimer"
+          class="d-none fw-bold fs-5 align-self-center me-3"
+       ></div>
        
 
     </div>
@@ -40188,20 +40183,9 @@ class PracticeMaker {
       if (e.key === 'ArrowLeft'  && !this.prevBtn.disabled) this.doPrevious();
     };
     document.addEventListener('keydown', this._keyHandler);
-    // Get selected tags from URL parameters (?tags=tag1,tag2)
-    this.urlParams = new URLSearchParams(window.location.search);
-    const selectedTagsParam = this.urlParams.get("tags");
-    this.selectedTags = selectedTagsParam ? selectedTagsParam.split(",") : [];
 
-    // Keep tag selection in sync with browser Back/Forward, since tag
-    // clicks now update the URL via pushState instead of reloading.
-    this._popstateHandler = () => {
-      this.urlParams = new URLSearchParams(window.location.search);
-      const tagsParam = this.urlParams.get("tags");
-      this.selectedTags = tagsParam ? tagsParam.split(",") : [];
-      if (this.originalQuestions) this.setQuestions(this.originalQuestions);
-    };
-    window.addEventListener('popstate', this._popstateHandler);
+
+
   }
 
   shuffle(array) {
@@ -40210,14 +40194,6 @@ class PracticeMaker {
       [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
-  }
-
-  // Updates selected tags + URL (without navigating) and re-filters the
-  // already-loaded question set in place, instead of reloading the page.
-  _applyTagSelection(updatedTags) {
-    this.selectedTags = updatedTags;
-    history.pushState(null, "", "?" + this.urlParams.toString() + window.location.hash);
-    this.setQuestions(this.originalQuestions);
   }
 
   setQuestions(_questions) {
@@ -40230,41 +40206,26 @@ class PracticeMaker {
      * @param {string|null} targetComplexity - The complexity level ("H", "M", or null).
      * @returns {Array} The filtered subset of questions.
      */
-     function filterQuestions(questions, targetComplexity, selectedTags = []) {
+    function filterQuestionsByComplexity(questions, targetComplexity) {
       if (!questions || !Array.isArray(questions)) return [];
-    
+
       return questions.filter(q => {
-        // 1. Complexity Filter
-        let matchesComplexity = false;
-        
+        // If complexity is H: Do not filter (include everything)
         if (targetComplexity === "H") {
-          // Include everything
-          matchesComplexity = true; 
-        } else if (targetComplexity === "M") {
-          // Include questions with NO complexity or "M"
-          matchesComplexity = !q.complexity || q.complexity === "M"; 
-        } else {
-          // If targetComplexity is null/undefined: Include ONLY questions with NO complexity
-          matchesComplexity = !q.complexity; 
-        }
-    
-        if (!matchesComplexity) return false;
-    
-        // 2. Tag Filter
-        // If no tags are selected, skip tag filtering
-        if (!selectedTags || selectedTags.length === 0) {
           return true;
         }
-    
-        // Ensure q.tags exists and is an array before filtering
-        const questionTags = q.tags || [];
-    
-        // AND Logic: The question must contain ALL selected tags
-        return selectedTags.every(tag => questionTags.includes(tag));
+        
+        // If complexity is M: Include questions with NO complexity + "M"
+        if (targetComplexity === "M") {
+          return !q.complexity || q.complexity === "M";
+        }
+        
+        // If complexity is null: Include ONLY questions that do not have complexity
+        return !q.complexity;
       });
     }
 
-    this.questions = this.shuffle(filterQuestions(_questions,this.complexity, this.selectedTags));
+    this.questions = this.shuffle(filterQuestionsByComplexity(_questions,this.complexity));
     this.originalQuestions = JSON.parse(JSON.stringify(_questions));
     this.currentQuestionIndex = 0;
     this.userAnswers = {};
@@ -40364,58 +40325,12 @@ if (q.tags?.length) {
         '<i class="bi bi-tags me-2"></i>'
     );
 
-
-
     q.tags.forEach(tag => {
-      const badge = document.createElement("span");
-      const isSelected = this.selectedTags.includes(tag);
-  
-      if (isSelected) {
-          // Highlight selected tag with primary background and white text
-          badge.className = "badge bg-primary text-white me-1 d-inline-flex align-items-center";
-          badge.textContent = tag + " ";
-  
-          // Create close button (x)
-          const closeBtn = document.createElement("span");
-          closeBtn.innerHTML = " &times;";
-          closeBtn.style.cursor = "pointer";
-          closeBtn.className = "ms-1";
-  
-          // Click event to remove tag and re-filter in place
-          closeBtn.addEventListener("click", (e) => {
-              e.stopPropagation(); // Prevent parent click events
-  
-              // Filter out the clicked tag
-              const updatedTags = this.selectedTags.filter(t => t !== tag);
-  
-              // Update URL parameters
-              if (updatedTags.length > 0) {
-                this.urlParams.set("tags", updatedTags.join(","));
-              } else {
-                this.urlParams.delete("tags");
-              }
-
-              // Update the URL without reloading, then re-filter in place
-              this._applyTagSelection(updatedTags);
-          });
-  
-          badge.appendChild(closeBtn);
-      } else {
-          /// Unselected Tag Styling
+        const badge = document.createElement("span");
         badge.className = "badge border text-body me-1";
-        badge.style.cursor = "pointer";
         badge.textContent = tag;
-
-        // Click on unselected tag -> add tag and re-filter in place
-        badge.addEventListener("click", () => {
-            const updatedTags = [...this.selectedTags, tag];
-            this.urlParams.set("tags", updatedTags.join(","));
-            this._applyTagSelection(updatedTags);
-        });
-      }
-  
-      container.appendChild(badge);
-  });
+        container.appendChild(badge);
+    });
 }
 
     this.questionPane.setQuestion(q);
@@ -40442,7 +40357,7 @@ if (q.tags?.length) {
   }
 
   setQuestionParameter() {
-    // window.location.hash = this.questions[this.currentQuestionIndex].id;
+    window.location.hash = this.questions[this.currentQuestionIndex].id;
   }
 
   doExplain(explain) {
@@ -117532,11 +117447,12 @@ class DocsManager {
       offcanvasTitle.textContent = anchor.textContent.trim();
       offcanvasBody.innerHTML = article.innerHTML;
 
-      offcanvasBody.querySelectorAll("[data-answer-id]").forEach((passage) => {
-        if (passage.dataset.answerId === answerId) {
-          passage.classList.add("bg-warning-subtle");
-        }
-      });
+      // Place the Annotation Here
+      const annonation = [{"id":"ab6a9025-fb5d-4fbd-8453-3c386afef303","bodies":[{"type":"TextualBody","value":"A","purpose":"commenting","format":"text/plain","annotation":"ab6a9025-fb5d-4fbd-8453-3c386afef303"}],"target":{"annotation":"ab6a9025-fb5d-4fbd-8453-3c386afef303","selector":[{"quote":"Welcome to the heart of the Gurukulams Design System. The Documentation module serves as the “source of truth” for our visual and structural standards, ensuring that every educational tool","start":240,"end":428,"range":{}}],"created":"2026-09-20T04:58:33.301Z","creator":{"isGuest":true,"id":"PE3_IylgxDCli6lwAIpQ"},"updated":"2026-09-20T04:58:34.652Z"}}];
+
+      const anno = Ht$2(offcanvasBody);
+      anno.setAnnotations(annonation);
+
 
       offcanvasInstance.show();
     };
