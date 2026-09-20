@@ -3720,7 +3720,7 @@ function defineSymbol(mode, font, group, replace, name, acceptUnicodeChar) {
 var math = "math";
 var text = "text";
 // fonts:
-var main$1 = "main";
+var main = "main";
 var ams = "ams";
 // groups:
 var accent = "accent-token";
@@ -3736,111 +3736,111 @@ var spacing = "spacing";
 var textord = "textord";
 // Now comes the symbol table
 // Relation Symbols
-defineSymbol(math, main$1, rel, "\u2261", "\\equiv", true);
-defineSymbol(math, main$1, rel, "\u227a", "\\prec", true);
-defineSymbol(math, main$1, rel, "\u227b", "\\succ", true);
-defineSymbol(math, main$1, rel, "\u223c", "\\sim", true);
-defineSymbol(math, main$1, rel, "\u22a5", "\\perp");
-defineSymbol(math, main$1, rel, "\u2aaf", "\\preceq", true);
-defineSymbol(math, main$1, rel, "\u2ab0", "\\succeq", true);
-defineSymbol(math, main$1, rel, "\u2243", "\\simeq", true);
-defineSymbol(math, main$1, rel, "\u2223", "\\mid", true);
-defineSymbol(math, main$1, rel, "\u226a", "\\ll", true);
-defineSymbol(math, main$1, rel, "\u226b", "\\gg", true);
-defineSymbol(math, main$1, rel, "\u224d", "\\asymp", true);
-defineSymbol(math, main$1, rel, "\u2225", "\\parallel");
-defineSymbol(math, main$1, rel, "\u22c8", "\\bowtie", true);
-defineSymbol(math, main$1, rel, "\u2323", "\\smile", true);
-defineSymbol(math, main$1, rel, "\u2291", "\\sqsubseteq", true);
-defineSymbol(math, main$1, rel, "\u2292", "\\sqsupseteq", true);
-defineSymbol(math, main$1, rel, "\u2250", "\\doteq", true);
-defineSymbol(math, main$1, rel, "\u2322", "\\frown", true);
-defineSymbol(math, main$1, rel, "\u220b", "\\ni", true);
-defineSymbol(math, main$1, rel, "\u221d", "\\propto", true);
-defineSymbol(math, main$1, rel, "\u22a2", "\\vdash", true);
-defineSymbol(math, main$1, rel, "\u22a3", "\\dashv", true);
-defineSymbol(math, main$1, rel, "\u220b", "\\owns");
+defineSymbol(math, main, rel, "\u2261", "\\equiv", true);
+defineSymbol(math, main, rel, "\u227a", "\\prec", true);
+defineSymbol(math, main, rel, "\u227b", "\\succ", true);
+defineSymbol(math, main, rel, "\u223c", "\\sim", true);
+defineSymbol(math, main, rel, "\u22a5", "\\perp");
+defineSymbol(math, main, rel, "\u2aaf", "\\preceq", true);
+defineSymbol(math, main, rel, "\u2ab0", "\\succeq", true);
+defineSymbol(math, main, rel, "\u2243", "\\simeq", true);
+defineSymbol(math, main, rel, "\u2223", "\\mid", true);
+defineSymbol(math, main, rel, "\u226a", "\\ll", true);
+defineSymbol(math, main, rel, "\u226b", "\\gg", true);
+defineSymbol(math, main, rel, "\u224d", "\\asymp", true);
+defineSymbol(math, main, rel, "\u2225", "\\parallel");
+defineSymbol(math, main, rel, "\u22c8", "\\bowtie", true);
+defineSymbol(math, main, rel, "\u2323", "\\smile", true);
+defineSymbol(math, main, rel, "\u2291", "\\sqsubseteq", true);
+defineSymbol(math, main, rel, "\u2292", "\\sqsupseteq", true);
+defineSymbol(math, main, rel, "\u2250", "\\doteq", true);
+defineSymbol(math, main, rel, "\u2322", "\\frown", true);
+defineSymbol(math, main, rel, "\u220b", "\\ni", true);
+defineSymbol(math, main, rel, "\u221d", "\\propto", true);
+defineSymbol(math, main, rel, "\u22a2", "\\vdash", true);
+defineSymbol(math, main, rel, "\u22a3", "\\dashv", true);
+defineSymbol(math, main, rel, "\u220b", "\\owns");
 // Punctuation
-defineSymbol(math, main$1, punct, "\u002e", "\\ldotp");
-defineSymbol(math, main$1, punct, "\u22c5", "\\cdotp");
+defineSymbol(math, main, punct, "\u002e", "\\ldotp");
+defineSymbol(math, main, punct, "\u22c5", "\\cdotp");
 // The KaTeX fonts do not contain U+00B7. Use the centered dot glyph at U+22C5
 // in both modes, but keep math-mode punctuation spacing only in math mode.
-defineSymbol(math, main$1, punct, "\u22c5", "\u00b7");
-defineSymbol(text, main$1, textord, "\u22c5", "\u00b7");
+defineSymbol(math, main, punct, "\u22c5", "\u00b7");
+defineSymbol(text, main, textord, "\u22c5", "\u00b7");
 // Misc Symbols
-defineSymbol(math, main$1, textord, "\u0023", "\\#");
-defineSymbol(text, main$1, textord, "\u0023", "\\#");
-defineSymbol(math, main$1, textord, "\u0026", "\\&");
-defineSymbol(text, main$1, textord, "\u0026", "\\&");
-defineSymbol(math, main$1, textord, "\u2135", "\\aleph", true);
-defineSymbol(math, main$1, textord, "\u2200", "\\forall", true);
-defineSymbol(math, main$1, textord, "\u210f", "\\hbar", true);
-defineSymbol(math, main$1, textord, "\u2203", "\\exists", true);
-defineSymbol(math, main$1, textord, "\u2207", "\\nabla", true);
-defineSymbol(math, main$1, textord, "\u266d", "\\flat", true);
-defineSymbol(math, main$1, textord, "\u2113", "\\ell", true);
-defineSymbol(math, main$1, textord, "\u266e", "\\natural", true);
-defineSymbol(math, main$1, textord, "\u2663", "\\clubsuit", true);
-defineSymbol(math, main$1, textord, "\u2118", "\\wp", true);
-defineSymbol(math, main$1, textord, "\u266f", "\\sharp", true);
-defineSymbol(math, main$1, textord, "\u2662", "\\diamondsuit", true);
-defineSymbol(math, main$1, textord, "\u211c", "\\Re", true);
-defineSymbol(math, main$1, textord, "\u2661", "\\heartsuit", true);
-defineSymbol(math, main$1, textord, "\u2111", "\\Im", true);
-defineSymbol(math, main$1, textord, "\u2660", "\\spadesuit", true);
-defineSymbol(math, main$1, textord, "\u00a7", "\\S", true);
-defineSymbol(text, main$1, textord, "\u00a7", "\\S");
-defineSymbol(math, main$1, textord, "\u00b6", "\\P", true);
-defineSymbol(text, main$1, textord, "\u00b6", "\\P");
+defineSymbol(math, main, textord, "\u0023", "\\#");
+defineSymbol(text, main, textord, "\u0023", "\\#");
+defineSymbol(math, main, textord, "\u0026", "\\&");
+defineSymbol(text, main, textord, "\u0026", "\\&");
+defineSymbol(math, main, textord, "\u2135", "\\aleph", true);
+defineSymbol(math, main, textord, "\u2200", "\\forall", true);
+defineSymbol(math, main, textord, "\u210f", "\\hbar", true);
+defineSymbol(math, main, textord, "\u2203", "\\exists", true);
+defineSymbol(math, main, textord, "\u2207", "\\nabla", true);
+defineSymbol(math, main, textord, "\u266d", "\\flat", true);
+defineSymbol(math, main, textord, "\u2113", "\\ell", true);
+defineSymbol(math, main, textord, "\u266e", "\\natural", true);
+defineSymbol(math, main, textord, "\u2663", "\\clubsuit", true);
+defineSymbol(math, main, textord, "\u2118", "\\wp", true);
+defineSymbol(math, main, textord, "\u266f", "\\sharp", true);
+defineSymbol(math, main, textord, "\u2662", "\\diamondsuit", true);
+defineSymbol(math, main, textord, "\u211c", "\\Re", true);
+defineSymbol(math, main, textord, "\u2661", "\\heartsuit", true);
+defineSymbol(math, main, textord, "\u2111", "\\Im", true);
+defineSymbol(math, main, textord, "\u2660", "\\spadesuit", true);
+defineSymbol(math, main, textord, "\u00a7", "\\S", true);
+defineSymbol(text, main, textord, "\u00a7", "\\S");
+defineSymbol(math, main, textord, "\u00b6", "\\P", true);
+defineSymbol(text, main, textord, "\u00b6", "\\P");
 // Math and Text
-defineSymbol(math, main$1, textord, "\u2020", "\\dag");
-defineSymbol(text, main$1, textord, "\u2020", "\\dag");
-defineSymbol(text, main$1, textord, "\u2020", "\\textdagger");
-defineSymbol(math, main$1, textord, "\u2021", "\\ddag");
-defineSymbol(text, main$1, textord, "\u2021", "\\ddag");
-defineSymbol(text, main$1, textord, "\u2021", "\\textdaggerdbl");
+defineSymbol(math, main, textord, "\u2020", "\\dag");
+defineSymbol(text, main, textord, "\u2020", "\\dag");
+defineSymbol(text, main, textord, "\u2020", "\\textdagger");
+defineSymbol(math, main, textord, "\u2021", "\\ddag");
+defineSymbol(text, main, textord, "\u2021", "\\ddag");
+defineSymbol(text, main, textord, "\u2021", "\\textdaggerdbl");
 // Large Delimiters
-defineSymbol(math, main$1, close, "\u23b1", "\\rmoustache", true);
-defineSymbol(math, main$1, open, "\u23b0", "\\lmoustache", true);
-defineSymbol(math, main$1, close, "\u27ef", "\\rgroup", true);
-defineSymbol(math, main$1, open, "\u27ee", "\\lgroup", true);
+defineSymbol(math, main, close, "\u23b1", "\\rmoustache", true);
+defineSymbol(math, main, open, "\u23b0", "\\lmoustache", true);
+defineSymbol(math, main, close, "\u27ef", "\\rgroup", true);
+defineSymbol(math, main, open, "\u27ee", "\\lgroup", true);
 // Binary Operators
-defineSymbol(math, main$1, bin, "\u2213", "\\mp", true);
-defineSymbol(math, main$1, bin, "\u2296", "\\ominus", true);
-defineSymbol(math, main$1, bin, "\u228e", "\\uplus", true);
-defineSymbol(math, main$1, bin, "\u2293", "\\sqcap", true);
-defineSymbol(math, main$1, bin, "\u2217", "\\ast");
-defineSymbol(math, main$1, bin, "\u2294", "\\sqcup", true);
-defineSymbol(math, main$1, bin, "\u25ef", "\\bigcirc", true);
-defineSymbol(math, main$1, bin, "\u2219", "\\bullet", true);
-defineSymbol(math, main$1, bin, "\u2021", "\\ddagger");
-defineSymbol(math, main$1, bin, "\u2240", "\\wr", true);
-defineSymbol(math, main$1, bin, "\u2a3f", "\\amalg");
-defineSymbol(math, main$1, bin, "\u0026", "\\And"); // from amsmath
+defineSymbol(math, main, bin, "\u2213", "\\mp", true);
+defineSymbol(math, main, bin, "\u2296", "\\ominus", true);
+defineSymbol(math, main, bin, "\u228e", "\\uplus", true);
+defineSymbol(math, main, bin, "\u2293", "\\sqcap", true);
+defineSymbol(math, main, bin, "\u2217", "\\ast");
+defineSymbol(math, main, bin, "\u2294", "\\sqcup", true);
+defineSymbol(math, main, bin, "\u25ef", "\\bigcirc", true);
+defineSymbol(math, main, bin, "\u2219", "\\bullet", true);
+defineSymbol(math, main, bin, "\u2021", "\\ddagger");
+defineSymbol(math, main, bin, "\u2240", "\\wr", true);
+defineSymbol(math, main, bin, "\u2a3f", "\\amalg");
+defineSymbol(math, main, bin, "\u0026", "\\And"); // from amsmath
 // Arrow Symbols
-defineSymbol(math, main$1, rel, "\u27f5", "\\longleftarrow", true);
-defineSymbol(math, main$1, rel, "\u21d0", "\\Leftarrow", true);
-defineSymbol(math, main$1, rel, "\u27f8", "\\Longleftarrow", true);
-defineSymbol(math, main$1, rel, "\u27f6", "\\longrightarrow", true);
-defineSymbol(math, main$1, rel, "\u21d2", "\\Rightarrow", true);
-defineSymbol(math, main$1, rel, "\u27f9", "\\Longrightarrow", true);
-defineSymbol(math, main$1, rel, "\u2194", "\\leftrightarrow", true);
-defineSymbol(math, main$1, rel, "\u27f7", "\\longleftrightarrow", true);
-defineSymbol(math, main$1, rel, "\u21d4", "\\Leftrightarrow", true);
-defineSymbol(math, main$1, rel, "\u27fa", "\\Longleftrightarrow", true);
-defineSymbol(math, main$1, rel, "\u21a6", "\\mapsto", true);
-defineSymbol(math, main$1, rel, "\u27fc", "\\longmapsto", true);
-defineSymbol(math, main$1, rel, "\u2197", "\\nearrow", true);
-defineSymbol(math, main$1, rel, "\u21a9", "\\hookleftarrow", true);
-defineSymbol(math, main$1, rel, "\u21aa", "\\hookrightarrow", true);
-defineSymbol(math, main$1, rel, "\u2198", "\\searrow", true);
-defineSymbol(math, main$1, rel, "\u21bc", "\\leftharpoonup", true);
-defineSymbol(math, main$1, rel, "\u21c0", "\\rightharpoonup", true);
-defineSymbol(math, main$1, rel, "\u2199", "\\swarrow", true);
-defineSymbol(math, main$1, rel, "\u21bd", "\\leftharpoondown", true);
-defineSymbol(math, main$1, rel, "\u21c1", "\\rightharpoondown", true);
-defineSymbol(math, main$1, rel, "\u2196", "\\nwarrow", true);
-defineSymbol(math, main$1, rel, "\u21cc", "\\rightleftharpoons", true);
+defineSymbol(math, main, rel, "\u27f5", "\\longleftarrow", true);
+defineSymbol(math, main, rel, "\u21d0", "\\Leftarrow", true);
+defineSymbol(math, main, rel, "\u27f8", "\\Longleftarrow", true);
+defineSymbol(math, main, rel, "\u27f6", "\\longrightarrow", true);
+defineSymbol(math, main, rel, "\u21d2", "\\Rightarrow", true);
+defineSymbol(math, main, rel, "\u27f9", "\\Longrightarrow", true);
+defineSymbol(math, main, rel, "\u2194", "\\leftrightarrow", true);
+defineSymbol(math, main, rel, "\u27f7", "\\longleftrightarrow", true);
+defineSymbol(math, main, rel, "\u21d4", "\\Leftrightarrow", true);
+defineSymbol(math, main, rel, "\u27fa", "\\Longleftrightarrow", true);
+defineSymbol(math, main, rel, "\u21a6", "\\mapsto", true);
+defineSymbol(math, main, rel, "\u27fc", "\\longmapsto", true);
+defineSymbol(math, main, rel, "\u2197", "\\nearrow", true);
+defineSymbol(math, main, rel, "\u21a9", "\\hookleftarrow", true);
+defineSymbol(math, main, rel, "\u21aa", "\\hookrightarrow", true);
+defineSymbol(math, main, rel, "\u2198", "\\searrow", true);
+defineSymbol(math, main, rel, "\u21bc", "\\leftharpoonup", true);
+defineSymbol(math, main, rel, "\u21c0", "\\rightharpoonup", true);
+defineSymbol(math, main, rel, "\u2199", "\\swarrow", true);
+defineSymbol(math, main, rel, "\u21bd", "\\leftharpoondown", true);
+defineSymbol(math, main, rel, "\u21c1", "\\rightharpoondown", true);
+defineSymbol(math, main, rel, "\u2196", "\\nwarrow", true);
+defineSymbol(math, main, rel, "\u21cc", "\\rightleftharpoons", true);
 // AMS Negated Binary Relations
 defineSymbol(math, ams, rel, "\u226e", "\\nless", true);
 // Symbol names preceded by "@" each have a corresponding macro.
@@ -3928,7 +3928,7 @@ defineSymbol(math, ams, textord, "\u2222", "\\sphericalangle", true);
 defineSymbol(math, ams, textord, "\u2201", "\\complement", true);
 // unicode-math maps U+F0 to \matheth. We map to AMS function \eth
 defineSymbol(math, ams, textord, "\u00f0", "\\eth", true);
-defineSymbol(text, main$1, textord, "\u00f0", "\u00f0");
+defineSymbol(text, main, textord, "\u00f0", "\u00f0");
 defineSymbol(math, ams, textord, "\u2571", "\\diagup");
 defineSymbol(math, ams, textord, "\u2572", "\\diagdown");
 defineSymbol(math, ams, textord, "\u25a1", "\\square");
@@ -4027,7 +4027,7 @@ defineSymbol(math, ams, rel, "\u22d9", "\\gggtr");
 defineSymbol(math, ams, bin, "\u22b2", "\\lhd");
 defineSymbol(math, ams, bin, "\u22b3", "\\rhd");
 defineSymbol(math, ams, rel, "\u2242", "\\eqsim", true);
-defineSymbol(math, main$1, rel, "\u22c8", "\\Join");
+defineSymbol(math, main, rel, "\u22c8", "\\Join");
 defineSymbol(math, ams, rel, "\u2251", "\\Doteq", true);
 // AMS Binary Operators
 defineSymbol(math, ams, bin, "\u2214", "\\dotplus", true);
@@ -4071,8 +4071,8 @@ defineSymbol(math, ams, rel, "\u21b0", "\\Lsh", true);
 defineSymbol(math, ams, rel, "\u21c8", "\\upuparrows", true);
 defineSymbol(math, ams, rel, "\u21bf", "\\upharpoonleft", true);
 defineSymbol(math, ams, rel, "\u21c3", "\\downharpoonleft", true);
-defineSymbol(math, main$1, rel, "\u22b6", "\\origof", true); // not in font
-defineSymbol(math, main$1, rel, "\u22b7", "\\imageof", true); // not in font
+defineSymbol(math, main, rel, "\u22b6", "\\origof", true); // not in font
+defineSymbol(math, main, rel, "\u22b7", "\\imageof", true); // not in font
 defineSymbol(math, ams, rel, "\u22b8", "\\multimap", true);
 defineSymbol(math, ams, rel, "\u21ad", "\\leftrightsquigarrow", true);
 defineSymbol(math, ams, rel, "\u21c9", "\\rightrightarrows", true);
@@ -4091,259 +4091,259 @@ defineSymbol(math, ams, rel, "\u21dd", "\\rightsquigarrow", true);
 defineSymbol(math, ams, rel, "\u21dd", "\\leadsto");
 defineSymbol(math, ams, rel, "\u21db", "\\Rrightarrow", true);
 defineSymbol(math, ams, rel, "\u21be", "\\restriction");
-defineSymbol(math, main$1, textord, "\u2018", "`");
-defineSymbol(math, main$1, textord, "$", "\\$");
-defineSymbol(text, main$1, textord, "$", "\\$");
-defineSymbol(text, main$1, textord, "$", "\\textdollar");
-defineSymbol(math, main$1, textord, "%", "\\%");
-defineSymbol(text, main$1, textord, "%", "\\%");
-defineSymbol(math, main$1, textord, "_", "\\_");
-defineSymbol(text, main$1, textord, "_", "\\_");
-defineSymbol(text, main$1, textord, "_", "\\textunderscore");
-defineSymbol(math, main$1, textord, "\u2220", "\\angle", true);
-defineSymbol(math, main$1, textord, "\u221e", "\\infty", true);
-defineSymbol(math, main$1, textord, "\u2032", "\\prime");
-defineSymbol(math, main$1, textord, "\u25b3", "\\triangle");
-defineSymbol(math, main$1, textord, "\u0393", "\\Gamma", true);
-defineSymbol(math, main$1, textord, "\u0394", "\\Delta", true);
-defineSymbol(math, main$1, textord, "\u0398", "\\Theta", true);
-defineSymbol(math, main$1, textord, "\u039b", "\\Lambda", true);
-defineSymbol(math, main$1, textord, "\u039e", "\\Xi", true);
-defineSymbol(math, main$1, textord, "\u03a0", "\\Pi", true);
-defineSymbol(math, main$1, textord, "\u03a3", "\\Sigma", true);
-defineSymbol(math, main$1, textord, "\u03a5", "\\Upsilon", true);
-defineSymbol(math, main$1, textord, "\u03a6", "\\Phi", true);
-defineSymbol(math, main$1, textord, "\u03a8", "\\Psi", true);
-defineSymbol(math, main$1, textord, "\u03a9", "\\Omega", true);
-defineSymbol(math, main$1, textord, "A", "\u0391");
-defineSymbol(math, main$1, textord, "B", "\u0392");
-defineSymbol(math, main$1, textord, "E", "\u0395");
-defineSymbol(math, main$1, textord, "Z", "\u0396");
-defineSymbol(math, main$1, textord, "H", "\u0397");
-defineSymbol(math, main$1, textord, "I", "\u0399");
-defineSymbol(math, main$1, textord, "K", "\u039A");
-defineSymbol(math, main$1, textord, "M", "\u039C");
-defineSymbol(math, main$1, textord, "N", "\u039D");
-defineSymbol(math, main$1, textord, "O", "\u039F");
-defineSymbol(math, main$1, textord, "P", "\u03A1");
-defineSymbol(math, main$1, textord, "T", "\u03A4");
-defineSymbol(math, main$1, textord, "X", "\u03A7");
-defineSymbol(math, main$1, textord, "\u00ac", "\\neg", true);
-defineSymbol(math, main$1, textord, "\u00ac", "\\lnot");
-defineSymbol(math, main$1, textord, "\u22a4", "\\top");
-defineSymbol(math, main$1, textord, "\u22a5", "\\bot");
-defineSymbol(math, main$1, textord, "\u2205", "\\emptyset");
+defineSymbol(math, main, textord, "\u2018", "`");
+defineSymbol(math, main, textord, "$", "\\$");
+defineSymbol(text, main, textord, "$", "\\$");
+defineSymbol(text, main, textord, "$", "\\textdollar");
+defineSymbol(math, main, textord, "%", "\\%");
+defineSymbol(text, main, textord, "%", "\\%");
+defineSymbol(math, main, textord, "_", "\\_");
+defineSymbol(text, main, textord, "_", "\\_");
+defineSymbol(text, main, textord, "_", "\\textunderscore");
+defineSymbol(math, main, textord, "\u2220", "\\angle", true);
+defineSymbol(math, main, textord, "\u221e", "\\infty", true);
+defineSymbol(math, main, textord, "\u2032", "\\prime");
+defineSymbol(math, main, textord, "\u25b3", "\\triangle");
+defineSymbol(math, main, textord, "\u0393", "\\Gamma", true);
+defineSymbol(math, main, textord, "\u0394", "\\Delta", true);
+defineSymbol(math, main, textord, "\u0398", "\\Theta", true);
+defineSymbol(math, main, textord, "\u039b", "\\Lambda", true);
+defineSymbol(math, main, textord, "\u039e", "\\Xi", true);
+defineSymbol(math, main, textord, "\u03a0", "\\Pi", true);
+defineSymbol(math, main, textord, "\u03a3", "\\Sigma", true);
+defineSymbol(math, main, textord, "\u03a5", "\\Upsilon", true);
+defineSymbol(math, main, textord, "\u03a6", "\\Phi", true);
+defineSymbol(math, main, textord, "\u03a8", "\\Psi", true);
+defineSymbol(math, main, textord, "\u03a9", "\\Omega", true);
+defineSymbol(math, main, textord, "A", "\u0391");
+defineSymbol(math, main, textord, "B", "\u0392");
+defineSymbol(math, main, textord, "E", "\u0395");
+defineSymbol(math, main, textord, "Z", "\u0396");
+defineSymbol(math, main, textord, "H", "\u0397");
+defineSymbol(math, main, textord, "I", "\u0399");
+defineSymbol(math, main, textord, "K", "\u039A");
+defineSymbol(math, main, textord, "M", "\u039C");
+defineSymbol(math, main, textord, "N", "\u039D");
+defineSymbol(math, main, textord, "O", "\u039F");
+defineSymbol(math, main, textord, "P", "\u03A1");
+defineSymbol(math, main, textord, "T", "\u03A4");
+defineSymbol(math, main, textord, "X", "\u03A7");
+defineSymbol(math, main, textord, "\u00ac", "\\neg", true);
+defineSymbol(math, main, textord, "\u00ac", "\\lnot");
+defineSymbol(math, main, textord, "\u22a4", "\\top");
+defineSymbol(math, main, textord, "\u22a5", "\\bot");
+defineSymbol(math, main, textord, "\u2205", "\\emptyset");
 defineSymbol(math, ams, textord, "\u2205", "\\varnothing");
-defineSymbol(math, main$1, mathord, "\u03b1", "\\alpha", true);
-defineSymbol(math, main$1, mathord, "\u03b2", "\\beta", true);
-defineSymbol(math, main$1, mathord, "\u03b3", "\\gamma", true);
-defineSymbol(math, main$1, mathord, "\u03b4", "\\delta", true);
-defineSymbol(math, main$1, mathord, "\u03f5", "\\epsilon", true);
-defineSymbol(math, main$1, mathord, "\u03b6", "\\zeta", true);
-defineSymbol(math, main$1, mathord, "\u03b7", "\\eta", true);
-defineSymbol(math, main$1, mathord, "\u03b8", "\\theta", true);
-defineSymbol(math, main$1, mathord, "\u03b9", "\\iota", true);
-defineSymbol(math, main$1, mathord, "\u03ba", "\\kappa", true);
-defineSymbol(math, main$1, mathord, "\u03bb", "\\lambda", true);
-defineSymbol(math, main$1, mathord, "\u03bc", "\\mu", true);
-defineSymbol(math, main$1, mathord, "\u03bd", "\\nu", true);
-defineSymbol(math, main$1, mathord, "\u03be", "\\xi", true);
-defineSymbol(math, main$1, mathord, "\u03bf", "\\omicron", true);
-defineSymbol(math, main$1, mathord, "\u03c0", "\\pi", true);
-defineSymbol(math, main$1, mathord, "\u03c1", "\\rho", true);
-defineSymbol(math, main$1, mathord, "\u03c3", "\\sigma", true);
-defineSymbol(math, main$1, mathord, "\u03c4", "\\tau", true);
-defineSymbol(math, main$1, mathord, "\u03c5", "\\upsilon", true);
-defineSymbol(math, main$1, mathord, "\u03d5", "\\phi", true);
-defineSymbol(math, main$1, mathord, "\u03c7", "\\chi", true);
-defineSymbol(math, main$1, mathord, "\u03c8", "\\psi", true);
-defineSymbol(math, main$1, mathord, "\u03c9", "\\omega", true);
-defineSymbol(math, main$1, mathord, "\u03b5", "\\varepsilon", true);
-defineSymbol(math, main$1, mathord, "\u03d1", "\\vartheta", true);
-defineSymbol(math, main$1, mathord, "\u03d6", "\\varpi", true);
-defineSymbol(math, main$1, mathord, "\u03f1", "\\varrho", true);
-defineSymbol(math, main$1, mathord, "\u03c2", "\\varsigma", true);
-defineSymbol(math, main$1, mathord, "\u03c6", "\\varphi", true);
-defineSymbol(math, main$1, bin, "\u2217", "*", true);
-defineSymbol(math, main$1, bin, "+", "+");
-defineSymbol(math, main$1, bin, "\u2212", "-", true);
-defineSymbol(math, main$1, bin, "\u22c5", "\\cdot", true);
-defineSymbol(math, main$1, bin, "\u2218", "\\circ", true);
-defineSymbol(math, main$1, bin, "\u00f7", "\\div", true);
-defineSymbol(math, main$1, bin, "\u00b1", "\\pm", true);
-defineSymbol(math, main$1, bin, "\u00d7", "\\times", true);
-defineSymbol(math, main$1, bin, "\u2229", "\\cap", true);
-defineSymbol(math, main$1, bin, "\u222a", "\\cup", true);
-defineSymbol(math, main$1, bin, "\u2216", "\\setminus", true);
-defineSymbol(math, main$1, bin, "\u2227", "\\land");
-defineSymbol(math, main$1, bin, "\u2228", "\\lor");
-defineSymbol(math, main$1, bin, "\u2227", "\\wedge", true);
-defineSymbol(math, main$1, bin, "\u2228", "\\vee", true);
-defineSymbol(math, main$1, textord, "\u221a", "\\surd");
-defineSymbol(math, main$1, open, "\u27e8", "\\langle", true);
-defineSymbol(math, main$1, open, "\u2223", "\\lvert");
-defineSymbol(math, main$1, open, "\u2225", "\\lVert");
-defineSymbol(math, main$1, close, "?", "?");
-defineSymbol(math, main$1, close, "!", "!");
-defineSymbol(math, main$1, close, "\u27e9", "\\rangle", true);
-defineSymbol(math, main$1, close, "\u2223", "\\rvert");
-defineSymbol(math, main$1, close, "\u2225", "\\rVert");
-defineSymbol(math, main$1, rel, "=", "=");
-defineSymbol(math, main$1, rel, ":", ":");
-defineSymbol(math, main$1, rel, "\u2248", "\\approx", true);
-defineSymbol(math, main$1, rel, "\u2245", "\\cong", true);
-defineSymbol(math, main$1, rel, "\u2265", "\\ge");
-defineSymbol(math, main$1, rel, "\u2265", "\\geq", true);
-defineSymbol(math, main$1, rel, "\u2190", "\\gets");
-defineSymbol(math, main$1, rel, ">", "\\gt", true);
-defineSymbol(math, main$1, rel, "\u2208", "\\in", true);
-defineSymbol(math, main$1, rel, "\ue020", "\\@not");
-defineSymbol(math, main$1, rel, "\u2282", "\\subset", true);
-defineSymbol(math, main$1, rel, "\u2283", "\\supset", true);
-defineSymbol(math, main$1, rel, "\u2286", "\\subseteq", true);
-defineSymbol(math, main$1, rel, "\u2287", "\\supseteq", true);
+defineSymbol(math, main, mathord, "\u03b1", "\\alpha", true);
+defineSymbol(math, main, mathord, "\u03b2", "\\beta", true);
+defineSymbol(math, main, mathord, "\u03b3", "\\gamma", true);
+defineSymbol(math, main, mathord, "\u03b4", "\\delta", true);
+defineSymbol(math, main, mathord, "\u03f5", "\\epsilon", true);
+defineSymbol(math, main, mathord, "\u03b6", "\\zeta", true);
+defineSymbol(math, main, mathord, "\u03b7", "\\eta", true);
+defineSymbol(math, main, mathord, "\u03b8", "\\theta", true);
+defineSymbol(math, main, mathord, "\u03b9", "\\iota", true);
+defineSymbol(math, main, mathord, "\u03ba", "\\kappa", true);
+defineSymbol(math, main, mathord, "\u03bb", "\\lambda", true);
+defineSymbol(math, main, mathord, "\u03bc", "\\mu", true);
+defineSymbol(math, main, mathord, "\u03bd", "\\nu", true);
+defineSymbol(math, main, mathord, "\u03be", "\\xi", true);
+defineSymbol(math, main, mathord, "\u03bf", "\\omicron", true);
+defineSymbol(math, main, mathord, "\u03c0", "\\pi", true);
+defineSymbol(math, main, mathord, "\u03c1", "\\rho", true);
+defineSymbol(math, main, mathord, "\u03c3", "\\sigma", true);
+defineSymbol(math, main, mathord, "\u03c4", "\\tau", true);
+defineSymbol(math, main, mathord, "\u03c5", "\\upsilon", true);
+defineSymbol(math, main, mathord, "\u03d5", "\\phi", true);
+defineSymbol(math, main, mathord, "\u03c7", "\\chi", true);
+defineSymbol(math, main, mathord, "\u03c8", "\\psi", true);
+defineSymbol(math, main, mathord, "\u03c9", "\\omega", true);
+defineSymbol(math, main, mathord, "\u03b5", "\\varepsilon", true);
+defineSymbol(math, main, mathord, "\u03d1", "\\vartheta", true);
+defineSymbol(math, main, mathord, "\u03d6", "\\varpi", true);
+defineSymbol(math, main, mathord, "\u03f1", "\\varrho", true);
+defineSymbol(math, main, mathord, "\u03c2", "\\varsigma", true);
+defineSymbol(math, main, mathord, "\u03c6", "\\varphi", true);
+defineSymbol(math, main, bin, "\u2217", "*", true);
+defineSymbol(math, main, bin, "+", "+");
+defineSymbol(math, main, bin, "\u2212", "-", true);
+defineSymbol(math, main, bin, "\u22c5", "\\cdot", true);
+defineSymbol(math, main, bin, "\u2218", "\\circ", true);
+defineSymbol(math, main, bin, "\u00f7", "\\div", true);
+defineSymbol(math, main, bin, "\u00b1", "\\pm", true);
+defineSymbol(math, main, bin, "\u00d7", "\\times", true);
+defineSymbol(math, main, bin, "\u2229", "\\cap", true);
+defineSymbol(math, main, bin, "\u222a", "\\cup", true);
+defineSymbol(math, main, bin, "\u2216", "\\setminus", true);
+defineSymbol(math, main, bin, "\u2227", "\\land");
+defineSymbol(math, main, bin, "\u2228", "\\lor");
+defineSymbol(math, main, bin, "\u2227", "\\wedge", true);
+defineSymbol(math, main, bin, "\u2228", "\\vee", true);
+defineSymbol(math, main, textord, "\u221a", "\\surd");
+defineSymbol(math, main, open, "\u27e8", "\\langle", true);
+defineSymbol(math, main, open, "\u2223", "\\lvert");
+defineSymbol(math, main, open, "\u2225", "\\lVert");
+defineSymbol(math, main, close, "?", "?");
+defineSymbol(math, main, close, "!", "!");
+defineSymbol(math, main, close, "\u27e9", "\\rangle", true);
+defineSymbol(math, main, close, "\u2223", "\\rvert");
+defineSymbol(math, main, close, "\u2225", "\\rVert");
+defineSymbol(math, main, rel, "=", "=");
+defineSymbol(math, main, rel, ":", ":");
+defineSymbol(math, main, rel, "\u2248", "\\approx", true);
+defineSymbol(math, main, rel, "\u2245", "\\cong", true);
+defineSymbol(math, main, rel, "\u2265", "\\ge");
+defineSymbol(math, main, rel, "\u2265", "\\geq", true);
+defineSymbol(math, main, rel, "\u2190", "\\gets");
+defineSymbol(math, main, rel, ">", "\\gt", true);
+defineSymbol(math, main, rel, "\u2208", "\\in", true);
+defineSymbol(math, main, rel, "\ue020", "\\@not");
+defineSymbol(math, main, rel, "\u2282", "\\subset", true);
+defineSymbol(math, main, rel, "\u2283", "\\supset", true);
+defineSymbol(math, main, rel, "\u2286", "\\subseteq", true);
+defineSymbol(math, main, rel, "\u2287", "\\supseteq", true);
 defineSymbol(math, ams, rel, "\u2288", "\\nsubseteq", true);
 defineSymbol(math, ams, rel, "\u2289", "\\nsupseteq", true);
-defineSymbol(math, main$1, rel, "\u22a8", "\\models");
-defineSymbol(math, main$1, rel, "\u2190", "\\leftarrow", true);
-defineSymbol(math, main$1, rel, "\u2264", "\\le");
-defineSymbol(math, main$1, rel, "\u2264", "\\leq", true);
-defineSymbol(math, main$1, rel, "<", "\\lt", true);
-defineSymbol(math, main$1, rel, "\u2192", "\\rightarrow", true);
-defineSymbol(math, main$1, rel, "\u2192", "\\to");
+defineSymbol(math, main, rel, "\u22a8", "\\models");
+defineSymbol(math, main, rel, "\u2190", "\\leftarrow", true);
+defineSymbol(math, main, rel, "\u2264", "\\le");
+defineSymbol(math, main, rel, "\u2264", "\\leq", true);
+defineSymbol(math, main, rel, "<", "\\lt", true);
+defineSymbol(math, main, rel, "\u2192", "\\rightarrow", true);
+defineSymbol(math, main, rel, "\u2192", "\\to");
 defineSymbol(math, ams, rel, "\u2271", "\\ngeq", true);
 defineSymbol(math, ams, rel, "\u2270", "\\nleq", true);
-defineSymbol(math, main$1, spacing, "\u00a0", "\\ ");
-defineSymbol(math, main$1, spacing, "\u00a0", "\\space");
+defineSymbol(math, main, spacing, "\u00a0", "\\ ");
+defineSymbol(math, main, spacing, "\u00a0", "\\space");
 // Ref: LaTeX Source 2e: \DeclareRobustCommand{\nobreakspace}{%
-defineSymbol(math, main$1, spacing, "\u00a0", "\\nobreakspace");
-defineSymbol(text, main$1, spacing, "\u00a0", "\\ ");
-defineSymbol(text, main$1, spacing, "\u00a0", " ");
-defineSymbol(text, main$1, spacing, "\u00a0", "\\space");
-defineSymbol(text, main$1, spacing, "\u00a0", "\\nobreakspace");
-defineSymbol(math, main$1, spacing, null, "\\nobreak");
-defineSymbol(math, main$1, spacing, null, "\\allowbreak");
-defineSymbol(math, main$1, punct, ",", ",");
-defineSymbol(math, main$1, punct, ";", ";");
+defineSymbol(math, main, spacing, "\u00a0", "\\nobreakspace");
+defineSymbol(text, main, spacing, "\u00a0", "\\ ");
+defineSymbol(text, main, spacing, "\u00a0", " ");
+defineSymbol(text, main, spacing, "\u00a0", "\\space");
+defineSymbol(text, main, spacing, "\u00a0", "\\nobreakspace");
+defineSymbol(math, main, spacing, null, "\\nobreak");
+defineSymbol(math, main, spacing, null, "\\allowbreak");
+defineSymbol(math, main, punct, ",", ",");
+defineSymbol(math, main, punct, ";", ";");
 defineSymbol(math, ams, bin, "\u22bc", "\\barwedge", true);
 defineSymbol(math, ams, bin, "\u22bb", "\\veebar", true);
-defineSymbol(math, main$1, bin, "\u2299", "\\odot", true);
-defineSymbol(math, main$1, bin, "\u2295", "\\oplus", true);
-defineSymbol(math, main$1, bin, "\u2297", "\\otimes", true);
-defineSymbol(math, main$1, textord, "\u2202", "\\partial", true);
-defineSymbol(math, main$1, bin, "\u2298", "\\oslash", true);
+defineSymbol(math, main, bin, "\u2299", "\\odot", true);
+defineSymbol(math, main, bin, "\u2295", "\\oplus", true);
+defineSymbol(math, main, bin, "\u2297", "\\otimes", true);
+defineSymbol(math, main, textord, "\u2202", "\\partial", true);
+defineSymbol(math, main, bin, "\u2298", "\\oslash", true);
 defineSymbol(math, ams, bin, "\u229a", "\\circledcirc", true);
 defineSymbol(math, ams, bin, "\u22a1", "\\boxdot", true);
-defineSymbol(math, main$1, bin, "\u25b3", "\\bigtriangleup");
-defineSymbol(math, main$1, bin, "\u25bd", "\\bigtriangledown");
-defineSymbol(math, main$1, bin, "\u2020", "\\dagger");
-defineSymbol(math, main$1, bin, "\u22c4", "\\diamond");
-defineSymbol(math, main$1, bin, "\u22c6", "\\star");
-defineSymbol(math, main$1, bin, "\u25c3", "\\triangleleft");
-defineSymbol(math, main$1, bin, "\u25b9", "\\triangleright");
-defineSymbol(math, main$1, open, "{", "\\{");
-defineSymbol(text, main$1, textord, "{", "\\{");
-defineSymbol(text, main$1, textord, "{", "\\textbraceleft");
-defineSymbol(math, main$1, close, "}", "\\}");
-defineSymbol(text, main$1, textord, "}", "\\}");
-defineSymbol(text, main$1, textord, "}", "\\textbraceright");
-defineSymbol(math, main$1, open, "{", "\\lbrace");
-defineSymbol(math, main$1, close, "}", "\\rbrace");
-defineSymbol(math, main$1, open, "[", "\\lbrack", true);
-defineSymbol(text, main$1, textord, "[", "\\lbrack", true);
-defineSymbol(math, main$1, close, "]", "\\rbrack", true);
-defineSymbol(text, main$1, textord, "]", "\\rbrack", true);
-defineSymbol(math, main$1, open, "(", "\\lparen", true);
-defineSymbol(math, main$1, close, ")", "\\rparen", true);
-defineSymbol(text, main$1, textord, "<", "\\textless", true); // in T1 fontenc
-defineSymbol(text, main$1, textord, ">", "\\textgreater", true); // in T1 fontenc
-defineSymbol(math, main$1, open, "\u230a", "\\lfloor", true);
-defineSymbol(math, main$1, close, "\u230b", "\\rfloor", true);
-defineSymbol(math, main$1, open, "\u2308", "\\lceil", true);
-defineSymbol(math, main$1, close, "\u2309", "\\rceil", true);
-defineSymbol(math, main$1, textord, "\\", "\\backslash");
-defineSymbol(math, main$1, textord, "\u2223", "|");
-defineSymbol(math, main$1, textord, "\u2223", "\\vert");
-defineSymbol(text, main$1, textord, "|", "\\textbar", true); // in T1 fontenc
-defineSymbol(math, main$1, textord, "\u2225", "\\|");
-defineSymbol(math, main$1, textord, "\u2225", "\\Vert");
-defineSymbol(text, main$1, textord, "\u2225", "\\textbardbl");
-defineSymbol(text, main$1, textord, "~", "\\textasciitilde");
-defineSymbol(text, main$1, textord, "\\", "\\textbackslash");
-defineSymbol(text, main$1, textord, "^", "\\textasciicircum");
-defineSymbol(math, main$1, rel, "\u2191", "\\uparrow", true);
-defineSymbol(math, main$1, rel, "\u21d1", "\\Uparrow", true);
-defineSymbol(math, main$1, rel, "\u2193", "\\downarrow", true);
-defineSymbol(math, main$1, rel, "\u21d3", "\\Downarrow", true);
-defineSymbol(math, main$1, rel, "\u2195", "\\updownarrow", true);
-defineSymbol(math, main$1, rel, "\u21d5", "\\Updownarrow", true);
-defineSymbol(math, main$1, op$1, "\u2210", "\\coprod");
-defineSymbol(math, main$1, op$1, "\u22c1", "\\bigvee");
-defineSymbol(math, main$1, op$1, "\u22c0", "\\bigwedge");
-defineSymbol(math, main$1, op$1, "\u2a04", "\\biguplus");
-defineSymbol(math, main$1, op$1, "\u22c2", "\\bigcap");
-defineSymbol(math, main$1, op$1, "\u22c3", "\\bigcup");
-defineSymbol(math, main$1, op$1, "\u222b", "\\int");
-defineSymbol(math, main$1, op$1, "\u222b", "\\intop");
-defineSymbol(math, main$1, op$1, "\u222c", "\\iint");
-defineSymbol(math, main$1, op$1, "\u222d", "\\iiint");
-defineSymbol(math, main$1, op$1, "\u220f", "\\prod");
-defineSymbol(math, main$1, op$1, "\u2211", "\\sum");
-defineSymbol(math, main$1, op$1, "\u2a02", "\\bigotimes");
-defineSymbol(math, main$1, op$1, "\u2a01", "\\bigoplus");
-defineSymbol(math, main$1, op$1, "\u2a00", "\\bigodot");
-defineSymbol(math, main$1, op$1, "\u222e", "\\oint");
-defineSymbol(math, main$1, op$1, "\u222f", "\\oiint");
-defineSymbol(math, main$1, op$1, "\u2230", "\\oiiint");
-defineSymbol(math, main$1, op$1, "\u2a06", "\\bigsqcup");
-defineSymbol(math, main$1, op$1, "\u222b", "\\smallint");
-defineSymbol(text, main$1, inner, "\u2026", "\\textellipsis");
-defineSymbol(math, main$1, inner, "\u2026", "\\mathellipsis");
-defineSymbol(text, main$1, inner, "\u2026", "\\ldots", true);
-defineSymbol(math, main$1, inner, "\u2026", "\\ldots", true);
-defineSymbol(math, main$1, inner, "\u22ef", "\\@cdots", true);
-defineSymbol(math, main$1, inner, "\u22f1", "\\ddots", true);
+defineSymbol(math, main, bin, "\u25b3", "\\bigtriangleup");
+defineSymbol(math, main, bin, "\u25bd", "\\bigtriangledown");
+defineSymbol(math, main, bin, "\u2020", "\\dagger");
+defineSymbol(math, main, bin, "\u22c4", "\\diamond");
+defineSymbol(math, main, bin, "\u22c6", "\\star");
+defineSymbol(math, main, bin, "\u25c3", "\\triangleleft");
+defineSymbol(math, main, bin, "\u25b9", "\\triangleright");
+defineSymbol(math, main, open, "{", "\\{");
+defineSymbol(text, main, textord, "{", "\\{");
+defineSymbol(text, main, textord, "{", "\\textbraceleft");
+defineSymbol(math, main, close, "}", "\\}");
+defineSymbol(text, main, textord, "}", "\\}");
+defineSymbol(text, main, textord, "}", "\\textbraceright");
+defineSymbol(math, main, open, "{", "\\lbrace");
+defineSymbol(math, main, close, "}", "\\rbrace");
+defineSymbol(math, main, open, "[", "\\lbrack", true);
+defineSymbol(text, main, textord, "[", "\\lbrack", true);
+defineSymbol(math, main, close, "]", "\\rbrack", true);
+defineSymbol(text, main, textord, "]", "\\rbrack", true);
+defineSymbol(math, main, open, "(", "\\lparen", true);
+defineSymbol(math, main, close, ")", "\\rparen", true);
+defineSymbol(text, main, textord, "<", "\\textless", true); // in T1 fontenc
+defineSymbol(text, main, textord, ">", "\\textgreater", true); // in T1 fontenc
+defineSymbol(math, main, open, "\u230a", "\\lfloor", true);
+defineSymbol(math, main, close, "\u230b", "\\rfloor", true);
+defineSymbol(math, main, open, "\u2308", "\\lceil", true);
+defineSymbol(math, main, close, "\u2309", "\\rceil", true);
+defineSymbol(math, main, textord, "\\", "\\backslash");
+defineSymbol(math, main, textord, "\u2223", "|");
+defineSymbol(math, main, textord, "\u2223", "\\vert");
+defineSymbol(text, main, textord, "|", "\\textbar", true); // in T1 fontenc
+defineSymbol(math, main, textord, "\u2225", "\\|");
+defineSymbol(math, main, textord, "\u2225", "\\Vert");
+defineSymbol(text, main, textord, "\u2225", "\\textbardbl");
+defineSymbol(text, main, textord, "~", "\\textasciitilde");
+defineSymbol(text, main, textord, "\\", "\\textbackslash");
+defineSymbol(text, main, textord, "^", "\\textasciicircum");
+defineSymbol(math, main, rel, "\u2191", "\\uparrow", true);
+defineSymbol(math, main, rel, "\u21d1", "\\Uparrow", true);
+defineSymbol(math, main, rel, "\u2193", "\\downarrow", true);
+defineSymbol(math, main, rel, "\u21d3", "\\Downarrow", true);
+defineSymbol(math, main, rel, "\u2195", "\\updownarrow", true);
+defineSymbol(math, main, rel, "\u21d5", "\\Updownarrow", true);
+defineSymbol(math, main, op$1, "\u2210", "\\coprod");
+defineSymbol(math, main, op$1, "\u22c1", "\\bigvee");
+defineSymbol(math, main, op$1, "\u22c0", "\\bigwedge");
+defineSymbol(math, main, op$1, "\u2a04", "\\biguplus");
+defineSymbol(math, main, op$1, "\u22c2", "\\bigcap");
+defineSymbol(math, main, op$1, "\u22c3", "\\bigcup");
+defineSymbol(math, main, op$1, "\u222b", "\\int");
+defineSymbol(math, main, op$1, "\u222b", "\\intop");
+defineSymbol(math, main, op$1, "\u222c", "\\iint");
+defineSymbol(math, main, op$1, "\u222d", "\\iiint");
+defineSymbol(math, main, op$1, "\u220f", "\\prod");
+defineSymbol(math, main, op$1, "\u2211", "\\sum");
+defineSymbol(math, main, op$1, "\u2a02", "\\bigotimes");
+defineSymbol(math, main, op$1, "\u2a01", "\\bigoplus");
+defineSymbol(math, main, op$1, "\u2a00", "\\bigodot");
+defineSymbol(math, main, op$1, "\u222e", "\\oint");
+defineSymbol(math, main, op$1, "\u222f", "\\oiint");
+defineSymbol(math, main, op$1, "\u2230", "\\oiiint");
+defineSymbol(math, main, op$1, "\u2a06", "\\bigsqcup");
+defineSymbol(math, main, op$1, "\u222b", "\\smallint");
+defineSymbol(text, main, inner, "\u2026", "\\textellipsis");
+defineSymbol(math, main, inner, "\u2026", "\\mathellipsis");
+defineSymbol(text, main, inner, "\u2026", "\\ldots", true);
+defineSymbol(math, main, inner, "\u2026", "\\ldots", true);
+defineSymbol(math, main, inner, "\u22ef", "\\@cdots", true);
+defineSymbol(math, main, inner, "\u22f1", "\\ddots", true);
 // \vdots is a macro that uses one of these two symbols (with made-up names):
-defineSymbol(math, main$1, textord, "\u22ee", "\\varvdots");
-defineSymbol(text, main$1, textord, "\u22ee", "\\varvdots");
-defineSymbol(math, main$1, accent, "\u02ca", "\\acute");
-defineSymbol(math, main$1, accent, "\u02cb", "\\grave");
-defineSymbol(math, main$1, accent, "\u00a8", "\\ddot");
-defineSymbol(math, main$1, accent, "\u007e", "\\tilde");
-defineSymbol(math, main$1, accent, "\u02c9", "\\bar");
-defineSymbol(math, main$1, accent, "\u02d8", "\\breve");
-defineSymbol(math, main$1, accent, "\u02c7", "\\check");
-defineSymbol(math, main$1, accent, "\u005e", "\\hat");
-defineSymbol(math, main$1, accent, "\u20d7", "\\vec");
-defineSymbol(math, main$1, accent, "\u02d9", "\\dot");
-defineSymbol(math, main$1, accent, "\u02da", "\\mathring");
+defineSymbol(math, main, textord, "\u22ee", "\\varvdots");
+defineSymbol(text, main, textord, "\u22ee", "\\varvdots");
+defineSymbol(math, main, accent, "\u02ca", "\\acute");
+defineSymbol(math, main, accent, "\u02cb", "\\grave");
+defineSymbol(math, main, accent, "\u00a8", "\\ddot");
+defineSymbol(math, main, accent, "\u007e", "\\tilde");
+defineSymbol(math, main, accent, "\u02c9", "\\bar");
+defineSymbol(math, main, accent, "\u02d8", "\\breve");
+defineSymbol(math, main, accent, "\u02c7", "\\check");
+defineSymbol(math, main, accent, "\u005e", "\\hat");
+defineSymbol(math, main, accent, "\u20d7", "\\vec");
+defineSymbol(math, main, accent, "\u02d9", "\\dot");
+defineSymbol(math, main, accent, "\u02da", "\\mathring");
 // \imath and \jmath should be invariant to \mathrm, \mathbf, etc., so use PUA
-defineSymbol(math, main$1, mathord, "\ue131", "\\@imath");
-defineSymbol(math, main$1, mathord, "\ue237", "\\@jmath");
-defineSymbol(math, main$1, textord, "\u0131", "\u0131");
-defineSymbol(math, main$1, textord, "\u0237", "\u0237");
-defineSymbol(text, main$1, textord, "\u0131", "\\i", true);
-defineSymbol(text, main$1, textord, "\u0237", "\\j", true);
-defineSymbol(text, main$1, textord, "\u00df", "\\ss", true);
-defineSymbol(text, main$1, textord, "\u00e6", "\\ae", true);
-defineSymbol(text, main$1, textord, "\u0153", "\\oe", true);
-defineSymbol(text, main$1, textord, "\u00f8", "\\o", true);
-defineSymbol(text, main$1, textord, "\u00c6", "\\AE", true);
-defineSymbol(text, main$1, textord, "\u0152", "\\OE", true);
-defineSymbol(text, main$1, textord, "\u00d8", "\\O", true);
-defineSymbol(text, main$1, accent, "\u02ca", "\\'"); // acute
-defineSymbol(text, main$1, accent, "\u02cb", "\\`"); // grave
-defineSymbol(text, main$1, accent, "\u02c6", "\\^"); // circumflex
-defineSymbol(text, main$1, accent, "\u02dc", "\\~"); // tilde
-defineSymbol(text, main$1, accent, "\u02c9", "\\="); // macron
-defineSymbol(text, main$1, accent, "\u02d8", "\\u"); // breve
-defineSymbol(text, main$1, accent, "\u02d9", "\\."); // dot above
-defineSymbol(text, main$1, accent, "\u00b8", "\\c"); // cedilla
-defineSymbol(text, main$1, accent, "\u02da", "\\r"); // ring above
-defineSymbol(text, main$1, accent, "\u02c7", "\\v"); // caron
-defineSymbol(text, main$1, accent, "\u00a8", '\\"'); // diaeresis
-defineSymbol(text, main$1, accent, "\u02dd", "\\H"); // double acute
-defineSymbol(text, main$1, accent, "\u25ef", "\\textcircled"); // \bigcirc glyph
+defineSymbol(math, main, mathord, "\ue131", "\\@imath");
+defineSymbol(math, main, mathord, "\ue237", "\\@jmath");
+defineSymbol(math, main, textord, "\u0131", "\u0131");
+defineSymbol(math, main, textord, "\u0237", "\u0237");
+defineSymbol(text, main, textord, "\u0131", "\\i", true);
+defineSymbol(text, main, textord, "\u0237", "\\j", true);
+defineSymbol(text, main, textord, "\u00df", "\\ss", true);
+defineSymbol(text, main, textord, "\u00e6", "\\ae", true);
+defineSymbol(text, main, textord, "\u0153", "\\oe", true);
+defineSymbol(text, main, textord, "\u00f8", "\\o", true);
+defineSymbol(text, main, textord, "\u00c6", "\\AE", true);
+defineSymbol(text, main, textord, "\u0152", "\\OE", true);
+defineSymbol(text, main, textord, "\u00d8", "\\O", true);
+defineSymbol(text, main, accent, "\u02ca", "\\'"); // acute
+defineSymbol(text, main, accent, "\u02cb", "\\`"); // grave
+defineSymbol(text, main, accent, "\u02c6", "\\^"); // circumflex
+defineSymbol(text, main, accent, "\u02dc", "\\~"); // tilde
+defineSymbol(text, main, accent, "\u02c9", "\\="); // macron
+defineSymbol(text, main, accent, "\u02d8", "\\u"); // breve
+defineSymbol(text, main, accent, "\u02d9", "\\."); // dot above
+defineSymbol(text, main, accent, "\u00b8", "\\c"); // cedilla
+defineSymbol(text, main, accent, "\u02da", "\\r"); // ring above
+defineSymbol(text, main, accent, "\u02c7", "\\v"); // caron
+defineSymbol(text, main, accent, "\u00a8", '\\"'); // diaeresis
+defineSymbol(text, main, accent, "\u02dd", "\\H"); // double acute
+defineSymbol(text, main, accent, "\u25ef", "\\textcircled"); // \bigcirc glyph
 // These ligatures are detected and created in Parser.js's `formLigatures`.
 var ligatures = {
   "--": true,
@@ -4351,29 +4351,29 @@ var ligatures = {
   "``": true,
   "''": true
 };
-defineSymbol(text, main$1, textord, "\u2013", "--", true);
-defineSymbol(text, main$1, textord, "\u2013", "\\textendash");
-defineSymbol(text, main$1, textord, "\u2014", "---", true);
-defineSymbol(text, main$1, textord, "\u2014", "\\textemdash");
-defineSymbol(text, main$1, textord, "\u2018", "`", true);
-defineSymbol(text, main$1, textord, "\u2018", "\\textquoteleft");
-defineSymbol(text, main$1, textord, "\u2019", "'", true);
-defineSymbol(text, main$1, textord, "\u2019", "\\textquoteright");
-defineSymbol(text, main$1, textord, "\u201c", "``", true);
-defineSymbol(text, main$1, textord, "\u201c", "\\textquotedblleft");
-defineSymbol(text, main$1, textord, "\u201d", "''", true);
-defineSymbol(text, main$1, textord, "\u201d", "\\textquotedblright");
+defineSymbol(text, main, textord, "\u2013", "--", true);
+defineSymbol(text, main, textord, "\u2013", "\\textendash");
+defineSymbol(text, main, textord, "\u2014", "---", true);
+defineSymbol(text, main, textord, "\u2014", "\\textemdash");
+defineSymbol(text, main, textord, "\u2018", "`", true);
+defineSymbol(text, main, textord, "\u2018", "\\textquoteleft");
+defineSymbol(text, main, textord, "\u2019", "'", true);
+defineSymbol(text, main, textord, "\u2019", "\\textquoteright");
+defineSymbol(text, main, textord, "\u201c", "``", true);
+defineSymbol(text, main, textord, "\u201c", "\\textquotedblleft");
+defineSymbol(text, main, textord, "\u201d", "''", true);
+defineSymbol(text, main, textord, "\u201d", "\\textquotedblright");
 //  \degree from gensymb package
-defineSymbol(math, main$1, textord, "\u00b0", "\\degree", true);
-defineSymbol(text, main$1, textord, "\u00b0", "\\degree");
+defineSymbol(math, main, textord, "\u00b0", "\\degree", true);
+defineSymbol(text, main, textord, "\u00b0", "\\degree");
 // \textdegree from inputenc package
-defineSymbol(text, main$1, textord, "\u00b0", "\\textdegree", true);
+defineSymbol(text, main, textord, "\u00b0", "\\textdegree", true);
 // TODO: In LaTeX, \pounds can generate a different character in text and math
 // mode, but among our fonts, only Main-Regular defines this character "163".
-defineSymbol(math, main$1, textord, "\u00a3", "\\pounds");
-defineSymbol(math, main$1, textord, "\u00a3", "\\mathsterling", true);
-defineSymbol(text, main$1, textord, "\u00a3", "\\pounds");
-defineSymbol(text, main$1, textord, "\u00a3", "\\textsterling", true);
+defineSymbol(math, main, textord, "\u00a3", "\\pounds");
+defineSymbol(math, main, textord, "\u00a3", "\\mathsterling", true);
+defineSymbol(text, main, textord, "\u00a3", "\\pounds");
+defineSymbol(text, main, textord, "\u00a3", "\\textsterling", true);
 defineSymbol(math, ams, textord, "\u2720", "\\maltese");
 defineSymbol(text, ams, textord, "\u2720", "\\maltese");
 // There are lots of symbols which are the same, so we add them in afterwards.
@@ -4381,20 +4381,20 @@ defineSymbol(text, ams, textord, "\u2720", "\\maltese");
 var mathTextSymbols = "0123456789/@.\"";
 for (var i$1 = 0; i$1 < mathTextSymbols.length; i$1++) {
   var ch = mathTextSymbols.charAt(i$1);
-  defineSymbol(math, main$1, textord, ch, ch);
+  defineSymbol(math, main, textord, ch, ch);
 }
 // All of these are textords in text mode
 var textSymbols = "0123456789!@*()-=+\";:?/.,";
 for (var _i$1 = 0; _i$1 < textSymbols.length; _i$1++) {
   var _ch = textSymbols.charAt(_i$1);
-  defineSymbol(text, main$1, textord, _ch, _ch);
+  defineSymbol(text, main, textord, _ch, _ch);
 }
 // All of these are textords in text mode, and mathords in math mode
 var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 for (var _i2 = 0; _i2 < letters.length; _i2++) {
   var _ch2 = letters.charAt(_i2);
-  defineSymbol(math, main$1, mathord, _ch2, _ch2);
-  defineSymbol(text, main$1, textord, _ch2, _ch2);
+  defineSymbol(math, main, mathord, _ch2, _ch2);
+  defineSymbol(text, main, textord, _ch2, _ch2);
 }
 // Blackboard bold and script letters in Unicode range
 defineSymbol(math, ams, textord, "C", "\u2102"); // blackboard bold
@@ -4411,8 +4411,8 @@ defineSymbol(math, ams, textord, "R", "\u211D");
 defineSymbol(text, ams, textord, "R", "\u211D");
 defineSymbol(math, ams, textord, "Z", "\u2124");
 defineSymbol(text, ams, textord, "Z", "\u2124");
-defineSymbol(math, main$1, mathord, "h", "\u210E"); // italic h, Planck constant
-defineSymbol(text, main$1, mathord, "h", "\u210E");
+defineSymbol(math, main, mathord, "h", "\u210E"); // italic h, Planck constant
+defineSymbol(text, main, mathord, "h", "\u210E");
 // The next loop loads wide (surrogate pair) characters.
 // We support some letters in the Unicode range U+1D400 to U+1D7FF,
 // Mathematical Alphanumeric Symbols.
@@ -4425,63 +4425,63 @@ for (var _i3 = 0; _i3 < letters.length; _i3++) {
   // 0xD835 is the high surrogate for all letters in the range we support.
   // 0xDC00 is the low surrogate for bold A.
   wideChar = String.fromCharCode(0xD835, 0xDC00 + _i3); // A-Z a-z bold
-  defineSymbol(math, main$1, mathord, _ch3, wideChar);
-  defineSymbol(text, main$1, textord, _ch3, wideChar);
+  defineSymbol(math, main, mathord, _ch3, wideChar);
+  defineSymbol(text, main, textord, _ch3, wideChar);
   wideChar = String.fromCharCode(0xD835, 0xDC34 + _i3); // A-Z a-z italic
-  defineSymbol(math, main$1, mathord, _ch3, wideChar);
-  defineSymbol(text, main$1, textord, _ch3, wideChar);
+  defineSymbol(math, main, mathord, _ch3, wideChar);
+  defineSymbol(text, main, textord, _ch3, wideChar);
   wideChar = String.fromCharCode(0xD835, 0xDC68 + _i3); // A-Z a-z bold italic
-  defineSymbol(math, main$1, mathord, _ch3, wideChar);
-  defineSymbol(text, main$1, textord, _ch3, wideChar);
+  defineSymbol(math, main, mathord, _ch3, wideChar);
+  defineSymbol(text, main, textord, _ch3, wideChar);
   wideChar = String.fromCharCode(0xD835, 0xDD04 + _i3); // A-Z a-z Fraktur
-  defineSymbol(math, main$1, mathord, _ch3, wideChar);
-  defineSymbol(text, main$1, textord, _ch3, wideChar);
+  defineSymbol(math, main, mathord, _ch3, wideChar);
+  defineSymbol(text, main, textord, _ch3, wideChar);
   wideChar = String.fromCharCode(0xD835, 0xDD6C + _i3); // A-Z a-z bold Fraktur
-  defineSymbol(math, main$1, mathord, _ch3, wideChar);
-  defineSymbol(text, main$1, textord, _ch3, wideChar);
+  defineSymbol(math, main, mathord, _ch3, wideChar);
+  defineSymbol(text, main, textord, _ch3, wideChar);
   wideChar = String.fromCharCode(0xD835, 0xDDA0 + _i3); // A-Z a-z sans-serif
-  defineSymbol(math, main$1, mathord, _ch3, wideChar);
-  defineSymbol(text, main$1, textord, _ch3, wideChar);
+  defineSymbol(math, main, mathord, _ch3, wideChar);
+  defineSymbol(text, main, textord, _ch3, wideChar);
   wideChar = String.fromCharCode(0xD835, 0xDDD4 + _i3); // A-Z a-z sans bold
-  defineSymbol(math, main$1, mathord, _ch3, wideChar);
-  defineSymbol(text, main$1, textord, _ch3, wideChar);
+  defineSymbol(math, main, mathord, _ch3, wideChar);
+  defineSymbol(text, main, textord, _ch3, wideChar);
   wideChar = String.fromCharCode(0xD835, 0xDE08 + _i3); // A-Z a-z sans italic
-  defineSymbol(math, main$1, mathord, _ch3, wideChar);
-  defineSymbol(text, main$1, textord, _ch3, wideChar);
+  defineSymbol(math, main, mathord, _ch3, wideChar);
+  defineSymbol(text, main, textord, _ch3, wideChar);
   wideChar = String.fromCharCode(0xD835, 0xDE70 + _i3); // A-Z a-z monospace
-  defineSymbol(math, main$1, mathord, _ch3, wideChar);
-  defineSymbol(text, main$1, textord, _ch3, wideChar);
+  defineSymbol(math, main, mathord, _ch3, wideChar);
+  defineSymbol(text, main, textord, _ch3, wideChar);
   if (_i3 < 26) {
     // KaTeX fonts have only capital letters for blackboard bold and script.
     // See exception for k below.
     wideChar = String.fromCharCode(0xD835, 0xDD38 + _i3); // A-Z double struck
-    defineSymbol(math, main$1, mathord, _ch3, wideChar);
-    defineSymbol(text, main$1, textord, _ch3, wideChar);
+    defineSymbol(math, main, mathord, _ch3, wideChar);
+    defineSymbol(text, main, textord, _ch3, wideChar);
     wideChar = String.fromCharCode(0xD835, 0xDC9C + _i3); // A-Z script
-    defineSymbol(math, main$1, mathord, _ch3, wideChar);
-    defineSymbol(text, main$1, textord, _ch3, wideChar);
+    defineSymbol(math, main, mathord, _ch3, wideChar);
+    defineSymbol(text, main, textord, _ch3, wideChar);
   }
   // TODO: Add bold script when it is supported by a KaTeX font.
 }
 // "k" is the only double struck lower case letter in the KaTeX fonts.
 wideChar = String.fromCharCode(0xD835, 0xDD5C); // k double struck
-defineSymbol(math, main$1, mathord, "k", wideChar);
-defineSymbol(text, main$1, textord, "k", wideChar);
+defineSymbol(math, main, mathord, "k", wideChar);
+defineSymbol(text, main, textord, "k", wideChar);
 // Next, some wide character numerals
 for (var _i4 = 0; _i4 < 10; _i4++) {
   var _ch4 = _i4.toString();
   wideChar = String.fromCharCode(0xD835, 0xDFCE + _i4); // 0-9 bold
-  defineSymbol(math, main$1, mathord, _ch4, wideChar);
-  defineSymbol(text, main$1, textord, _ch4, wideChar);
+  defineSymbol(math, main, mathord, _ch4, wideChar);
+  defineSymbol(text, main, textord, _ch4, wideChar);
   wideChar = String.fromCharCode(0xD835, 0xDFE2 + _i4); // 0-9 sans serif
-  defineSymbol(math, main$1, mathord, _ch4, wideChar);
-  defineSymbol(text, main$1, textord, _ch4, wideChar);
+  defineSymbol(math, main, mathord, _ch4, wideChar);
+  defineSymbol(text, main, textord, _ch4, wideChar);
   wideChar = String.fromCharCode(0xD835, 0xDFEC + _i4); // 0-9 bold sans
-  defineSymbol(math, main$1, mathord, _ch4, wideChar);
-  defineSymbol(text, main$1, textord, _ch4, wideChar);
+  defineSymbol(math, main, mathord, _ch4, wideChar);
+  defineSymbol(text, main, textord, _ch4, wideChar);
   wideChar = String.fromCharCode(0xD835, 0xDFF6 + _i4); // 0-9 monospace
-  defineSymbol(math, main$1, mathord, _ch4, wideChar);
-  defineSymbol(text, main$1, textord, _ch4, wideChar);
+  defineSymbol(math, main, mathord, _ch4, wideChar);
+  defineSymbol(text, main, textord, _ch4, wideChar);
 }
 // We add these Latin-1 letters as symbols for backwards-compatibility,
 // but they are not actually in the font, nor are they supported by the
@@ -4490,8 +4490,8 @@ for (var _i4 = 0; _i4 < 10; _i4++) {
 var extraLatin = "\u00d0\u00de\u00fe";
 for (var _i5 = 0; _i5 < extraLatin.length; _i5++) {
   var _ch5 = extraLatin.charAt(_i5);
-  defineSymbol(math, main$1, mathord, _ch5, _ch5);
-  defineSymbol(text, main$1, textord, _ch5, _ch5);
+  defineSymbol(math, main, mathord, _ch5, _ch5);
+  defineSymbol(text, main, textord, _ch5, _ch5);
 }
 
 /**
@@ -40031,7 +40031,7 @@ class PracticeMaker {
     _contentRoot.innerHTML = `
     <div id="content" class="d-none" data-type="question">
     <header
-       class="navbar navbar-expand-lg navbar-light border-bottom sticky-md-top bg-body py-2 shadow-sm"
+       class="navbar navbar-expand-lg navbar-light border-bottom bg-body py-2 shadow-sm"
     >
        <div class="d-flex align-items-center w-100">
           
@@ -40041,6 +40041,14 @@ class PracticeMaker {
           <ul
              class="navbar-nav ms-auto d-flex flex-row justify-content-evenly justify-content-lg-end mt-lg-0 pb-lg-0"
           >
+
+          <li class="nav-item">
+          <div
+          id="quizTimer"
+          class="d-none fw-bold fs-5 align-self-center me-3"
+       ></div>
+          </li>
+
           <li class="nav-item">
           <span id="editModeBadge" class="btn badge bg-warning text-dark d-none"
              >${L('editModeBadge')}</span
@@ -40107,10 +40115,7 @@ class PracticeMaker {
     <div id="navPane" class="d-flex align-items-center mt-2">
        
 
-       <div
-          id="quizTimer"
-          class="d-none fw-bold fs-5 align-self-center me-3"
-       ></div>
+       
        
 
     </div>
@@ -40183,9 +40188,20 @@ class PracticeMaker {
       if (e.key === 'ArrowLeft'  && !this.prevBtn.disabled) this.doPrevious();
     };
     document.addEventListener('keydown', this._keyHandler);
+    // Get selected tags from URL parameters (?tags=tag1,tag2)
+    this.urlParams = new URLSearchParams(window.location.search);
+    const selectedTagsParam = this.urlParams.get("tags");
+    this.selectedTags = selectedTagsParam ? selectedTagsParam.split(",") : [];
 
-
-
+    // Keep tag selection in sync with browser Back/Forward, since tag
+    // clicks now update the URL via pushState instead of reloading.
+    this._popstateHandler = () => {
+      this.urlParams = new URLSearchParams(window.location.search);
+      const tagsParam = this.urlParams.get("tags");
+      this.selectedTags = tagsParam ? tagsParam.split(",") : [];
+      if (this.originalQuestions) this.setQuestions(this.originalQuestions);
+    };
+    window.addEventListener('popstate', this._popstateHandler);
   }
 
   shuffle(array) {
@@ -40194,6 +40210,14 @@ class PracticeMaker {
       [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
+  }
+
+  // Updates selected tags + URL (without navigating) and re-filters the
+  // already-loaded question set in place, instead of reloading the page.
+  _applyTagSelection(updatedTags) {
+    this.selectedTags = updatedTags;
+    history.pushState(null, "", "?" + this.urlParams.toString() + window.location.hash);
+    this.setQuestions(this.originalQuestions);
   }
 
   setQuestions(_questions) {
@@ -40206,26 +40230,41 @@ class PracticeMaker {
      * @param {string|null} targetComplexity - The complexity level ("H", "M", or null).
      * @returns {Array} The filtered subset of questions.
      */
-    function filterQuestionsByComplexity(questions, targetComplexity) {
+     function filterQuestions(questions, targetComplexity, selectedTags = []) {
       if (!questions || !Array.isArray(questions)) return [];
-
+    
       return questions.filter(q => {
-        // If complexity is H: Do not filter (include everything)
+        // 1. Complexity Filter
+        let matchesComplexity = false;
+        
         if (targetComplexity === "H") {
+          // Include everything
+          matchesComplexity = true; 
+        } else if (targetComplexity === "M") {
+          // Include questions with NO complexity or "M"
+          matchesComplexity = !q.complexity || q.complexity === "M"; 
+        } else {
+          // If targetComplexity is null/undefined: Include ONLY questions with NO complexity
+          matchesComplexity = !q.complexity; 
+        }
+    
+        if (!matchesComplexity) return false;
+    
+        // 2. Tag Filter
+        // If no tags are selected, skip tag filtering
+        if (!selectedTags || selectedTags.length === 0) {
           return true;
         }
-        
-        // If complexity is M: Include questions with NO complexity + "M"
-        if (targetComplexity === "M") {
-          return !q.complexity || q.complexity === "M";
-        }
-        
-        // If complexity is null: Include ONLY questions that do not have complexity
-        return !q.complexity;
+    
+        // Ensure q.tags exists and is an array before filtering
+        const questionTags = q.tags || [];
+    
+        // AND Logic: The question must contain ALL selected tags
+        return selectedTags.every(tag => questionTags.includes(tag));
       });
     }
 
-    this.questions = this.shuffle(filterQuestionsByComplexity(_questions,this.complexity));
+    this.questions = this.shuffle(filterQuestions(_questions,this.complexity, this.selectedTags));
     this.originalQuestions = JSON.parse(JSON.stringify(_questions));
     this.currentQuestionIndex = 0;
     this.userAnswers = {};
@@ -40325,12 +40364,58 @@ if (q.tags?.length) {
         '<i class="bi bi-tags me-2"></i>'
     );
 
+
+
     q.tags.forEach(tag => {
-        const badge = document.createElement("span");
+      const badge = document.createElement("span");
+      const isSelected = this.selectedTags.includes(tag);
+  
+      if (isSelected) {
+          // Highlight selected tag with primary background and white text
+          badge.className = "badge bg-primary text-white me-1 d-inline-flex align-items-center";
+          badge.textContent = tag + " ";
+  
+          // Create close button (x)
+          const closeBtn = document.createElement("span");
+          closeBtn.innerHTML = " &times;";
+          closeBtn.style.cursor = "pointer";
+          closeBtn.className = "ms-1";
+  
+          // Click event to remove tag and re-filter in place
+          closeBtn.addEventListener("click", (e) => {
+              e.stopPropagation(); // Prevent parent click events
+  
+              // Filter out the clicked tag
+              const updatedTags = this.selectedTags.filter(t => t !== tag);
+  
+              // Update URL parameters
+              if (updatedTags.length > 0) {
+                this.urlParams.set("tags", updatedTags.join(","));
+              } else {
+                this.urlParams.delete("tags");
+              }
+
+              // Update the URL without reloading, then re-filter in place
+              this._applyTagSelection(updatedTags);
+          });
+  
+          badge.appendChild(closeBtn);
+      } else {
+          /// Unselected Tag Styling
         badge.className = "badge border text-body me-1";
+        badge.style.cursor = "pointer";
         badge.textContent = tag;
-        container.appendChild(badge);
-    });
+
+        // Click on unselected tag -> add tag and re-filter in place
+        badge.addEventListener("click", () => {
+            const updatedTags = [...this.selectedTags, tag];
+            this.urlParams.set("tags", updatedTags.join(","));
+            this._applyTagSelection(updatedTags);
+        });
+      }
+  
+      container.appendChild(badge);
+  });
 }
 
     this.questionPane.setQuestion(q);
@@ -40357,7 +40442,7 @@ if (q.tags?.length) {
   }
 
   setQuestionParameter() {
-    window.location.hash = this.questions[this.currentQuestionIndex].id;
+    // window.location.hash = this.questions[this.currentQuestionIndex].id;
   }
 
   doExplain(explain) {
@@ -41057,7 +41142,7 @@ class QuestionLoader {
 
 new QuestionLoader();
 
-function debounce$1(function_, wait = 100, options = {}) {
+function debounce(function_, wait = 100, options = {}) {
 	if (typeof function_ !== 'function') {
 		throw new TypeError(`Expected the first parameter to be a function, got \`${typeof function_}\`.`);
 	}
@@ -42055,7 +42140,7 @@ class RBush {
 
                 if (intersects(bbox, childBBox)) {
                     if (node.leaf) result.push(child);
-                    else if (contains$1(bbox, childBBox)) this._all(child, result);
+                    else if (contains(bbox, childBBox)) this._all(child, result);
                     else nodesToSearch.push(child);
                 }
             }
@@ -42077,7 +42162,7 @@ class RBush {
                 const childBBox = node.leaf ? this.toBBox(child) : child;
 
                 if (intersects(bbox, childBBox)) {
-                    if (node.leaf || contains$1(bbox, childBBox)) return true;
+                    if (node.leaf || contains(bbox, childBBox)) return true;
                     nodesToSearch.push(child);
                 }
             }
@@ -42164,7 +42249,7 @@ class RBush {
                 }
             }
 
-            if (!goingUp && !node.leaf && contains$1(node, bbox)) { // go down
+            if (!goingUp && !node.leaf && contains(node, bbox)) { // go down
                 path.push(node);
                 indexes.push(i);
                 i = 0;
@@ -42493,7 +42578,7 @@ function intersectionArea(a, b) {
            Math.max(0, maxY - minY);
 }
 
-function contains$1(a, b) {
+function contains(a, b) {
     return a.minX <= b.minX &&
            a.minY <= b.minY &&
            b.maxX <= a.maxX &&
@@ -42927,7 +43012,7 @@ const eachUnbind = _ref3 => {
 };
 
 /** Handle the callback function for the corresponding hotkey */
-function eventHandler(event, handler, scope, element) {
+function eventHandler$2(event, handler, scope, element) {
   if (handler.element !== element) {
     return;
   }
@@ -43046,7 +43131,7 @@ function dispatch(event, element) {
   if (asterisk) {
     for (let i = 0; i < asterisk.length; i++) {
       if (asterisk[i].scope === scope && (event.type === 'keydown' && asterisk[i].keydown || event.type === 'keyup' && asterisk[i].keyup)) {
-        eventHandler(event, asterisk[i], scope, element);
+        eventHandler$2(event, asterisk[i], scope, element);
       }
     }
   }
@@ -43068,7 +43153,7 @@ function dispatch(event, element) {
         }
         if (_downKeysCurrent.sort().join('') === _downKeys.sort().join('')) {
           // Match found, call the handler
-          eventHandler(event, record, scope, element);
+          eventHandler$2(event, record, scope, element);
         }
       }
     }
@@ -43602,7 +43687,7 @@ const fe = "not-annotatable", $$1 = `.${fe}`, W = (e, t) => e.contains(t) ? !!(t
         });
       }
     });
-  }), s = debounce$1(() => et$2(t), 10);
+  }), s = debounce(() => et$2(t), 10);
   return window.addEventListener("resize", s), {
     destroy: () => {
       t.remove(), s.clear(), window.removeEventListener("resize", s);
@@ -43892,7 +43977,7 @@ const fe = "not-annotatable", $$1 = `.${fe}`, W = (e, t) => e.contains(t) ? !!(t
       created: /* @__PURE__ */ new Date(),
       creator: i
     };
-  }, L = debounce$1((p) => {
+  }, L = debounce((p) => {
     if (!y) return;
     const T = document.getSelection();
     if (!T?.anchorNode) return;
@@ -115571,10 +115656,1704 @@ class NotesMaker {
 
 }
 
-// import * as bootstrap from "bootstrap";
+var offcanvas$1 = {exports: {}};
 
-// // Expose bootstrap globally so HTML data-bs-* attributes work automatically
-// window.bootstrap = bootstrap;
+var baseComponent$1 = {exports: {}};
+
+var data$1 = {exports: {}};
+
+/*!
+  * Bootstrap data.js v5.3.8 (https://getbootstrap.com/)
+  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+  */
+var data = data$1.exports;
+
+var hasRequiredData;
+
+function requireData () {
+	if (hasRequiredData) return data$1.exports;
+	hasRequiredData = 1;
+	(function (module, exports) {
+		(function (global, factory) {
+		  module.exports = factory() ;
+		})(data, (function () {
+		  /**
+		   * --------------------------------------------------------------------------
+		   * Bootstrap dom/data.js
+		   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+		   * --------------------------------------------------------------------------
+		   */
+
+		  /**
+		   * Constants
+		   */
+
+		  const elementMap = new Map();
+		  const data = {
+		    set(element, key, instance) {
+		      if (!elementMap.has(element)) {
+		        elementMap.set(element, new Map());
+		      }
+		      const instanceMap = elementMap.get(element);
+
+		      // make it clear we only want one instance per element
+		      // can be removed later when multiple key/instances are fine to be used
+		      if (!instanceMap.has(key) && instanceMap.size !== 0) {
+		        // eslint-disable-next-line no-console
+		        console.error(`Bootstrap doesn't allow more than one instance per element. Bound instance: ${Array.from(instanceMap.keys())[0]}.`);
+		        return;
+		      }
+		      instanceMap.set(key, instance);
+		    },
+		    get(element, key) {
+		      if (elementMap.has(element)) {
+		        return elementMap.get(element).get(key) || null;
+		      }
+		      return null;
+		    },
+		    remove(element, key) {
+		      if (!elementMap.has(element)) {
+		        return;
+		      }
+		      const instanceMap = elementMap.get(element);
+		      instanceMap.delete(key);
+
+		      // free up element references if there are no instances left for an element
+		      if (instanceMap.size === 0) {
+		        elementMap.delete(element);
+		      }
+		    }
+		  };
+
+		  return data;
+
+		}));
+		
+	} (data$1));
+	return data$1.exports;
+}
+
+var eventHandler$1 = {exports: {}};
+
+var util$1 = {exports: {}};
+
+/*!
+  * Bootstrap index.js v5.3.8 (https://getbootstrap.com/)
+  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+  */
+var util = util$1.exports;
+
+var hasRequiredUtil;
+
+function requireUtil () {
+	if (hasRequiredUtil) return util$1.exports;
+	hasRequiredUtil = 1;
+	(function (module, exports) {
+		(function (global, factory) {
+		  factory(exports) ;
+		})(util, (function (exports) {
+		  /**
+		   * --------------------------------------------------------------------------
+		   * Bootstrap util/index.js
+		   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+		   * --------------------------------------------------------------------------
+		   */
+
+		  const MAX_UID = 1000000;
+		  const MILLISECONDS_MULTIPLIER = 1000;
+		  const TRANSITION_END = 'transitionend';
+
+		  /**
+		   * Properly escape IDs selectors to handle weird IDs
+		   * @param {string} selector
+		   * @returns {string}
+		   */
+		  const parseSelector = selector => {
+		    if (selector && window.CSS && window.CSS.escape) {
+		      // document.querySelector needs escaping to handle IDs (html5+) containing for instance /
+		      selector = selector.replace(/#([^\s"#']+)/g, (match, id) => `#${CSS.escape(id)}`);
+		    }
+		    return selector;
+		  };
+
+		  // Shout-out Angus Croll (https://goo.gl/pxwQGp)
+		  const toType = object => {
+		    if (object === null || object === undefined) {
+		      return `${object}`;
+		    }
+		    return Object.prototype.toString.call(object).match(/\s([a-z]+)/i)[1].toLowerCase();
+		  };
+
+		  /**
+		   * Public Util API
+		   */
+
+		  const getUID = prefix => {
+		    do {
+		      prefix += Math.floor(Math.random() * MAX_UID);
+		    } while (document.getElementById(prefix));
+		    return prefix;
+		  };
+		  const getTransitionDurationFromElement = element => {
+		    if (!element) {
+		      return 0;
+		    }
+
+		    // Get transition-duration of the element
+		    let {
+		      transitionDuration,
+		      transitionDelay
+		    } = window.getComputedStyle(element);
+		    const floatTransitionDuration = Number.parseFloat(transitionDuration);
+		    const floatTransitionDelay = Number.parseFloat(transitionDelay);
+
+		    // Return 0 if element or transition duration is not found
+		    if (!floatTransitionDuration && !floatTransitionDelay) {
+		      return 0;
+		    }
+
+		    // If multiple durations are defined, take the first
+		    transitionDuration = transitionDuration.split(',')[0];
+		    transitionDelay = transitionDelay.split(',')[0];
+		    return (Number.parseFloat(transitionDuration) + Number.parseFloat(transitionDelay)) * MILLISECONDS_MULTIPLIER;
+		  };
+		  const triggerTransitionEnd = element => {
+		    element.dispatchEvent(new Event(TRANSITION_END));
+		  };
+		  const isElement = object => {
+		    if (!object || typeof object !== 'object') {
+		      return false;
+		    }
+		    if (typeof object.jquery !== 'undefined') {
+		      object = object[0];
+		    }
+		    return typeof object.nodeType !== 'undefined';
+		  };
+		  const getElement = object => {
+		    // it's a jQuery object or a node element
+		    if (isElement(object)) {
+		      return object.jquery ? object[0] : object;
+		    }
+		    if (typeof object === 'string' && object.length > 0) {
+		      return document.querySelector(parseSelector(object));
+		    }
+		    return null;
+		  };
+		  const isVisible = element => {
+		    if (!isElement(element) || element.getClientRects().length === 0) {
+		      return false;
+		    }
+		    const elementIsVisible = getComputedStyle(element).getPropertyValue('visibility') === 'visible';
+		    // Handle `details` element as its content may falsie appear visible when it is closed
+		    const closedDetails = element.closest('details:not([open])');
+		    if (!closedDetails) {
+		      return elementIsVisible;
+		    }
+		    if (closedDetails !== element) {
+		      const summary = element.closest('summary');
+		      if (summary && summary.parentNode !== closedDetails) {
+		        return false;
+		      }
+		      if (summary === null) {
+		        return false;
+		      }
+		    }
+		    return elementIsVisible;
+		  };
+		  const isDisabled = element => {
+		    if (!element || element.nodeType !== Node.ELEMENT_NODE) {
+		      return true;
+		    }
+		    if (element.classList.contains('disabled')) {
+		      return true;
+		    }
+		    if (typeof element.disabled !== 'undefined') {
+		      return element.disabled;
+		    }
+		    return element.hasAttribute('disabled') && element.getAttribute('disabled') !== 'false';
+		  };
+		  const findShadowRoot = element => {
+		    if (!document.documentElement.attachShadow) {
+		      return null;
+		    }
+
+		    // Can find the shadow root otherwise it'll return the document
+		    if (typeof element.getRootNode === 'function') {
+		      const root = element.getRootNode();
+		      return root instanceof ShadowRoot ? root : null;
+		    }
+		    if (element instanceof ShadowRoot) {
+		      return element;
+		    }
+
+		    // when we don't find a shadow root
+		    if (!element.parentNode) {
+		      return null;
+		    }
+		    return findShadowRoot(element.parentNode);
+		  };
+		  const noop = () => {};
+
+		  /**
+		   * Trick to restart an element's animation
+		   *
+		   * @param {HTMLElement} element
+		   * @return void
+		   *
+		   * @see https://www.harrytheo.com/blog/2021/02/restart-a-css-animation-with-javascript/#restarting-a-css-animation
+		   */
+		  const reflow = element => {
+		    element.offsetHeight; // eslint-disable-line no-unused-expressions
+		  };
+		  const getjQuery = () => {
+		    if (window.jQuery && !document.body.hasAttribute('data-bs-no-jquery')) {
+		      return window.jQuery;
+		    }
+		    return null;
+		  };
+		  const DOMContentLoadedCallbacks = [];
+		  const onDOMContentLoaded = callback => {
+		    if (document.readyState === 'loading') {
+		      // add listener on the first call when the document is in loading state
+		      if (!DOMContentLoadedCallbacks.length) {
+		        document.addEventListener('DOMContentLoaded', () => {
+		          for (const callback of DOMContentLoadedCallbacks) {
+		            callback();
+		          }
+		        });
+		      }
+		      DOMContentLoadedCallbacks.push(callback);
+		    } else {
+		      callback();
+		    }
+		  };
+		  const isRTL = () => document.documentElement.dir === 'rtl';
+		  const defineJQueryPlugin = plugin => {
+		    onDOMContentLoaded(() => {
+		      const $ = getjQuery();
+		      /* istanbul ignore if */
+		      if ($) {
+		        const name = plugin.NAME;
+		        const JQUERY_NO_CONFLICT = $.fn[name];
+		        $.fn[name] = plugin.jQueryInterface;
+		        $.fn[name].Constructor = plugin;
+		        $.fn[name].noConflict = () => {
+		          $.fn[name] = JQUERY_NO_CONFLICT;
+		          return plugin.jQueryInterface;
+		        };
+		      }
+		    });
+		  };
+		  const execute = (possibleCallback, args = [], defaultValue = possibleCallback) => {
+		    return typeof possibleCallback === 'function' ? possibleCallback.call(...args) : defaultValue;
+		  };
+		  const executeAfterTransition = (callback, transitionElement, waitForTransition = true) => {
+		    if (!waitForTransition) {
+		      execute(callback);
+		      return;
+		    }
+		    const durationPadding = 5;
+		    const emulatedDuration = getTransitionDurationFromElement(transitionElement) + durationPadding;
+		    let called = false;
+		    const handler = ({
+		      target
+		    }) => {
+		      if (target !== transitionElement) {
+		        return;
+		      }
+		      called = true;
+		      transitionElement.removeEventListener(TRANSITION_END, handler);
+		      execute(callback);
+		    };
+		    transitionElement.addEventListener(TRANSITION_END, handler);
+		    setTimeout(() => {
+		      if (!called) {
+		        triggerTransitionEnd(transitionElement);
+		      }
+		    }, emulatedDuration);
+		  };
+
+		  /**
+		   * Return the previous/next element of a list.
+		   *
+		   * @param {array} list    The list of elements
+		   * @param activeElement   The active element
+		   * @param shouldGetNext   Choose to get next or previous element
+		   * @param isCycleAllowed
+		   * @return {Element|elem} The proper element
+		   */
+		  const getNextActiveElement = (list, activeElement, shouldGetNext, isCycleAllowed) => {
+		    const listLength = list.length;
+		    let index = list.indexOf(activeElement);
+
+		    // if the element does not exist in the list return an element
+		    // depending on the direction and if cycle is allowed
+		    if (index === -1) {
+		      return !shouldGetNext && isCycleAllowed ? list[listLength - 1] : list[0];
+		    }
+		    index += shouldGetNext ? 1 : -1;
+		    if (isCycleAllowed) {
+		      index = (index + listLength) % listLength;
+		    }
+		    return list[Math.max(0, Math.min(index, listLength - 1))];
+		  };
+
+		  exports.defineJQueryPlugin = defineJQueryPlugin;
+		  exports.execute = execute;
+		  exports.executeAfterTransition = executeAfterTransition;
+		  exports.findShadowRoot = findShadowRoot;
+		  exports.getElement = getElement;
+		  exports.getNextActiveElement = getNextActiveElement;
+		  exports.getTransitionDurationFromElement = getTransitionDurationFromElement;
+		  exports.getUID = getUID;
+		  exports.getjQuery = getjQuery;
+		  exports.isDisabled = isDisabled;
+		  exports.isElement = isElement;
+		  exports.isRTL = isRTL;
+		  exports.isVisible = isVisible;
+		  exports.noop = noop;
+		  exports.onDOMContentLoaded = onDOMContentLoaded;
+		  exports.parseSelector = parseSelector;
+		  exports.reflow = reflow;
+		  exports.toType = toType;
+		  exports.triggerTransitionEnd = triggerTransitionEnd;
+
+		  Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+
+		}));
+		
+	} (util$1, util$1.exports));
+	return util$1.exports;
+}
+
+/*!
+  * Bootstrap event-handler.js v5.3.8 (https://getbootstrap.com/)
+  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+  */
+var eventHandler = eventHandler$1.exports;
+
+var hasRequiredEventHandler;
+
+function requireEventHandler () {
+	if (hasRequiredEventHandler) return eventHandler$1.exports;
+	hasRequiredEventHandler = 1;
+	(function (module, exports) {
+		(function (global, factory) {
+		  module.exports = factory(requireUtil()) ;
+		})(eventHandler, (function (index_js) {
+		  /**
+		   * --------------------------------------------------------------------------
+		   * Bootstrap dom/event-handler.js
+		   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+		   * --------------------------------------------------------------------------
+		   */
+
+
+		  /**
+		   * Constants
+		   */
+
+		  const namespaceRegex = /[^.]*(?=\..*)\.|.*/;
+		  const stripNameRegex = /\..*/;
+		  const stripUidRegex = /::\d+$/;
+		  const eventRegistry = {}; // Events storage
+		  let uidEvent = 1;
+		  const customEvents = {
+		    mouseenter: 'mouseover',
+		    mouseleave: 'mouseout'
+		  };
+		  const nativeEvents = new Set(['click', 'dblclick', 'mouseup', 'mousedown', 'contextmenu', 'mousewheel', 'DOMMouseScroll', 'mouseover', 'mouseout', 'mousemove', 'selectstart', 'selectend', 'keydown', 'keypress', 'keyup', 'orientationchange', 'touchstart', 'touchmove', 'touchend', 'touchcancel', 'pointerdown', 'pointermove', 'pointerup', 'pointerleave', 'pointercancel', 'gesturestart', 'gesturechange', 'gestureend', 'focus', 'blur', 'change', 'reset', 'select', 'submit', 'focusin', 'focusout', 'load', 'unload', 'beforeunload', 'resize', 'move', 'DOMContentLoaded', 'readystatechange', 'error', 'abort', 'scroll']);
+
+		  /**
+		   * Private methods
+		   */
+
+		  function makeEventUid(element, uid) {
+		    return uid && `${uid}::${uidEvent++}` || element.uidEvent || uidEvent++;
+		  }
+		  function getElementEvents(element) {
+		    const uid = makeEventUid(element);
+		    element.uidEvent = uid;
+		    eventRegistry[uid] = eventRegistry[uid] || {};
+		    return eventRegistry[uid];
+		  }
+		  function bootstrapHandler(element, fn) {
+		    return function handler(event) {
+		      hydrateObj(event, {
+		        delegateTarget: element
+		      });
+		      if (handler.oneOff) {
+		        EventHandler.off(element, event.type, fn);
+		      }
+		      return fn.apply(element, [event]);
+		    };
+		  }
+		  function bootstrapDelegationHandler(element, selector, fn) {
+		    return function handler(event) {
+		      const domElements = element.querySelectorAll(selector);
+		      for (let {
+		        target
+		      } = event; target && target !== this; target = target.parentNode) {
+		        for (const domElement of domElements) {
+		          if (domElement !== target) {
+		            continue;
+		          }
+		          hydrateObj(event, {
+		            delegateTarget: target
+		          });
+		          if (handler.oneOff) {
+		            EventHandler.off(element, event.type, selector, fn);
+		          }
+		          return fn.apply(target, [event]);
+		        }
+		      }
+		    };
+		  }
+		  function findHandler(events, callable, delegationSelector = null) {
+		    return Object.values(events).find(event => event.callable === callable && event.delegationSelector === delegationSelector);
+		  }
+		  function normalizeParameters(originalTypeEvent, handler, delegationFunction) {
+		    const isDelegated = typeof handler === 'string';
+		    // TODO: tooltip passes `false` instead of selector, so we need to check
+		    const callable = isDelegated ? delegationFunction : handler || delegationFunction;
+		    let typeEvent = getTypeEvent(originalTypeEvent);
+		    if (!nativeEvents.has(typeEvent)) {
+		      typeEvent = originalTypeEvent;
+		    }
+		    return [isDelegated, callable, typeEvent];
+		  }
+		  function addHandler(element, originalTypeEvent, handler, delegationFunction, oneOff) {
+		    if (typeof originalTypeEvent !== 'string' || !element) {
+		      return;
+		    }
+		    let [isDelegated, callable, typeEvent] = normalizeParameters(originalTypeEvent, handler, delegationFunction);
+
+		    // in case of mouseenter or mouseleave wrap the handler within a function that checks for its DOM position
+		    // this prevents the handler from being dispatched the same way as mouseover or mouseout does
+		    if (originalTypeEvent in customEvents) {
+		      const wrapFunction = fn => {
+		        return function (event) {
+		          if (!event.relatedTarget || event.relatedTarget !== event.delegateTarget && !event.delegateTarget.contains(event.relatedTarget)) {
+		            return fn.call(this, event);
+		          }
+		        };
+		      };
+		      callable = wrapFunction(callable);
+		    }
+		    const events = getElementEvents(element);
+		    const handlers = events[typeEvent] || (events[typeEvent] = {});
+		    const previousFunction = findHandler(handlers, callable, isDelegated ? handler : null);
+		    if (previousFunction) {
+		      previousFunction.oneOff = previousFunction.oneOff && oneOff;
+		      return;
+		    }
+		    const uid = makeEventUid(callable, originalTypeEvent.replace(namespaceRegex, ''));
+		    const fn = isDelegated ? bootstrapDelegationHandler(element, handler, callable) : bootstrapHandler(element, callable);
+		    fn.delegationSelector = isDelegated ? handler : null;
+		    fn.callable = callable;
+		    fn.oneOff = oneOff;
+		    fn.uidEvent = uid;
+		    handlers[uid] = fn;
+		    element.addEventListener(typeEvent, fn, isDelegated);
+		  }
+		  function removeHandler(element, events, typeEvent, handler, delegationSelector) {
+		    const fn = findHandler(events[typeEvent], handler, delegationSelector);
+		    if (!fn) {
+		      return;
+		    }
+		    element.removeEventListener(typeEvent, fn, Boolean(delegationSelector));
+		    delete events[typeEvent][fn.uidEvent];
+		  }
+		  function removeNamespacedHandlers(element, events, typeEvent, namespace) {
+		    const storeElementEvent = events[typeEvent] || {};
+		    for (const [handlerKey, event] of Object.entries(storeElementEvent)) {
+		      if (handlerKey.includes(namespace)) {
+		        removeHandler(element, events, typeEvent, event.callable, event.delegationSelector);
+		      }
+		    }
+		  }
+		  function getTypeEvent(event) {
+		    // allow to get the native events from namespaced events ('click.bs.button' --> 'click')
+		    event = event.replace(stripNameRegex, '');
+		    return customEvents[event] || event;
+		  }
+		  const EventHandler = {
+		    on(element, event, handler, delegationFunction) {
+		      addHandler(element, event, handler, delegationFunction, false);
+		    },
+		    one(element, event, handler, delegationFunction) {
+		      addHandler(element, event, handler, delegationFunction, true);
+		    },
+		    off(element, originalTypeEvent, handler, delegationFunction) {
+		      if (typeof originalTypeEvent !== 'string' || !element) {
+		        return;
+		      }
+		      const [isDelegated, callable, typeEvent] = normalizeParameters(originalTypeEvent, handler, delegationFunction);
+		      const inNamespace = typeEvent !== originalTypeEvent;
+		      const events = getElementEvents(element);
+		      const storeElementEvent = events[typeEvent] || {};
+		      const isNamespace = originalTypeEvent.startsWith('.');
+		      if (typeof callable !== 'undefined') {
+		        // Simplest case: handler is passed, remove that listener ONLY.
+		        if (!Object.keys(storeElementEvent).length) {
+		          return;
+		        }
+		        removeHandler(element, events, typeEvent, callable, isDelegated ? handler : null);
+		        return;
+		      }
+		      if (isNamespace) {
+		        for (const elementEvent of Object.keys(events)) {
+		          removeNamespacedHandlers(element, events, elementEvent, originalTypeEvent.slice(1));
+		        }
+		      }
+		      for (const [keyHandlers, event] of Object.entries(storeElementEvent)) {
+		        const handlerKey = keyHandlers.replace(stripUidRegex, '');
+		        if (!inNamespace || originalTypeEvent.includes(handlerKey)) {
+		          removeHandler(element, events, typeEvent, event.callable, event.delegationSelector);
+		        }
+		      }
+		    },
+		    trigger(element, event, args) {
+		      if (typeof event !== 'string' || !element) {
+		        return null;
+		      }
+		      const $ = index_js.getjQuery();
+		      const typeEvent = getTypeEvent(event);
+		      const inNamespace = event !== typeEvent;
+		      let jQueryEvent = null;
+		      let bubbles = true;
+		      let nativeDispatch = true;
+		      let defaultPrevented = false;
+		      if (inNamespace && $) {
+		        jQueryEvent = $.Event(event, args);
+		        $(element).trigger(jQueryEvent);
+		        bubbles = !jQueryEvent.isPropagationStopped();
+		        nativeDispatch = !jQueryEvent.isImmediatePropagationStopped();
+		        defaultPrevented = jQueryEvent.isDefaultPrevented();
+		      }
+		      const evt = hydrateObj(new Event(event, {
+		        bubbles,
+		        cancelable: true
+		      }), args);
+		      if (defaultPrevented) {
+		        evt.preventDefault();
+		      }
+		      if (nativeDispatch) {
+		        element.dispatchEvent(evt);
+		      }
+		      if (evt.defaultPrevented && jQueryEvent) {
+		        jQueryEvent.preventDefault();
+		      }
+		      return evt;
+		    }
+		  };
+		  function hydrateObj(obj, meta = {}) {
+		    for (const [key, value] of Object.entries(meta)) {
+		      try {
+		        obj[key] = value;
+		      } catch (_unused) {
+		        Object.defineProperty(obj, key, {
+		          configurable: true,
+		          get() {
+		            return value;
+		          }
+		        });
+		      }
+		    }
+		    return obj;
+		  }
+
+		  return EventHandler;
+
+		}));
+		
+	} (eventHandler$1));
+	return eventHandler$1.exports;
+}
+
+var config$1 = {exports: {}};
+
+var manipulator$1 = {exports: {}};
+
+/*!
+  * Bootstrap manipulator.js v5.3.8 (https://getbootstrap.com/)
+  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+  */
+var manipulator = manipulator$1.exports;
+
+var hasRequiredManipulator;
+
+function requireManipulator () {
+	if (hasRequiredManipulator) return manipulator$1.exports;
+	hasRequiredManipulator = 1;
+	(function (module, exports) {
+		(function (global, factory) {
+		  module.exports = factory() ;
+		})(manipulator, (function () {
+		  /**
+		   * --------------------------------------------------------------------------
+		   * Bootstrap dom/manipulator.js
+		   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+		   * --------------------------------------------------------------------------
+		   */
+
+		  function normalizeData(value) {
+		    if (value === 'true') {
+		      return true;
+		    }
+		    if (value === 'false') {
+		      return false;
+		    }
+		    if (value === Number(value).toString()) {
+		      return Number(value);
+		    }
+		    if (value === '' || value === 'null') {
+		      return null;
+		    }
+		    if (typeof value !== 'string') {
+		      return value;
+		    }
+		    try {
+		      return JSON.parse(decodeURIComponent(value));
+		    } catch (_unused) {
+		      return value;
+		    }
+		  }
+		  function normalizeDataKey(key) {
+		    return key.replace(/[A-Z]/g, chr => `-${chr.toLowerCase()}`);
+		  }
+		  const Manipulator = {
+		    setDataAttribute(element, key, value) {
+		      element.setAttribute(`data-bs-${normalizeDataKey(key)}`, value);
+		    },
+		    removeDataAttribute(element, key) {
+		      element.removeAttribute(`data-bs-${normalizeDataKey(key)}`);
+		    },
+		    getDataAttributes(element) {
+		      if (!element) {
+		        return {};
+		      }
+		      const attributes = {};
+		      const bsKeys = Object.keys(element.dataset).filter(key => key.startsWith('bs') && !key.startsWith('bsConfig'));
+		      for (const key of bsKeys) {
+		        let pureKey = key.replace(/^bs/, '');
+		        pureKey = pureKey.charAt(0).toLowerCase() + pureKey.slice(1);
+		        attributes[pureKey] = normalizeData(element.dataset[key]);
+		      }
+		      return attributes;
+		    },
+		    getDataAttribute(element, key) {
+		      return normalizeData(element.getAttribute(`data-bs-${normalizeDataKey(key)}`));
+		    }
+		  };
+
+		  return Manipulator;
+
+		}));
+		
+	} (manipulator$1));
+	return manipulator$1.exports;
+}
+
+/*!
+  * Bootstrap config.js v5.3.8 (https://getbootstrap.com/)
+  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+  */
+var config = config$1.exports;
+
+var hasRequiredConfig;
+
+function requireConfig () {
+	if (hasRequiredConfig) return config$1.exports;
+	hasRequiredConfig = 1;
+	(function (module, exports) {
+		(function (global, factory) {
+		  module.exports = factory(requireManipulator(), requireUtil()) ;
+		})(config, (function (Manipulator, index_js) {
+		  /**
+		   * --------------------------------------------------------------------------
+		   * Bootstrap util/config.js
+		   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+		   * --------------------------------------------------------------------------
+		   */
+
+
+		  /**
+		   * Class definition
+		   */
+
+		  class Config {
+		    // Getters
+		    static get Default() {
+		      return {};
+		    }
+		    static get DefaultType() {
+		      return {};
+		    }
+		    static get NAME() {
+		      throw new Error('You have to implement the static method "NAME", for each component!');
+		    }
+		    _getConfig(config) {
+		      config = this._mergeConfigObj(config);
+		      config = this._configAfterMerge(config);
+		      this._typeCheckConfig(config);
+		      return config;
+		    }
+		    _configAfterMerge(config) {
+		      return config;
+		    }
+		    _mergeConfigObj(config, element) {
+		      const jsonConfig = index_js.isElement(element) ? Manipulator.getDataAttribute(element, 'config') : {}; // try to parse
+
+		      return {
+		        ...this.constructor.Default,
+		        ...(typeof jsonConfig === 'object' ? jsonConfig : {}),
+		        ...(index_js.isElement(element) ? Manipulator.getDataAttributes(element) : {}),
+		        ...(typeof config === 'object' ? config : {})
+		      };
+		    }
+		    _typeCheckConfig(config, configTypes = this.constructor.DefaultType) {
+		      for (const [property, expectedTypes] of Object.entries(configTypes)) {
+		        const value = config[property];
+		        const valueType = index_js.isElement(value) ? 'element' : index_js.toType(value);
+		        if (!new RegExp(expectedTypes).test(valueType)) {
+		          throw new TypeError(`${this.constructor.NAME.toUpperCase()}: Option "${property}" provided type "${valueType}" but expected type "${expectedTypes}".`);
+		        }
+		      }
+		    }
+		  }
+
+		  return Config;
+
+		}));
+		
+	} (config$1));
+	return config$1.exports;
+}
+
+/*!
+  * Bootstrap base-component.js v5.3.8 (https://getbootstrap.com/)
+  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+  */
+var baseComponent = baseComponent$1.exports;
+
+var hasRequiredBaseComponent;
+
+function requireBaseComponent () {
+	if (hasRequiredBaseComponent) return baseComponent$1.exports;
+	hasRequiredBaseComponent = 1;
+	(function (module, exports) {
+		(function (global, factory) {
+		  module.exports = factory(requireData(), requireEventHandler(), requireConfig(), requireUtil()) ;
+		})(baseComponent, (function (Data, EventHandler, Config, index_js) {
+		  /**
+		   * --------------------------------------------------------------------------
+		   * Bootstrap base-component.js
+		   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+		   * --------------------------------------------------------------------------
+		   */
+
+
+		  /**
+		   * Constants
+		   */
+
+		  const VERSION = '5.3.8';
+
+		  /**
+		   * Class definition
+		   */
+
+		  class BaseComponent extends Config {
+		    constructor(element, config) {
+		      super();
+		      element = index_js.getElement(element);
+		      if (!element) {
+		        return;
+		      }
+		      this._element = element;
+		      this._config = this._getConfig(config);
+		      Data.set(this._element, this.constructor.DATA_KEY, this);
+		    }
+
+		    // Public
+		    dispose() {
+		      Data.remove(this._element, this.constructor.DATA_KEY);
+		      EventHandler.off(this._element, this.constructor.EVENT_KEY);
+		      for (const propertyName of Object.getOwnPropertyNames(this)) {
+		        this[propertyName] = null;
+		      }
+		    }
+
+		    // Private
+		    _queueCallback(callback, element, isAnimated = true) {
+		      index_js.executeAfterTransition(callback, element, isAnimated);
+		    }
+		    _getConfig(config) {
+		      config = this._mergeConfigObj(config, this._element);
+		      config = this._configAfterMerge(config);
+		      this._typeCheckConfig(config);
+		      return config;
+		    }
+
+		    // Static
+		    static getInstance(element) {
+		      return Data.get(index_js.getElement(element), this.DATA_KEY);
+		    }
+		    static getOrCreateInstance(element, config = {}) {
+		      return this.getInstance(element) || new this(element, typeof config === 'object' ? config : null);
+		    }
+		    static get VERSION() {
+		      return VERSION;
+		    }
+		    static get DATA_KEY() {
+		      return `bs.${this.NAME}`;
+		    }
+		    static get EVENT_KEY() {
+		      return `.${this.DATA_KEY}`;
+		    }
+		    static eventName(name) {
+		      return `${name}${this.EVENT_KEY}`;
+		    }
+		  }
+
+		  return BaseComponent;
+
+		}));
+		
+	} (baseComponent$1));
+	return baseComponent$1.exports;
+}
+
+var selectorEngine$1 = {exports: {}};
+
+/*!
+  * Bootstrap selector-engine.js v5.3.8 (https://getbootstrap.com/)
+  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+  */
+var selectorEngine = selectorEngine$1.exports;
+
+var hasRequiredSelectorEngine;
+
+function requireSelectorEngine () {
+	if (hasRequiredSelectorEngine) return selectorEngine$1.exports;
+	hasRequiredSelectorEngine = 1;
+	(function (module, exports) {
+		(function (global, factory) {
+		  module.exports = factory(requireUtil()) ;
+		})(selectorEngine, (function (index_js) {
+		  /**
+		   * --------------------------------------------------------------------------
+		   * Bootstrap dom/selector-engine.js
+		   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+		   * --------------------------------------------------------------------------
+		   */
+
+		  const getSelector = element => {
+		    let selector = element.getAttribute('data-bs-target');
+		    if (!selector || selector === '#') {
+		      let hrefAttribute = element.getAttribute('href');
+
+		      // The only valid content that could double as a selector are IDs or classes,
+		      // so everything starting with `#` or `.`. If a "real" URL is used as the selector,
+		      // `document.querySelector` will rightfully complain it is invalid.
+		      // See https://github.com/twbs/bootstrap/issues/32273
+		      if (!hrefAttribute || !hrefAttribute.includes('#') && !hrefAttribute.startsWith('.')) {
+		        return null;
+		      }
+
+		      // Just in case some CMS puts out a full URL with the anchor appended
+		      if (hrefAttribute.includes('#') && !hrefAttribute.startsWith('#')) {
+		        hrefAttribute = `#${hrefAttribute.split('#')[1]}`;
+		      }
+		      selector = hrefAttribute && hrefAttribute !== '#' ? hrefAttribute.trim() : null;
+		    }
+		    return selector ? selector.split(',').map(sel => index_js.parseSelector(sel)).join(',') : null;
+		  };
+		  const SelectorEngine = {
+		    find(selector, element = document.documentElement) {
+		      return [].concat(...Element.prototype.querySelectorAll.call(element, selector));
+		    },
+		    findOne(selector, element = document.documentElement) {
+		      return Element.prototype.querySelector.call(element, selector);
+		    },
+		    children(element, selector) {
+		      return [].concat(...element.children).filter(child => child.matches(selector));
+		    },
+		    parents(element, selector) {
+		      const parents = [];
+		      let ancestor = element.parentNode.closest(selector);
+		      while (ancestor) {
+		        parents.push(ancestor);
+		        ancestor = ancestor.parentNode.closest(selector);
+		      }
+		      return parents;
+		    },
+		    prev(element, selector) {
+		      let previous = element.previousElementSibling;
+		      while (previous) {
+		        if (previous.matches(selector)) {
+		          return [previous];
+		        }
+		        previous = previous.previousElementSibling;
+		      }
+		      return [];
+		    },
+		    // TODO: this is now unused; remove later along with prev()
+		    next(element, selector) {
+		      let next = element.nextElementSibling;
+		      while (next) {
+		        if (next.matches(selector)) {
+		          return [next];
+		        }
+		        next = next.nextElementSibling;
+		      }
+		      return [];
+		    },
+		    focusableChildren(element) {
+		      const focusables = ['a', 'button', 'input', 'textarea', 'select', 'details', '[tabindex]', '[contenteditable="true"]'].map(selector => `${selector}:not([tabindex^="-"])`).join(',');
+		      return this.find(focusables, element).filter(el => !index_js.isDisabled(el) && index_js.isVisible(el));
+		    },
+		    getSelectorFromElement(element) {
+		      const selector = getSelector(element);
+		      if (selector) {
+		        return SelectorEngine.findOne(selector) ? selector : null;
+		      }
+		      return null;
+		    },
+		    getElementFromSelector(element) {
+		      const selector = getSelector(element);
+		      return selector ? SelectorEngine.findOne(selector) : null;
+		    },
+		    getMultipleElementsFromSelector(element) {
+		      const selector = getSelector(element);
+		      return selector ? SelectorEngine.find(selector) : [];
+		    }
+		  };
+
+		  return SelectorEngine;
+
+		}));
+		
+	} (selectorEngine$1));
+	return selectorEngine$1.exports;
+}
+
+var backdrop$1 = {exports: {}};
+
+/*!
+  * Bootstrap backdrop.js v5.3.8 (https://getbootstrap.com/)
+  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+  */
+var backdrop = backdrop$1.exports;
+
+var hasRequiredBackdrop;
+
+function requireBackdrop () {
+	if (hasRequiredBackdrop) return backdrop$1.exports;
+	hasRequiredBackdrop = 1;
+	(function (module, exports) {
+		(function (global, factory) {
+		  module.exports = factory(requireEventHandler(), requireConfig(), requireUtil()) ;
+		})(backdrop, (function (EventHandler, Config, index_js) {
+		  /**
+		   * --------------------------------------------------------------------------
+		   * Bootstrap util/backdrop.js
+		   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+		   * --------------------------------------------------------------------------
+		   */
+
+
+		  /**
+		   * Constants
+		   */
+
+		  const NAME = 'backdrop';
+		  const CLASS_NAME_FADE = 'fade';
+		  const CLASS_NAME_SHOW = 'show';
+		  const EVENT_MOUSEDOWN = `mousedown.bs.${NAME}`;
+		  const Default = {
+		    className: 'modal-backdrop',
+		    clickCallback: null,
+		    isAnimated: false,
+		    isVisible: true,
+		    // if false, we use the backdrop helper without adding any element to the dom
+		    rootElement: 'body' // give the choice to place backdrop under different elements
+		  };
+		  const DefaultType = {
+		    className: 'string',
+		    clickCallback: '(function|null)',
+		    isAnimated: 'boolean',
+		    isVisible: 'boolean',
+		    rootElement: '(element|string)'
+		  };
+
+		  /**
+		   * Class definition
+		   */
+
+		  class Backdrop extends Config {
+		    constructor(config) {
+		      super();
+		      this._config = this._getConfig(config);
+		      this._isAppended = false;
+		      this._element = null;
+		    }
+
+		    // Getters
+		    static get Default() {
+		      return Default;
+		    }
+		    static get DefaultType() {
+		      return DefaultType;
+		    }
+		    static get NAME() {
+		      return NAME;
+		    }
+
+		    // Public
+		    show(callback) {
+		      if (!this._config.isVisible) {
+		        index_js.execute(callback);
+		        return;
+		      }
+		      this._append();
+		      const element = this._getElement();
+		      if (this._config.isAnimated) {
+		        index_js.reflow(element);
+		      }
+		      element.classList.add(CLASS_NAME_SHOW);
+		      this._emulateAnimation(() => {
+		        index_js.execute(callback);
+		      });
+		    }
+		    hide(callback) {
+		      if (!this._config.isVisible) {
+		        index_js.execute(callback);
+		        return;
+		      }
+		      this._getElement().classList.remove(CLASS_NAME_SHOW);
+		      this._emulateAnimation(() => {
+		        this.dispose();
+		        index_js.execute(callback);
+		      });
+		    }
+		    dispose() {
+		      if (!this._isAppended) {
+		        return;
+		      }
+		      EventHandler.off(this._element, EVENT_MOUSEDOWN);
+		      this._element.remove();
+		      this._isAppended = false;
+		    }
+
+		    // Private
+		    _getElement() {
+		      if (!this._element) {
+		        const backdrop = document.createElement('div');
+		        backdrop.className = this._config.className;
+		        if (this._config.isAnimated) {
+		          backdrop.classList.add(CLASS_NAME_FADE);
+		        }
+		        this._element = backdrop;
+		      }
+		      return this._element;
+		    }
+		    _configAfterMerge(config) {
+		      // use getElement() with the default "body" to get a fresh Element on each instantiation
+		      config.rootElement = index_js.getElement(config.rootElement);
+		      return config;
+		    }
+		    _append() {
+		      if (this._isAppended) {
+		        return;
+		      }
+		      const element = this._getElement();
+		      this._config.rootElement.append(element);
+		      EventHandler.on(element, EVENT_MOUSEDOWN, () => {
+		        index_js.execute(this._config.clickCallback);
+		      });
+		      this._isAppended = true;
+		    }
+		    _emulateAnimation(callback) {
+		      index_js.executeAfterTransition(callback, this._getElement(), this._config.isAnimated);
+		    }
+		  }
+
+		  return Backdrop;
+
+		}));
+		
+	} (backdrop$1));
+	return backdrop$1.exports;
+}
+
+var componentFunctions$1 = {exports: {}};
+
+/*!
+  * Bootstrap component-functions.js v5.3.8 (https://getbootstrap.com/)
+  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+  */
+var componentFunctions = componentFunctions$1.exports;
+
+var hasRequiredComponentFunctions;
+
+function requireComponentFunctions () {
+	if (hasRequiredComponentFunctions) return componentFunctions$1.exports;
+	hasRequiredComponentFunctions = 1;
+	(function (module, exports) {
+		(function (global, factory) {
+		  factory(exports, requireEventHandler(), requireSelectorEngine(), requireUtil()) ;
+		})(componentFunctions, (function (exports, EventHandler, SelectorEngine, index_js) {
+		  /**
+		   * --------------------------------------------------------------------------
+		   * Bootstrap util/component-functions.js
+		   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+		   * --------------------------------------------------------------------------
+		   */
+
+		  const enableDismissTrigger = (component, method = 'hide') => {
+		    const clickEvent = `click.dismiss${component.EVENT_KEY}`;
+		    const name = component.NAME;
+		    EventHandler.on(document, clickEvent, `[data-bs-dismiss="${name}"]`, function (event) {
+		      if (['A', 'AREA'].includes(this.tagName)) {
+		        event.preventDefault();
+		      }
+		      if (index_js.isDisabled(this)) {
+		        return;
+		      }
+		      const target = SelectorEngine.getElementFromSelector(this) || this.closest(`.${name}`);
+		      const instance = component.getOrCreateInstance(target);
+
+		      // Method argument is left, for Alert and only, as it doesn't implement the 'hide' method
+		      instance[method]();
+		    });
+		  };
+
+		  exports.enableDismissTrigger = enableDismissTrigger;
+
+		  Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+
+		}));
+		
+	} (componentFunctions$1, componentFunctions$1.exports));
+	return componentFunctions$1.exports;
+}
+
+var focustrap$1 = {exports: {}};
+
+/*!
+  * Bootstrap focustrap.js v5.3.8 (https://getbootstrap.com/)
+  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+  */
+var focustrap = focustrap$1.exports;
+
+var hasRequiredFocustrap;
+
+function requireFocustrap () {
+	if (hasRequiredFocustrap) return focustrap$1.exports;
+	hasRequiredFocustrap = 1;
+	(function (module, exports) {
+		(function (global, factory) {
+		  module.exports = factory(requireEventHandler(), requireSelectorEngine(), requireConfig()) ;
+		})(focustrap, (function (EventHandler, SelectorEngine, Config) {
+		  /**
+		   * --------------------------------------------------------------------------
+		   * Bootstrap util/focustrap.js
+		   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+		   * --------------------------------------------------------------------------
+		   */
+
+
+		  /**
+		   * Constants
+		   */
+
+		  const NAME = 'focustrap';
+		  const DATA_KEY = 'bs.focustrap';
+		  const EVENT_KEY = `.${DATA_KEY}`;
+		  const EVENT_FOCUSIN = `focusin${EVENT_KEY}`;
+		  const EVENT_KEYDOWN_TAB = `keydown.tab${EVENT_KEY}`;
+		  const TAB_KEY = 'Tab';
+		  const TAB_NAV_FORWARD = 'forward';
+		  const TAB_NAV_BACKWARD = 'backward';
+		  const Default = {
+		    autofocus: true,
+		    trapElement: null // The element to trap focus inside of
+		  };
+		  const DefaultType = {
+		    autofocus: 'boolean',
+		    trapElement: 'element'
+		  };
+
+		  /**
+		   * Class definition
+		   */
+
+		  class FocusTrap extends Config {
+		    constructor(config) {
+		      super();
+		      this._config = this._getConfig(config);
+		      this._isActive = false;
+		      this._lastTabNavDirection = null;
+		    }
+
+		    // Getters
+		    static get Default() {
+		      return Default;
+		    }
+		    static get DefaultType() {
+		      return DefaultType;
+		    }
+		    static get NAME() {
+		      return NAME;
+		    }
+
+		    // Public
+		    activate() {
+		      if (this._isActive) {
+		        return;
+		      }
+		      if (this._config.autofocus) {
+		        this._config.trapElement.focus();
+		      }
+		      EventHandler.off(document, EVENT_KEY); // guard against infinite focus loop
+		      EventHandler.on(document, EVENT_FOCUSIN, event => this._handleFocusin(event));
+		      EventHandler.on(document, EVENT_KEYDOWN_TAB, event => this._handleKeydown(event));
+		      this._isActive = true;
+		    }
+		    deactivate() {
+		      if (!this._isActive) {
+		        return;
+		      }
+		      this._isActive = false;
+		      EventHandler.off(document, EVENT_KEY);
+		    }
+
+		    // Private
+		    _handleFocusin(event) {
+		      const {
+		        trapElement
+		      } = this._config;
+		      if (event.target === document || event.target === trapElement || trapElement.contains(event.target)) {
+		        return;
+		      }
+		      const elements = SelectorEngine.focusableChildren(trapElement);
+		      if (elements.length === 0) {
+		        trapElement.focus();
+		      } else if (this._lastTabNavDirection === TAB_NAV_BACKWARD) {
+		        elements[elements.length - 1].focus();
+		      } else {
+		        elements[0].focus();
+		      }
+		    }
+		    _handleKeydown(event) {
+		      if (event.key !== TAB_KEY) {
+		        return;
+		      }
+		      this._lastTabNavDirection = event.shiftKey ? TAB_NAV_BACKWARD : TAB_NAV_FORWARD;
+		    }
+		  }
+
+		  return FocusTrap;
+
+		}));
+		
+	} (focustrap$1));
+	return focustrap$1.exports;
+}
+
+var scrollbar$1 = {exports: {}};
+
+/*!
+  * Bootstrap scrollbar.js v5.3.8 (https://getbootstrap.com/)
+  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+  */
+var scrollbar = scrollbar$1.exports;
+
+var hasRequiredScrollbar;
+
+function requireScrollbar () {
+	if (hasRequiredScrollbar) return scrollbar$1.exports;
+	hasRequiredScrollbar = 1;
+	(function (module, exports) {
+		(function (global, factory) {
+		  module.exports = factory(requireManipulator(), requireSelectorEngine(), requireUtil()) ;
+		})(scrollbar, (function (Manipulator, SelectorEngine, index_js) {
+		  /**
+		   * --------------------------------------------------------------------------
+		   * Bootstrap util/scrollBar.js
+		   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+		   * --------------------------------------------------------------------------
+		   */
+
+
+		  /**
+		   * Constants
+		   */
+
+		  const SELECTOR_FIXED_CONTENT = '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top';
+		  const SELECTOR_STICKY_CONTENT = '.sticky-top';
+		  const PROPERTY_PADDING = 'padding-right';
+		  const PROPERTY_MARGIN = 'margin-right';
+
+		  /**
+		   * Class definition
+		   */
+
+		  class ScrollBarHelper {
+		    constructor() {
+		      this._element = document.body;
+		    }
+
+		    // Public
+		    getWidth() {
+		      // https://developer.mozilla.org/en-US/docs/Web/API/Window/innerWidth#usage_notes
+		      const documentWidth = document.documentElement.clientWidth;
+		      return Math.abs(window.innerWidth - documentWidth);
+		    }
+		    hide() {
+		      const width = this.getWidth();
+		      this._disableOverFlow();
+		      // give padding to element to balance the hidden scrollbar width
+		      this._setElementAttributes(this._element, PROPERTY_PADDING, calculatedValue => calculatedValue + width);
+		      // trick: We adjust positive paddingRight and negative marginRight to sticky-top elements to keep showing fullwidth
+		      this._setElementAttributes(SELECTOR_FIXED_CONTENT, PROPERTY_PADDING, calculatedValue => calculatedValue + width);
+		      this._setElementAttributes(SELECTOR_STICKY_CONTENT, PROPERTY_MARGIN, calculatedValue => calculatedValue - width);
+		    }
+		    reset() {
+		      this._resetElementAttributes(this._element, 'overflow');
+		      this._resetElementAttributes(this._element, PROPERTY_PADDING);
+		      this._resetElementAttributes(SELECTOR_FIXED_CONTENT, PROPERTY_PADDING);
+		      this._resetElementAttributes(SELECTOR_STICKY_CONTENT, PROPERTY_MARGIN);
+		    }
+		    isOverflowing() {
+		      return this.getWidth() > 0;
+		    }
+
+		    // Private
+		    _disableOverFlow() {
+		      this._saveInitialAttribute(this._element, 'overflow');
+		      this._element.style.overflow = 'hidden';
+		    }
+		    _setElementAttributes(selector, styleProperty, callback) {
+		      const scrollbarWidth = this.getWidth();
+		      const manipulationCallBack = element => {
+		        if (element !== this._element && window.innerWidth > element.clientWidth + scrollbarWidth) {
+		          return;
+		        }
+		        this._saveInitialAttribute(element, styleProperty);
+		        const calculatedValue = window.getComputedStyle(element).getPropertyValue(styleProperty);
+		        element.style.setProperty(styleProperty, `${callback(Number.parseFloat(calculatedValue))}px`);
+		      };
+		      this._applyManipulationCallback(selector, manipulationCallBack);
+		    }
+		    _saveInitialAttribute(element, styleProperty) {
+		      const actualValue = element.style.getPropertyValue(styleProperty);
+		      if (actualValue) {
+		        Manipulator.setDataAttribute(element, styleProperty, actualValue);
+		      }
+		    }
+		    _resetElementAttributes(selector, styleProperty) {
+		      const manipulationCallBack = element => {
+		        const value = Manipulator.getDataAttribute(element, styleProperty);
+		        // We only want to remove the property if the value is `null`; the value can also be zero
+		        if (value === null) {
+		          element.style.removeProperty(styleProperty);
+		          return;
+		        }
+		        Manipulator.removeDataAttribute(element, styleProperty);
+		        element.style.setProperty(styleProperty, value);
+		      };
+		      this._applyManipulationCallback(selector, manipulationCallBack);
+		    }
+		    _applyManipulationCallback(selector, callBack) {
+		      if (index_js.isElement(selector)) {
+		        callBack(selector);
+		        return;
+		      }
+		      for (const sel of SelectorEngine.find(selector, this._element)) {
+		        callBack(sel);
+		      }
+		    }
+		  }
+
+		  return ScrollBarHelper;
+
+		}));
+		
+	} (scrollbar$1));
+	return scrollbar$1.exports;
+}
+
+/*!
+  * Bootstrap offcanvas.js v5.3.8 (https://getbootstrap.com/)
+  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+  */
+var offcanvas = offcanvas$1.exports;
+
+var hasRequiredOffcanvas;
+
+function requireOffcanvas () {
+	if (hasRequiredOffcanvas) return offcanvas$1.exports;
+	hasRequiredOffcanvas = 1;
+	(function (module, exports) {
+		(function (global, factory) {
+		  module.exports = factory(requireBaseComponent(), requireEventHandler(), requireSelectorEngine(), requireBackdrop(), requireComponentFunctions(), requireFocustrap(), requireUtil(), requireScrollbar()) ;
+		})(offcanvas, (function (BaseComponent, EventHandler, SelectorEngine, Backdrop, componentFunctions_js, FocusTrap, index_js, ScrollBarHelper) {
+		  /**
+		   * --------------------------------------------------------------------------
+		   * Bootstrap offcanvas.js
+		   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+		   * --------------------------------------------------------------------------
+		   */
+
+
+		  /**
+		   * Constants
+		   */
+
+		  const NAME = 'offcanvas';
+		  const DATA_KEY = 'bs.offcanvas';
+		  const EVENT_KEY = `.${DATA_KEY}`;
+		  const DATA_API_KEY = '.data-api';
+		  const EVENT_LOAD_DATA_API = `load${EVENT_KEY}${DATA_API_KEY}`;
+		  const ESCAPE_KEY = 'Escape';
+		  const CLASS_NAME_SHOW = 'show';
+		  const CLASS_NAME_SHOWING = 'showing';
+		  const CLASS_NAME_HIDING = 'hiding';
+		  const CLASS_NAME_BACKDROP = 'offcanvas-backdrop';
+		  const OPEN_SELECTOR = '.offcanvas.show';
+		  const EVENT_SHOW = `show${EVENT_KEY}`;
+		  const EVENT_SHOWN = `shown${EVENT_KEY}`;
+		  const EVENT_HIDE = `hide${EVENT_KEY}`;
+		  const EVENT_HIDE_PREVENTED = `hidePrevented${EVENT_KEY}`;
+		  const EVENT_HIDDEN = `hidden${EVENT_KEY}`;
+		  const EVENT_RESIZE = `resize${EVENT_KEY}`;
+		  const EVENT_CLICK_DATA_API = `click${EVENT_KEY}${DATA_API_KEY}`;
+		  const EVENT_KEYDOWN_DISMISS = `keydown.dismiss${EVENT_KEY}`;
+		  const SELECTOR_DATA_TOGGLE = '[data-bs-toggle="offcanvas"]';
+		  const Default = {
+		    backdrop: true,
+		    keyboard: true,
+		    scroll: false
+		  };
+		  const DefaultType = {
+		    backdrop: '(boolean|string)',
+		    keyboard: 'boolean',
+		    scroll: 'boolean'
+		  };
+
+		  /**
+		   * Class definition
+		   */
+
+		  class Offcanvas extends BaseComponent {
+		    constructor(element, config) {
+		      super(element, config);
+		      this._isShown = false;
+		      this._backdrop = this._initializeBackDrop();
+		      this._focustrap = this._initializeFocusTrap();
+		      this._addEventListeners();
+		    }
+
+		    // Getters
+		    static get Default() {
+		      return Default;
+		    }
+		    static get DefaultType() {
+		      return DefaultType;
+		    }
+		    static get NAME() {
+		      return NAME;
+		    }
+
+		    // Public
+		    toggle(relatedTarget) {
+		      return this._isShown ? this.hide() : this.show(relatedTarget);
+		    }
+		    show(relatedTarget) {
+		      if (this._isShown) {
+		        return;
+		      }
+		      const showEvent = EventHandler.trigger(this._element, EVENT_SHOW, {
+		        relatedTarget
+		      });
+		      if (showEvent.defaultPrevented) {
+		        return;
+		      }
+		      this._isShown = true;
+		      this._backdrop.show();
+		      if (!this._config.scroll) {
+		        new ScrollBarHelper().hide();
+		      }
+		      this._element.setAttribute('aria-modal', true);
+		      this._element.setAttribute('role', 'dialog');
+		      this._element.classList.add(CLASS_NAME_SHOWING);
+		      const completeCallBack = () => {
+		        if (!this._config.scroll || this._config.backdrop) {
+		          this._focustrap.activate();
+		        }
+		        this._element.classList.add(CLASS_NAME_SHOW);
+		        this._element.classList.remove(CLASS_NAME_SHOWING);
+		        EventHandler.trigger(this._element, EVENT_SHOWN, {
+		          relatedTarget
+		        });
+		      };
+		      this._queueCallback(completeCallBack, this._element, true);
+		    }
+		    hide() {
+		      if (!this._isShown) {
+		        return;
+		      }
+		      const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE);
+		      if (hideEvent.defaultPrevented) {
+		        return;
+		      }
+		      this._focustrap.deactivate();
+		      this._element.blur();
+		      this._isShown = false;
+		      this._element.classList.add(CLASS_NAME_HIDING);
+		      this._backdrop.hide();
+		      const completeCallback = () => {
+		        this._element.classList.remove(CLASS_NAME_SHOW, CLASS_NAME_HIDING);
+		        this._element.removeAttribute('aria-modal');
+		        this._element.removeAttribute('role');
+		        if (!this._config.scroll) {
+		          new ScrollBarHelper().reset();
+		        }
+		        EventHandler.trigger(this._element, EVENT_HIDDEN);
+		      };
+		      this._queueCallback(completeCallback, this._element, true);
+		    }
+		    dispose() {
+		      this._backdrop.dispose();
+		      this._focustrap.deactivate();
+		      super.dispose();
+		    }
+
+		    // Private
+		    _initializeBackDrop() {
+		      const clickCallback = () => {
+		        if (this._config.backdrop === 'static') {
+		          EventHandler.trigger(this._element, EVENT_HIDE_PREVENTED);
+		          return;
+		        }
+		        this.hide();
+		      };
+
+		      // 'static' option will be translated to true, and booleans will keep their value
+		      const isVisible = Boolean(this._config.backdrop);
+		      return new Backdrop({
+		        className: CLASS_NAME_BACKDROP,
+		        isVisible,
+		        isAnimated: true,
+		        rootElement: this._element.parentNode,
+		        clickCallback: isVisible ? clickCallback : null
+		      });
+		    }
+		    _initializeFocusTrap() {
+		      return new FocusTrap({
+		        trapElement: this._element
+		      });
+		    }
+		    _addEventListeners() {
+		      EventHandler.on(this._element, EVENT_KEYDOWN_DISMISS, event => {
+		        if (event.key !== ESCAPE_KEY) {
+		          return;
+		        }
+		        if (this._config.keyboard) {
+		          this.hide();
+		          return;
+		        }
+		        EventHandler.trigger(this._element, EVENT_HIDE_PREVENTED);
+		      });
+		    }
+
+		    // Static
+		    static jQueryInterface(config) {
+		      return this.each(function () {
+		        const data = Offcanvas.getOrCreateInstance(this, config);
+		        if (typeof config !== 'string') {
+		          return;
+		        }
+		        if (data[config] === undefined || config.startsWith('_') || config === 'constructor') {
+		          throw new TypeError(`No method named "${config}"`);
+		        }
+		        data[config](this);
+		      });
+		    }
+		  }
+
+		  /**
+		   * Data API implementation
+		   */
+
+		  EventHandler.on(document, EVENT_CLICK_DATA_API, SELECTOR_DATA_TOGGLE, function (event) {
+		    const target = SelectorEngine.getElementFromSelector(this);
+		    if (['A', 'AREA'].includes(this.tagName)) {
+		      event.preventDefault();
+		    }
+		    if (index_js.isDisabled(this)) {
+		      return;
+		    }
+		    EventHandler.one(target, EVENT_HIDDEN, () => {
+		      // focus on trigger when it is closed
+		      if (index_js.isVisible(this)) {
+		        this.focus();
+		      }
+		    });
+
+		    // avoid conflict when clicking a toggler of an offcanvas, while another is open
+		    const alreadyOpen = SelectorEngine.findOne(OPEN_SELECTOR);
+		    if (alreadyOpen && alreadyOpen !== target) {
+		      Offcanvas.getInstance(alreadyOpen).hide();
+		    }
+		    const data = Offcanvas.getOrCreateInstance(target);
+		    data.toggle(this);
+		  });
+		  EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
+		    for (const selector of SelectorEngine.find(OPEN_SELECTOR)) {
+		      Offcanvas.getOrCreateInstance(selector).show();
+		    }
+		  });
+		  EventHandler.on(window, EVENT_RESIZE, () => {
+		    for (const element of SelectorEngine.find('[aria-modal][class*=show][class*=offcanvas-]')) {
+		      if (getComputedStyle(element).position !== 'fixed') {
+		        Offcanvas.getOrCreateInstance(element).hide();
+		      }
+		    }
+		  });
+		  componentFunctions_js.enableDismissTrigger(Offcanvas);
+
+		  /**
+		   * jQuery
+		   */
+
+		  index_js.defineJQueryPlugin(Offcanvas);
+
+		  return Offcanvas;
+
+		}));
+		
+	} (offcanvas$1));
+	return offcanvas$1.exports;
+}
+
+var offcanvasExports = requireOffcanvas();
+var Offcanvas = /*@__PURE__*/getDefaultExportFromCjs(offcanvasExports);
 
 class DocsManager {
   constructor() {
@@ -115603,7 +117382,7 @@ class DocsManager {
 
     this.handleSideContent();
 
-    // this.handleInnerTagging(articleContainer);
+    this.handleInnerTagging(articleContainer);
 
   }
 
@@ -115729,41 +117508,42 @@ class DocsManager {
   }
 
   handleInnerTagging(articleContainer) {
-
-    // Initialize Bootstrap 5 Offcanvas Instance
     const offcanvasElement = document.getElementById("innerTagOffcanvas");
-    const offcanvasInstance = new bootstrap.Offcanvas(offcanvasElement);
-
     const offcanvasTitle = document.getElementById("offcanvasLabel");
     const offcanvasBody = document.getElementById("innerTagOffcanvasBody");
 
+    if (!articleContainer || !offcanvasElement || !offcanvasTitle || !offcanvasBody) {
+      return;
+    }
 
-    const dollarAnchors = articleContainer.querySelectorAll('a[href^="$"]');
+    const offcanvasInstance = new Offcanvas(offcanvasElement);
+    const article = articleContainer.querySelector("article:not(.side-article)");
+    if (!article) return;
 
-    dollarAnchors.forEach((anchor) => {
-        // 1. Extract the raw value (e.g., "$group1,$group2")
-        const targetValue = anchor.getAttribute("href");
+    const handleQuestionClick = (event) => {
+      const anchor = event.target.closest?.('a[href^="$"]');
+      if (!anchor || !event.currentTarget.contains(anchor)) return;
 
-        // 2. Store the value in a custom data attribute (data-target-groups)
-        anchor.dataset.targetGroups = targetValue;
+      const targetValue = anchor.getAttribute("href");
+      const answerId = targetValue?.slice(1).trim();
+      if (!answerId) return;
 
-        // 3. Remove the href attribute to prevent link navigation
-        anchor.setAttribute("href", "javascript://");
+      event.preventDefault();
+      offcanvasTitle.textContent = anchor.textContent.trim();
+      offcanvasBody.innerHTML = article.innerHTML;
 
-        anchor.addEventListener("click", (e) => {
-            e.preventDefault();
-            // Set offcanvas header to anchor inner HTML
-            offcanvasTitle.innerHTML = anchor.innerHTML;
-            offcanvasBody.innerHTML = articleContainer.innerHTML;
-            // Show offcanvas
-            offcanvasInstance.show();
-        });
+      offcanvasBody.querySelectorAll("[data-answer-id]").forEach((passage) => {
+        if (passage.dataset.answerId === answerId) {
+          passage.classList.add("bg-warning-subtle");
+        }
+      });
 
+      offcanvasInstance.show();
+    };
 
-
-    });
-
-}
+    articleContainer.addEventListener("click", handleQuestionClick);
+    offcanvasBody.addEventListener("click", handleQuestionClick);
+  }
 
   handleNotes(articleContainer) {
     const nm = new NotesMaker(articleContainer, (msg) => {

@@ -1,9 +1,6 @@
 import QuestionLoader from "./components/QuestionLoader";
 import NotesMaker from "./components/NotesMaker";
-// import * as bootstrap from "bootstrap";
-
-// // Expose bootstrap globally so HTML data-bs-* attributes work automatically
-// window.bootstrap = bootstrap;
+import Offcanvas from "bootstrap/js/dist/offcanvas";
 
 class DocsManager {
   constructor() {
@@ -32,7 +29,7 @@ class DocsManager {
 
     this.handleSideContent();
 
-    // this.handleInnerTagging(articleContainer);
+    this.handleInnerTagging(articleContainer);
 
   }
 
@@ -158,41 +155,42 @@ class DocsManager {
   }
 
   handleInnerTagging(articleContainer) {
-
-    // Initialize Bootstrap 5 Offcanvas Instance
     const offcanvasElement = document.getElementById("innerTagOffcanvas");
-    const offcanvasInstance = new bootstrap.Offcanvas(offcanvasElement);
-
     const offcanvasTitle = document.getElementById("offcanvasLabel");
     const offcanvasBody = document.getElementById("innerTagOffcanvasBody");
 
+    if (!articleContainer || !offcanvasElement || !offcanvasTitle || !offcanvasBody) {
+      return;
+    }
 
-    const dollarAnchors = articleContainer.querySelectorAll('a[href^="$"]');
+    const offcanvasInstance = new Offcanvas(offcanvasElement);
+    const article = articleContainer.querySelector("article:not(.side-article)");
+    if (!article) return;
 
-    dollarAnchors.forEach((anchor) => {
-        // 1. Extract the raw value (e.g., "$group1,$group2")
-        const targetValue = anchor.getAttribute("href");
+    const handleQuestionClick = (event) => {
+      const anchor = event.target.closest?.('a[href^="$"]');
+      if (!anchor || !event.currentTarget.contains(anchor)) return;
 
-        // 2. Store the value in a custom data attribute (data-target-groups)
-        anchor.dataset.targetGroups = targetValue;
+      const targetValue = anchor.getAttribute("href");
+      const answerId = targetValue?.slice(1).trim();
+      if (!answerId) return;
 
-        // 3. Remove the href attribute to prevent link navigation
-        anchor.setAttribute("href", "javascript://");
+      event.preventDefault();
+      offcanvasTitle.textContent = anchor.textContent.trim();
+      offcanvasBody.innerHTML = article.innerHTML;
 
-        anchor.addEventListener("click", (e) => {
-            e.preventDefault();
-            // Set offcanvas header to anchor inner HTML
-            offcanvasTitle.innerHTML = anchor.innerHTML;
-            offcanvasBody.innerHTML = articleContainer.innerHTML;
-            // Show offcanvas
-            offcanvasInstance.show();
-        });
+      offcanvasBody.querySelectorAll("[data-answer-id]").forEach((passage) => {
+        if (passage.dataset.answerId === answerId) {
+          passage.classList.add("bg-warning-subtle");
+        }
+      });
 
+      offcanvasInstance.show();
+    };
 
-
-    });
-
-}
+    articleContainer.addEventListener("click", handleQuestionClick);
+    offcanvasBody.addEventListener("click", handleQuestionClick);
+  }
 
   handleNotes(articleContainer) {
     const nm = new NotesMaker(articleContainer, (msg) => {

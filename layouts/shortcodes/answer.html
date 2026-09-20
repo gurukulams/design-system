@@ -1,0 +1,10 @@
+{{- $id := .Get "id" -}}
+{{- if not $id -}}
+  {{- errorf "The answer shortcode requires an id: %s" .Position -}}
+{{- end -}}
+{{- $content := .Page.RenderString (dict "display" "inline") .Inner -}}
+{{- if .Get "block" -}}
+<p><span data-answer-id="{{ $id }}">{{ $content }}</span></p>
+{{- else -}}
+<span data-answer-id="{{ $id }}">{{ $content }}</span>
+{{- end -}}
