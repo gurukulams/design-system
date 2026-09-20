@@ -1,6 +1,45 @@
 {{ define "main" }}
     <div class="row py-3">
         {{ .Content }}
+        {{ $tags := .Site.Taxonomies.tags }}
+
+{{ if $tags }}
+  {{/* Find min and max counts to calculate dynamic sizing */}}
+  {{ $scratch := newScratch }}
+  {{ $scratch.Set "max" 0 }}
+  {{ $scratch.Set "min" 999999 }}
+
+  {{ range $name, $taxonomy := $tags }}
+    {{ if gt $taxonomy.Count ($scratch.Get "max") }}
+      {{ $scratch.Set "max" $taxonomy.Count }}
+    {{ end }}
+    {{ if lt $taxonomy.Count ($scratch.Get "min") }}
+      {{ $scratch.Set "min" $taxonomy.Count }}
+    {{ end }}
+  {{ end }}
+
+  {{ $max := $scratch.Get "max" }}
+  {{ $min := $scratch.Get "min" }}
+
+  <!-- Tag Cloud Container using Bootstrap Flex utilities -->
+  <div class="d-flex flex-wrap gap-2 align-items-center py-3">
+    {{ range $name, $taxonomy := $tags }}
+      {{/* Calculate font size multiplier between 0.85rem and 1.8rem */}}
+      {{ $weight := 0.0 }}
+      {{ if ne $max $min }}
+        {{ $weight = div (sub (float $taxonomy.Count) (float $min)) (sub (float $max) (float $min)) }}
+      {{ end }}
+      {{ $fontSize := add 0.85 (mul $weight 0.95) }}
+
+      <a href="{{ $taxonomy.Page.RelPermalink }}" 
+         class="btn btn-outline-secondary rounded-pill d-inline-flex align-items-center gap-2"
+         title="{{ $taxonomy.Count }} posts">
+        <span>{{ $taxonomy.Page.Title }}</span>
+        <span class="badge bg-secondary rounded-pill">{{ $taxonomy.Count }}</span>
+      </a>
+    {{ end }}
+  </div>
+{{ end }}
         {{/* Grab the root docs folder */}}
         {{ with .Site.GetPage "section" "docs" }}
         {{ partial "docs/docs-cards.html" . }}
