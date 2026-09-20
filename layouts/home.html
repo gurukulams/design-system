@@ -34,7 +34,7 @@
       <a href="{{ $taxonomy.Page.RelPermalink }}" 
          class="btn btn-outline-secondary rounded-pill d-inline-flex align-items-center gap-2"
          title="{{ $taxonomy.Count }} posts">
-        <span>{{ $taxonomy.Page.Title }}</span>
+        <span>{{ partial "docs/text/i18n" $taxonomy.Page.Title }}</span>
         <span class="badge bg-secondary rounded-pill">{{ $taxonomy.Count }}</span>
       </a>
     {{ end }}
