@@ -2,7 +2,6 @@
 title: "Interactive Practice Models"
 layout: "single"
 categories: ["Practices"]
-tags: ["Assessment", "Interactive", "Education"]
 summary: "Exploring different assessment types and feedback loops for student engagement."
 ---
 # Effective Assessments

@@ -4,7 +4,9 @@
         {{ $entries := (union .RegularPages .Sections).ByWeight }}
 
         {{ range $entries }}
-        <div class="col">
+        {{/* Extract tags from front matter, defaulting to empty slice if missing */}}
+        {{ $tags := .Params.tags | default slice }}
+        <div class="col" data-tags="{{ delimit $tags " " }}">
             <div class="card h-100 shadow-sm border-1">
                 <div class="card-header border-bottom-0 pt-4">
                     <h5 class="card-title fw-bold mb-0 text-primary">

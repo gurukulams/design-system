@@ -22,7 +22,7 @@
   {{ $min := $scratch.Get "min" }}
 
   <!-- Tag Cloud Container using Bootstrap Flex utilities -->
-  <div class="d-flex flex-wrap gap-2 align-items-center py-3">
+  <div id="tags-cloud" class="d-flex flex-wrap gap-2 align-items-center py-3">
     {{ range $name, $taxonomy := $tags }}
       {{/* Calculate font size multiplier between 0.85rem and 1.8rem */}}
       {{ $weight := 0.0 }}
@@ -31,12 +31,14 @@
       {{ end }}
       {{ $fontSize := add 0.85 (mul $weight 0.95) }}
 
-      <a href="{{ $taxonomy.Page.RelPermalink }}" 
-         class="btn btn-outline-secondary rounded-pill d-inline-flex align-items-center gap-2"
-         title="{{ $taxonomy.Count }} posts">
-        <span>{{ partial "docs/text/i18n" $taxonomy.Page.Title }}</span>
-        <span class="badge bg-secondary rounded-pill">{{ $taxonomy.Count }}</span>
-      </a>
+      <a href="javascript://" 
+       class="btn btn-outline-secondary rounded-pill d-inline-flex align-items-center gap-2" 
+       title="{{ $taxonomy.Count }} posts" 
+       data-tag-id="{{ $taxonomy.Page.Title }}"
+       data-count="{{ $taxonomy.Count }}">
+      <span>{{ $taxonomy.Page.Title }}</span>
+      <span class="badge bg-secondary rounded-pill">{{ $taxonomy.Count }}</span>
+    </a>
     {{ end }}
   </div>
 {{ end }}

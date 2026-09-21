@@ -4,6 +4,8 @@ summary: "Guides on formatting, typography, and core design elements."
 weight: 1
 categories:
   - material
+tags:
+  - material
 ---
 
 Welcome to the heart of the **Gurukulams Design System**. The Documentation module serves as the "source of truth" for our visual and structural standards, ensuring that every educational tool we build remains consistent, accessible, and professional.

@@ -1,6 +1,8 @@
 ---
 title: "Presentation"
 weight: 2
+tags:
+  - class
 ---
 
 

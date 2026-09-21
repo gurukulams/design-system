@@ -2,7 +2,6 @@
 title: "Integrating Subsystems"
 layout: "single"
 categories: ["Apps"]
-tags: ["GraphQL", "NodeJS", "API"]
 summary: "Technical guide on connecting external services and managing cloud infrastructure."
 ---
 # Third-Party Integrations

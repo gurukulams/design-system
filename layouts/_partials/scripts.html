@@ -21,6 +21,15 @@
 {{ end }}
 
 
+{{ if .IsHome }}
+  {{ $homejs := resources.Get "js/home-bundle.js" }}
+  {{ if $homejs }}
+    {{/* Minify and fingerprint for production caching */}}
+    {{ $secureJS := $homejs | resources.Minify | resources.Fingerprint }}
+    <script src="{{ $secureJS.RelPermalink }}" integrity="{{ $secureJS.Data.Integrity }}"></script>
+  {{ end }}
+{{ end }}
+
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="referencepanel"
 aria-labelledby="referencepanelLabel">
 <div class="offcanvas-header">

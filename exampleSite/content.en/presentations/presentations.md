@@ -2,7 +2,6 @@
 title: "Framework Architecture"
 layout: "single"
 categories: ["Training"]
-tags: ["Python", "Pytest", "Allure"]
 summary: "A deep dive into the Python-based automation ecosystem and reporting tools."
 ---
 # Presentations

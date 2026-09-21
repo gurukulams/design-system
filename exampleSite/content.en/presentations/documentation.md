@@ -2,7 +2,6 @@
 title: "Documentation"
 layout: "single"
 categories: ["Design System"]
-tags: ["Branding", "UX", "Bootstrap"]
 summary: "An overview of the Gurukulams visual identity and user experience guidelines."
 ---
 

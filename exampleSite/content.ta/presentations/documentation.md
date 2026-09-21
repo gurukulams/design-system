@@ -2,7 +2,6 @@
 title: "ஆவணமாக்கல்"
 layout: "single"
 categories: ["Design System"]
-tags: ["Branding", "UX", "Bootstrap"]
 summary: "An overview of the Gurukulams visual identity and user experience guidelines."
 ---
 

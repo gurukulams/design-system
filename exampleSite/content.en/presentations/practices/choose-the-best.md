@@ -2,7 +2,6 @@
 title: "Choose the Best: Strategy"
 layout: "single"
 categories: ["Practices"]
-tags: ["Pedagogy", "Assessment"]
 summary: "Learning how to identify the most accurate answer among distractors."
 ---
 # Choose the Best
