@@ -1,32 +1,21 @@
 {
   "design-system": [
     {
-      "id": "ab6a9025-fb5d-4fbd-8453-3c386afef303",
-      "bodies": [
-        {
-          "type": "TextualBody",
-          "value": "A",
-          "purpose": "commenting",
-          "format": "text/plain",
-          "annotation": "ab6a9025-fb5d-4fbd-8453-3c386afef303"
-        }
-      ],
+      "id": "366c04d9-eba2-416a-9db7-c12c39c1bae8",
+      "bodies": [],
       "target": {
-        "annotation": "ab6a9025-fb5d-4fbd-8453-3c386afef303",
+        "annotation": "366c04d9-eba2-416a-9db7-c12c39c1bae8",
         "selector": [
           {
-            "quote": "Welcome to the heart of the Gurukulams Design System. The Documentation module serves as the \"source of truth\" for our visual and structural standards, ensuring that every educational tool",
-            "start": 240,
-            "end": 428,
+            "quote": "The Documentation module serves as the “source of truth” for our visual and structural standards, ensuring that every educational tool we build remains consistent, accessible, and professional.",
+            "start": 30,
+            "end": 232,
             "range": {}
           }
         ],
-        "created": "2026-09-20T04:58:33.301Z",
-        "creator": {
-          "isGuest": true,
-          "id": "PE3_IylgxDCli6lwAIpQ"
-        },
-        "updated": "2026-09-20T04:58:34.652Z"
+        "created": "2026-09-21T05:00:49.220Z",
+        "creator": { "isGuest": true, "id": "sCHnzB1oug68ARDw2K4n" },
+        "updated": "2026-09-21T05:00:50.484Z"
       }
     }
   ],

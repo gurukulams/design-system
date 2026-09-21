@@ -117491,7 +117491,8 @@ class DocsManager {
   }
 
   handleNotes(articleContainer) {
-    const nm = new NotesMaker(articleContainer, (msg) => {
+    const article = articleContainer.querySelector("article:not(.side-article)");
+    const nm = new NotesMaker(article, (msg) => {
       console.log("NotesMaker Notification:", msg);
     });
     const pencilToggle = document.getElementById("notes-pencil-toggle");
