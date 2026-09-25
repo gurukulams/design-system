@@ -44,7 +44,11 @@
 {{ end }}
         {{/* Grab the root docs folder */}}
         {{ with .Site.GetPage "section" "docs" }}
+        {{ if .Params.chapter_sections }}
+        {{ partial "docs/docs-sectioned-cards.html" . }}
+        {{ else }}
         {{ partial "docs/docs-cards.html" . }}
+        {{ end }}
         {{ end }}
     </div>
 {{ end }}
