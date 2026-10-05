@@ -147,7 +147,7 @@ aria-labelledby="practicepanelLabel"
     id="repoSelectedAvatar" 
         class="w-100 h-100 object-fit-cover"
          alt="avatar"
-         data-baseUrl="{{ site.Home.RelPermalink }}">
+         data-baseUrl="{{ .Site.Params.Questionrepository | default site.Home.RelPermalink }}">
   </div>
 {{ end }}
   <h5 class="offcanvas-title mb-0 ms-2" id="practicepanelLabel">
