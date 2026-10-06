@@ -1,21 +1,24 @@
 {
   "design-system": [
     {
-      "id": "366c04d9-eba2-416a-9db7-c12c39c1bae8",
+      "id": "8874fb2b-b253-45f4-8726-aa4a67e94ab4",
       "bodies": [],
       "target": {
-        "annotation": "366c04d9-eba2-416a-9db7-c12c39c1bae8",
+        "annotation": "8874fb2b-b253-45f4-8726-aa4a67e94ab4",
         "selector": [
           {
-            "quote": "The Documentation module serves as the “source of truth” for our visual and structural standards, ensuring that every educational tool we build remains consistent, accessible, and professional.",
-            "start": 30,
-            "end": 232,
+            "quote": "The Documentation Module defines the foundational DNA of the Gurukulams Design System. It provides the essential frameworks for content structure, visual hierarchy, and interface design to ensure a unified experience across al",
+            "start": 253,
+            "end": 479,
             "range": {}
           }
         ],
-        "created": "2026-09-21T05:00:49.220Z",
-        "creator": { "isGuest": true, "id": "sCHnzB1oug68ARDw2K4n" },
-        "updated": "2026-09-21T05:00:50.484Z"
+        "created": "2026-10-04T16:27:50.583Z",
+        "creator": {
+          "isGuest": true,
+          "id": "r9QZS1k_03sBWIWfbuZt"
+        },
+        "updated": "2026-10-04T16:27:51.833Z"
       }
     }
   ],
@@ -42,7 +45,10 @@
           }
         ],
         "created": "2026-09-20T10:35:47.226Z",
-        "creator": { "isGuest": true, "id": "mD8HDj77cES0ix5FVmrv" },
+        "creator": {
+          "isGuest": true,
+          "id": "mD8HDj77cES0ix5FVmrv"
+        },
         "updated": "2026-09-20T10:35:48.605Z"
       }
     }

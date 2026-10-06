@@ -397,21 +397,48 @@ export default class TextAnnotation {
     return false;
   }
 
+  getPageId() {
+    const rawId = this.contentRoot?.getAttribute('data-page-id') || window.location.pathname;
+    return rawId.replace(/[?#].*$/, '').replace(/\/+$/, '') || '/';
+  }
+
   storageKey() {
-    return `text-annotations:${window.location.pathname}`;
+    return `text-annotations:${this.getPageId()}`;
   }
 
   saveAnnotations() {
     if (!this.anno) return;
-    localStorage.setItem(this.storageKey(), JSON.stringify(this.anno.getAnnotations()));
+    const annotations = this.anno.getAnnotations();
+    const key = this.storageKey();
+    if (annotations && annotations.length > 0) {
+      localStorage.setItem(key, JSON.stringify(annotations));
+    } else {
+      localStorage.removeItem(key);
+    }
   }
 
   loadAnnotations() {
     if (!this.anno) return;
-    const saved = localStorage.getItem(this.storageKey());
+    const key = this.storageKey();
+    let saved = localStorage.getItem(key);
+
+    // Migration fallback: check legacy key with trailing slash
+    if (!saved && !key.endsWith('/')) {
+      const legacyKey = key + '/';
+      saved = localStorage.getItem(legacyKey);
+      if (saved) {
+        localStorage.setItem(key, saved);
+        localStorage.removeItem(legacyKey);
+      }
+    }
+
     if (!saved) return;
+
     try {
-      this.anno.setAnnotations(JSON.parse(saved));
+      const annotations = JSON.parse(saved);
+      if (Array.isArray(annotations) && annotations.length > 0) {
+        this.anno.setAnnotations(annotations);
+      }
     } catch (e) {
       console.warn("Invalid saved annotations", e);
     }

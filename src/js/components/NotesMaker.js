@@ -22,6 +22,11 @@ export default class NotesMaker {
     this.imageAnno.setAnnotatingEnabled(_editable)
   }
 
+  destroy() {
+    if (this.textanno) this.textanno.destroy();
+    if (this.imageAnno) this.imageAnno.destroy();
+  }
+
 }
 
 

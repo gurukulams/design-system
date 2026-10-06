@@ -200,6 +200,20 @@ class DocsManager {
     const article = articleContainer.querySelector("article:not(.side-article)");
     if (!article) return;
 
+    let innerAnno = null;
+
+    const cleanupInnerAnno = () => {
+      if (innerAnno) {
+        innerAnno.destroy();
+        innerAnno = null;
+      }
+    };
+
+    offcanvasElement.addEventListener("hidden.bs.offcanvas", () => {
+      cleanupInnerAnno();
+      offcanvasBody.innerHTML = "";
+    });
+
     const handleQuestionClick = (event) => {
       const anchor = event.target.closest?.('a[href^="$"]');
       if (!anchor || !event.currentTarget.contains(anchor)) return;
@@ -209,6 +223,8 @@ class DocsManager {
       if (!answerId) return;
 
       event.preventDefault();
+      cleanupInnerAnno();
+
       offcanvasTitle.textContent = anchor.textContent.trim();
       offcanvasBody.innerHTML = article.innerHTML;
 
@@ -217,9 +233,10 @@ class DocsManager {
       // Place the Annotation Here
       const annonation = annotationData[annoTagId];
 
-      const anno = createTextAnnotator(offcanvasBody);
-      anno.setAnnotations(annonation);
-
+      if (annonation) {
+        innerAnno = createTextAnnotator(offcanvasBody);
+        innerAnno.setAnnotations(annonation);
+      }
 
       offcanvasInstance.show();
     };

@@ -40031,7 +40031,7 @@ class PracticeMaker {
     _contentRoot.innerHTML = `
     <div id="content" class="d-none" data-type="question">
     <header
-       class="navbar navbar-expand-lg navbar-light border-bottom sticky-md-top bg-body py-2 shadow-sm"
+       class="navbar navbar-expand-lg navbar-light border-bottom bg-body py-2 shadow-sm"
     >
        <div class="d-flex align-items-center w-100">
           
@@ -44611,21 +44611,48 @@ class TextAnnotation {
     return false;
   }
 
+  getPageId() {
+    const rawId = this.contentRoot?.getAttribute('data-page-id') || window.location.pathname;
+    return rawId.replace(/[?#].*$/, '').replace(/\/+$/, '') || '/';
+  }
+
   storageKey() {
-    return `text-annotations:${window.location.pathname}`;
+    return `text-annotations:${this.getPageId()}`;
   }
 
   saveAnnotations() {
     if (!this.anno) return;
-    localStorage.setItem(this.storageKey(), JSON.stringify(this.anno.getAnnotations()));
+    const annotations = this.anno.getAnnotations();
+    const key = this.storageKey();
+    if (annotations && annotations.length > 0) {
+      localStorage.setItem(key, JSON.stringify(annotations));
+    } else {
+      localStorage.removeItem(key);
+    }
   }
 
   loadAnnotations() {
     if (!this.anno) return;
-    const saved = localStorage.getItem(this.storageKey());
+    const key = this.storageKey();
+    let saved = localStorage.getItem(key);
+
+    // Migration fallback: check legacy key with trailing slash
+    if (!saved && !key.endsWith('/')) {
+      const legacyKey = key + '/';
+      saved = localStorage.getItem(legacyKey);
+      if (saved) {
+        localStorage.setItem(key, saved);
+        localStorage.removeItem(legacyKey);
+      }
+    }
+
     if (!saved) return;
+
     try {
-      this.anno.setAnnotations(JSON.parse(saved));
+      const annotations = JSON.parse(saved);
+      if (Array.isArray(annotations) && annotations.length > 0) {
+        this.anno.setAnnotations(annotations);
+      }
     } catch (e) {
       console.warn("Invalid saved annotations", e);
     }
@@ -115565,6 +115592,11 @@ class NotesMaker {
     this.imageAnno.setAnnotatingEnabled(_editable);
   }
 
+  destroy() {
+    if (this.textanno) this.textanno.destroy();
+    if (this.imageAnno) this.imageAnno.destroy();
+  }
+
 }
 
 var offcanvas$1 = {exports: {}};
@@ -117462,6 +117494,20 @@ class DocsManager {
     const article = articleContainer.querySelector("article:not(.side-article)");
     if (!article) return;
 
+    let innerAnno = null;
+
+    const cleanupInnerAnno = () => {
+      if (innerAnno) {
+        innerAnno.destroy();
+        innerAnno = null;
+      }
+    };
+
+    offcanvasElement.addEventListener("hidden.bs.offcanvas", () => {
+      cleanupInnerAnno();
+      offcanvasBody.innerHTML = "";
+    });
+
     const handleQuestionClick = (event) => {
       const anchor = event.target.closest?.('a[href^="$"]');
       if (!anchor || !event.currentTarget.contains(anchor)) return;
@@ -117471,6 +117517,8 @@ class DocsManager {
       if (!answerId) return;
 
       event.preventDefault();
+      cleanupInnerAnno();
+
       offcanvasTitle.textContent = anchor.textContent.trim();
       offcanvasBody.innerHTML = article.innerHTML;
 
@@ -117479,9 +117527,10 @@ class DocsManager {
       // Place the Annotation Here
       const annonation = annotationData[annoTagId];
 
-      const anno = Ht$2(offcanvasBody);
-      anno.setAnnotations(annonation);
-
+      if (annonation) {
+        innerAnno = Ht$2(offcanvasBody);
+        innerAnno.setAnnotations(annonation);
+      }
 
       offcanvasInstance.show();
     };
