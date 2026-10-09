@@ -122,15 +122,21 @@ export default class QuestionLoader {
     buildInstance(mode) {
       const contentRoot = document.getElementById("practice-container");
         contentRoot.innerHTML = '';
-        var complexity = null, timer;
+        var complexity = null, timer, maxQ;
 
         if(document.getElementById("complexityCmb").value.trim() !== "") {
           complexity = document.getElementById("complexityCmb").value;
         }
 
+        if(document.getElementById("maxQInput").value.trim() !== "") {
+          maxQ = parseInt(document.getElementById('maxQInput').value);
+        }
+
         if(document.getElementById("timerInput").value.trim() !== "") {
           timer = parseInt(document.getElementById('timerInput').value);
         }
+
+        
 
         // Initialize your logic here
         this.practiceMaker = new PracticeMaker(
@@ -139,6 +145,7 @@ export default class QuestionLoader {
             "complexity":complexity,
             "mode":mode,
             "timer": timer,
+            "maxQ": maxQ,
             "error":(message) => {
                 window.error(message)
             }
