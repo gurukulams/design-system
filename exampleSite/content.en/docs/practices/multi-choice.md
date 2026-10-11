@@ -1,5 +1,6 @@
 ---
 title: "Multi Choice"
+weight: 2
 ---
 The **Multiple Choice Questions (MCQ)** with more than one answer—often called **Multi-Select**—are used to test a deeper level of understanding. Instead of just identifying a single fact, the learner must evaluate each option independently to determine its validity. In the Gurukulams Design System, this is essential for topics like "Best Practices" or "Feature Sets" where multiple rules apply simultaneously.
 
@@ -37,6 +38,7 @@ answers:
 ---
 
 ## Which of the following are considered Best Practices for Gurukulams documentation?
+---
 
 #### Good documentation relies on scannability and accessibility. Short paragraphs and descriptive links help users navigate, while a strict heading hierarchy supports screen readers. All-Caps should be avoided as it hinders readability.
 ```
@@ -58,6 +60,7 @@ answers:
 ---
 
 ## Select the correct methods for formatting math in our system.
+---
 
 #### Our system uses standard LaTeX-style math: single dollar signs for inline text, double dollar signs for standalone display blocks, and curly braces for grouping mathematical logic. Backticks are reserved strictly for code, not math.
 ```

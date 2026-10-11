@@ -1,5 +1,6 @@
 ---
 title: "Choose the Best"
+weight: 1
 ---
 
 
@@ -35,6 +36,8 @@ answers:
 
 ## Which statement regarding heading hierarchy is correct?
 
+---
+
 #### In our design system, # Heading 1 is reserved for the primary page title to ensure a clear structure. Skipping levels (like H1 to H3) breaks accessibility, and ALL CAPS is avoided to maintain readability.
 ```
 
@@ -52,6 +55,7 @@ answers:
 ---
 
 ## How should you format a complex, standalone equation?
+---
 
 #### While single dollar signs are for inline math, double dollar signs ($$) trigger 'Display Mode,' which centers the equation and provides necessary vertical spacing for complex formulas.
 ```
@@ -70,6 +74,8 @@ answers:
 ---
 
 ## What is the primary role of Alt Text in an image tag?
+
+---
 
 #### Alt text (the text in brackets `[...]`) is an accessibility requirement. It describes the image to visually impaired users and appears if the image file fails to load.
 ```

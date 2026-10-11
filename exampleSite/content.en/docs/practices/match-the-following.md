@@ -1,5 +1,6 @@
 ---
 title: "Match the Following"
+weight: 3
 ---
 
 The **Match the Following** format is a dynamic assessment tool used to test a learner's ability to identify relationships between different concepts, patterns, or components. In our technical modules, it is frequently used to map specific tools to their underlying architectural patterns or to connect terms with their definitions.
@@ -36,7 +37,7 @@ matches:
 ---
 
 ## Match the Following: Programming Components to Design Patterns
-
+---
 #### Logic and Rationale:
 * **Collection Streams API** maps to **Builder**: The Streams API uses a builder-like pattern to construct a sequence of operations (filter, map, etc.) before executing them.
 * **Buffered Reader** maps to **Decorator**: In Java I/O, `BufferedReader` "decorates" an existing Reader to add buffering capabilities without changing its interface.
@@ -61,7 +62,7 @@ matches:
 ---
 
 ## Match the Markdown Symbols to their Visual Elements
-
+---
 #### Logic and Rationale:
 * **#** maps to **Heading**: This symbol defines the structural title levels of the document.
 * **>** maps to **Blockquote**: Used to create callouts, notes, or tips that stand out from the body text.
