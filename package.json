@@ -7,7 +7,6 @@
   "license": "ISC",
   "type": "module",
   "scripts": {
-    "copy:fonts": "cp -R node_modules/bootstrap-icons/font/fonts static/fonts/bootstrap-icons",
     "build:css": "sass src/scss:assets/css",
     "build:js": "rollup -c",
     "build": "npm-run-all build:*",
@@ -43,7 +42,6 @@
     "@recogito/annotorious": "^2.7.14",
     "@recogito/text-annotator": "^3.4.9",
     "bootstrap": "^5.3.8",
-    "bootstrap-icons": "^1.13.1",
     "openseadragon": "^6.0.2"
   }
 }
