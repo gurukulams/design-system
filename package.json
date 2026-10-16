@@ -10,7 +10,7 @@
     "copy:fonts": "cp -R node_modules/bootstrap-icons/font/fonts static/fonts/bootstrap-icons",
     "build:css": "sass src/scss:assets/css",
     "build:js": "rollup -c",
-    "build": "npm-run-all copy:fonts build:*",
+    "build": "npm-run-all build:*",
     "watch:css": "sass --watch src/scss:assets/css",
     "watch:js": "rollup -c -w",
     "watch:site": "hugo -s exampleSite --watch --themesDir ../..",
