@@ -7,8 +7,8 @@ class MockIntersectionObserver {
 globalThis.IntersectionObserver = MockIntersectionObserver;
 globalThis.renderMathInElement = () => {};
 
-vi.mock("../src/js/components/QuestionLoader", () => ({
-  default: class QuestionLoader {},
+vi.mock("../src/js/components/PracticeBuilder", () => ({
+  default: class PracticeBuilder {},
 }));
 
 vi.mock("../src/js/components/NotesMaker", () => ({

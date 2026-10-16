@@ -1,4 +1,4 @@
-import QuestionLoader from "./components/QuestionLoader";
+import PracticeBuilder from "./components/PracticeBuilder";
 import NotesMaker from "./components/NotesMaker";
 import Offcanvas from "bootstrap/js/dist/offcanvas";
 
@@ -8,7 +8,7 @@ class DocsManager {
   constructor() {
 
     
-    new QuestionLoader();
+    new PracticeBuilder();
 
     // Set Focus to the SearchBox When Side Nav Opened
     const offcanvasDocsTree = document.getElementById('offcanvasDocsTree');
