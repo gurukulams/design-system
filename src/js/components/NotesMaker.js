@@ -7,7 +7,7 @@ import { createTextAnnotator } from "@recogito/text-annotator";
 export default class NotesMaker {
   constructor(_articleContainer, _notiFyFn) {
     const article = _articleContainer.querySelector("article:not(.side-article)");
-    
+
     this.textanno = new TextAnnotation(article);
     this.imageAnno = new ImageAnnotation(article);
 
@@ -45,7 +45,7 @@ export default class NotesMaker {
 
   init() {
     const pencilToggle = document.getElementById("notes-pencil-toggle");
-    
+
     if (pencilToggle) {
       pencilToggle.addEventListener("change", (e) => {
         this.setEditable(e.target.checked);
@@ -67,47 +67,35 @@ export default class NotesMaker {
     });
   }
 
-  
+
   handleInnerTagging(articleContainer, annotationData) {
-    const offcanvasElement = document.getElementById("innerTagOffcanvas");
-    const offcanvasTitle = document.getElementById("offcanvasLabel");
-    const offcanvasBody = document.getElementById("innerTagOffcanvasBody");
+    articleContainer.addEventListener('click', (event) => {
+      // Find the closest anchor tag whose href starts with '$'
+      const anchor = event.target.closest('a[href^="$"]');
 
+      // If no matching anchor was clicked, ignore the event
+      if (!anchor || !articleContainer.contains(anchor)) return;
 
-    if (!articleContainer || !offcanvasElement || !offcanvasTitle || !offcanvasBody) {
-      return;
-    }
-
-    const offcanvasInstance = new Offcanvas(offcanvasElement);
-    const article = articleContainer.querySelector("article:not(.side-article)");
-    if (!article) return;
-
-    const handleQuestionClick = (event) => {
-      const anchor = event.target.closest?.('a[href^="$"]');
-      if (!anchor || !event.currentTarget.contains(anchor)) return;
-
-      const targetValue = anchor.getAttribute("href");
-      const answerId = targetValue?.slice(1).trim();
-      if (!answerId) return;
-
+      // Prevent default link navigation (page jump)
       event.preventDefault();
-      offcanvasTitle.textContent = anchor.textContent.trim();
-      offcanvasBody.innerHTML = article.innerHTML ;
 
-      const annoTagId = anchor.getAttribute('href').slice(1);
+      // Extract the ID (e.g., "$answer-1" becomes "answer-1")
+      const hrefValue = anchor.getAttribute('href');
+      const targetId = hrefValue.slice(1).trim();
+      const questionTxt = anchor.textContent.trim();
 
-      // Place the Annotation Here
-      const annonation = annotationData[annoTagId];
+      if (!targetId) return;
 
-      const anno = createTextAnnotator(offcanvasBody);
-      anno.setAnnotations(annonation);
+      const annonations = annotationData[targetId];
 
+      console.log("Anchor clicked! Target ID:", targetId);
+      console.log("With Annotations as :", annonations);
 
-      offcanvasInstance.show();
-    };
+      this.textanno.highlightAnnotations(annonations);
 
-    articleContainer.addEventListener("click", handleQuestionClick);
-    offcanvasBody.addEventListener("click", handleQuestionClick);
+      // 👉 Place your custom action here (e.g., opening your offcanvas or showing annotations)
+    });
+
   }
 
   setNotesIntent(_intent) {

@@ -417,6 +417,12 @@ export default class TextAnnotation {
     }
   }
 
+  highlightAnnotations(_annotations) {
+    console.log(_annotations);
+    this.setAnnotatingEnabled(false);
+    this.anno.setAnnotations(_annotations);
+  }
+
   setAnnotatingEnabled(_editable) {
     this.annotatingEnabled = _editable;
     if (!this.anno) return;

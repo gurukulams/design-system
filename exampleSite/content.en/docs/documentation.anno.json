@@ -32,32 +32,32 @@
   ],
   "iconography": [
     {
-      "id": "c3bdcce0-4aa5-43fa-a5e7-602b4464a863",
+      "id": "54b23107-41fb-4021-acb2-289ae6033f23",
       "bodies": [
         {
           "type": "TextualBody",
-          "value": "TEST",
+          "value": "1",
           "purpose": "commenting",
           "format": "text/plain",
-          "annotation": "c3bdcce0-4aa5-43fa-a5e7-602b4464a863"
+          "annotation": "54b23107-41fb-4021-acb2-289ae6033f23"
         }
       ],
       "target": {
-        "annotation": "c3bdcce0-4aa5-43fa-a5e7-602b4464a863",
+        "annotation": "54b23107-41fb-4021-acb2-289ae6033f23",
         "selector": [
           {
-            "quote": "Utilizing Bootstrap Icons to provide visual cues for navigation and actions",
-            "start": 1483,
-            "end": 1558,
+            "quote": "The Documentation module serves as the “source of truth” for our visual and structural standards, ensuring that every educational tool we build remains consistent, accessible, and professional.",
+            "start": 59,
+            "end": 252,
             "range": {}
           }
         ],
-        "created": "2026-10-18T11:38:56.935Z",
+        "created": "2026-10-18T12:41:44.318Z",
         "creator": {
           "isGuest": true,
-          "id": "Pu6y0gXVIDbiaYlOb84_"
+          "id": "3NXrPbw5g_Mez6EuncdA"
         },
-        "updated": "2026-10-18T11:38:59.150Z"
+        "updated": "2026-10-18T12:41:47.107Z"
       }
     }
   ]
