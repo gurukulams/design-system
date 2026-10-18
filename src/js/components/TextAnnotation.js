@@ -4,6 +4,8 @@ import "@recogito/text-annotator/text-annotator.css";
 import { createTextAnnotator } from "@recogito/text-annotator";
 import AnnotationPopup from "./AnnotationPopup";
 
+import Offcanvas from "bootstrap/js/dist/offcanvas";
+
 export default class TextAnnotation {
   constructor(_contentRoot) {
     this.contentRoot = _contentRoot;
@@ -417,10 +419,39 @@ export default class TextAnnotation {
     }
   }
 
-  highlightAnnotations(_annotations) {
+  highlightAnnotations(_questionTxt, _annotations) {
+
+
+    const offcanvasElement = document.getElementById("innerTagOffcanvas");
+    const offcanvasTitle = document.getElementById("offcanvasLabel");
+    const offcanvasBody = document.getElementById("innerTagOffcanvasBody");
+
+    const offcanvasInstance = new Offcanvas(offcanvasElement);
+
+    this.anno.setVisible(false);
     console.log(_annotations);
-    this.setAnnotatingEnabled(false);
-    this.anno.setAnnotations(_annotations);
+    const newAnno = createTextAnnotator(this.contentRoot);
+    newAnno.setAnnotatingEnabled(false);
+    newAnno.setAnnotations(_annotations);
+
+    const pEl = this.contentRoot.parentNode;
+
+    offcanvasTitle.textContent = _questionTxt;
+
+    offcanvasBody.appendChild(this.contentRoot);
+
+    // Use an arrow function so 'this' still points to your class instance
+    offcanvasElement.addEventListener('hide.bs.offcanvas', () => {
+      console.log('Offcanvas is starting to close');
+      newAnno.destroy();
+      pEl.appendChild(this.contentRoot);
+      this.anno.setVisible(true);
+    });
+
+    offcanvasInstance.show();
+
+
+
   }
 
   setAnnotatingEnabled(_editable) {

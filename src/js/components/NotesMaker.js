@@ -91,7 +91,7 @@ export default class NotesMaker {
       console.log("Anchor clicked! Target ID:", targetId);
       console.log("With Annotations as :", annonations);
 
-      this.textanno.highlightAnnotations(annonations);
+      this.textanno.highlightAnnotations(questionTxt, annonations);
 
       // 👉 Place your custom action here (e.g., opening your offcanvas or showing annotations)
     });
