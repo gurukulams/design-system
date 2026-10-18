@@ -1,49 +1,63 @@
 {
   "design-system": [
     {
-      "id": "366c04d9-eba2-416a-9db7-c12c39c1bae8",
-      "bodies": [],
+      "id": "d0682b94-ec01-49dd-9c9d-5b4dd32d0b4d",
+      "bodies": [
+        {
+          "type": "TextualBody",
+          "value": "Test",
+          "purpose": "commenting",
+          "format": "text/plain",
+          "annotation": "d0682b94-ec01-49dd-9c9d-5b4dd32d0b4d"
+        }
+      ],
       "target": {
-        "annotation": "366c04d9-eba2-416a-9db7-c12c39c1bae8",
+        "annotation": "d0682b94-ec01-49dd-9c9d-5b4dd32d0b4d",
         "selector": [
           {
-            "quote": "The Documentation module serves as the “source of truth” for our visual and structural standards, ensuring that every educational tool we build remains consistent, accessible, and professional.",
-            "start": 30,
-            "end": 232,
+            "quote": "Standards for organizing technical and educational content.",
+            "start": 540,
+            "end": 599,
             "range": {}
           }
         ],
-        "created": "2026-09-21T05:00:49.220Z",
-        "creator": { "isGuest": true, "id": "sCHnzB1oug68ARDw2K4n" },
-        "updated": "2026-09-21T05:00:50.484Z"
+        "created": "2026-10-18T10:33:39.768Z",
+        "creator": {
+          "isGuest": true,
+          "id": "wN5_u5KrvQ2cxBag6hVL"
+        },
+        "updated": "2026-10-18T10:33:41.846Z"
       }
     }
   ],
   "iconography": [
     {
-      "id": "e0c2197e-87d5-4d25-b573-0ebbcd967fec",
+      "id": "c3bdcce0-4aa5-43fa-a5e7-602b4464a863",
       "bodies": [
         {
           "type": "TextualBody",
-          "value": "D",
+          "value": "TEST",
           "purpose": "commenting",
           "format": "text/plain",
-          "annotation": "e0c2197e-87d5-4d25-b573-0ebbcd967fec"
+          "annotation": "c3bdcce0-4aa5-43fa-a5e7-602b4464a863"
         }
       ],
       "target": {
-        "annotation": "e0c2197e-87d5-4d25-b573-0ebbcd967fec",
+        "annotation": "c3bdcce0-4aa5-43fa-a5e7-602b4464a863",
         "selector": [
           {
             "quote": "Utilizing Bootstrap Icons to provide visual cues for navigation and actions",
-            "start": 1718,
-            "end": 1793,
+            "start": 1483,
+            "end": 1558,
             "range": {}
           }
         ],
-        "created": "2026-09-20T10:35:47.226Z",
-        "creator": { "isGuest": true, "id": "mD8HDj77cES0ix5FVmrv" },
-        "updated": "2026-09-20T10:35:48.605Z"
+        "created": "2026-10-18T11:38:56.935Z",
+        "creator": {
+          "isGuest": true,
+          "id": "Pu6y0gXVIDbiaYlOb84_"
+        },
+        "updated": "2026-10-18T11:38:59.150Z"
       }
     }
   ]
