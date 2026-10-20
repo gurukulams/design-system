@@ -283,27 +283,39 @@ class DocsManager {
       this.setActiveHeading(asideEl, window.location.hash);
     }
 
-    const headings = articleContainer.querySelectorAll('h1, h2, h3');
+    const headings = Array.from(articleContainer.querySelectorAll('h1, h2, h3'));
 
     const options = {
       rootMargin: '0px 0px -75% 0px',
       threshold: 0
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    // Recompute the single active heading from scratch on every change, instead of
+    // reacting to each raw IntersectionObserver entry individually. During a fast
+    // scroll, several headings can cross the rootMargin band within one callback
+    // batch, in no guaranteed order — acting on each one in turn made the hash (and
+    // the sidebar highlight) flicker between headings rather than settling on one.
+    const updateActiveHeading = () => {
+      let current = null;
+      for (const heading of headings) {
+        if (heading.getBoundingClientRect().top <= window.innerHeight * 0.25) {
+          current = heading;
+        } else {
+          break;
+        }
+      }
+
+      if (current && window.location.hash !== `#${current.id}`) {
+        history.replaceState(null, null, `#${current.id}`);
+        this.setActiveHeading(asideEl, current.id);
+      }
+    };
+
+    const observer = new IntersectionObserver(() => {
       // FIX 1: If we are scrolling due to a sidebar click, ignore observer triggers entirely!
       if (this.isClickScrolling) return;
 
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-
-          if (id && window.location.hash !== `#${id}`) {
-            history.replaceState(null, null, `#${id}`);
-            this.setActiveHeading(asideEl, id);
-          }
-        }
-      });
+      updateActiveHeading();
     }, options);
 
     headings.forEach((heading) => observer.observe(heading));
@@ -360,13 +372,14 @@ class DocsManager {
     if (targetLink) {
       targetLink.classList.add('active');
 
-      // scrollIntoView moves the link into the scrollable viewport of asideEl
-      targetLink.scrollIntoView({
-        behavior: 'smooth', // 'smooth' for a pleasant transition, 'auto' for instant jumping
-        block: 'nearest',   // Minimizes scrolling; only moves it if it is out of view
-        inline: 'nearest'
-      });
-
+      // Scroll asideEl's own scrollbar only. Native scrollIntoView walks every
+      // scrollable ancestor it finds "nearest", which here included the main
+      // window — fighting the user's own scroll position while they scrolled.
+      const linkRect = targetLink.getBoundingClientRect();
+      const asideRect = asideEl.getBoundingClientRect();
+      if (linkRect.top < asideRect.top || linkRect.bottom > asideRect.bottom) {
+        asideEl.scrollTop += (linkRect.top - asideRect.top) - (asideRect.height - linkRect.height) / 2;
+      }
     }
   }
 
