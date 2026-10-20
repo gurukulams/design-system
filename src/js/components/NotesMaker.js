@@ -14,33 +14,7 @@ export default class NotesMaker {
     this.setEditable(false);
     this.init();
 
-    const cleanPath = window.location.pathname.replace(/\/+$/, '');
-    const annoUrl = `${window.location.origin}${cleanPath}.anno.json`;
-
-    fetch(annoUrl)
-      .then(response => {
-        if (response.status === 404) {
-          console.warn(`.anno file not found (404) at: ${annoUrl}`);
-          return null;
-        }
-        if (!response.ok) {
-          throw new Error(`HTTP error ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(annotationData => {
-        if (!annotationData) return; // Exit if 404
-
-        // Continue working with annotationData...
-        console.log("Loaded annotations:", annotationData);
-
-        this.handleInnerTagging(_articleContainer, annotationData);
-
-      })
-      .catch(error => {
-        console.error("Failed to load annotation data:", error);
-      });
-
+    this.handleInnerTagging();
   }
 
   init() {
@@ -68,34 +42,28 @@ export default class NotesMaker {
   }
 
 
-  handleInnerTagging(articleContainer, annotationData) {
-    articleContainer.addEventListener('click', (event) => {
+  handleInnerTagging() {
+    document.addEventListener('click', (event) => {
       // Find the closest anchor tag whose href starts with '$'
       const anchor = event.target.closest('a[href^="$"]');
 
-      // If no matching anchor was clicked, ignore the event
-      if (!anchor || !articleContainer.contains(anchor)) return;
+      // Only react to answer links that live inside the article we manage
+      // (the article may have been relocated into the offcanvas body, so
+      // check against the live contentRoot reference rather than a fixed container)
+      if (!anchor || !this.textanno.contentRoot.contains(anchor)) return;
 
       // Prevent default link navigation (page jump)
       event.preventDefault();
 
-      // Extract the ID (e.g., "$answer-1" becomes "answer-1")
+      // Extract the ID (e.g., "$design-system" becomes "design-system")
       const hrefValue = anchor.getAttribute('href');
       const targetId = hrefValue.slice(1).trim();
       const questionTxt = anchor.textContent.trim();
 
       if (!targetId) return;
 
-      const annonations = annotationData[targetId];
-
-      console.log("Anchor clicked! Target ID:", targetId);
-      console.log("With Annotations as :", annonations);
-
-      this.textanno.highlightAnnotations(questionTxt, annonations);
-
-      // 👉 Place your custom action here (e.g., opening your offcanvas or showing annotations)
+      this.textanno.highlightAnswer(questionTxt, targetId);
     });
-
   }
 
   setNotesIntent(_intent) {

@@ -419,8 +419,7 @@ export default class TextAnnotation {
     }
   }
 
-  highlightAnnotations(_questionTxt, _annotations) {
-
+  highlightAnswer(_questionTxt, _targetId) {
 
     const offcanvasElement = document.getElementById("innerTagOffcanvas");
     const offcanvasTitle = document.getElementById("offcanvasLabel");
@@ -429,10 +428,11 @@ export default class TextAnnotation {
     const offcanvasInstance = new Offcanvas(offcanvasElement);
 
     this.anno.setVisible(false);
-    console.log(_annotations);
-    const newAnno = createTextAnnotator(this.contentRoot);
-    newAnno.setAnnotatingEnabled(false);
-    newAnno.setAnnotations(_annotations);
+
+    this.contentRoot.querySelectorAll('[data-answer-id].bg-warning-subtle')
+      .forEach((el) => el.classList.remove('bg-warning-subtle'));
+    this.contentRoot.querySelectorAll(`[data-answer-id="${_targetId}"]`)
+      .forEach((el) => el.classList.add('bg-warning-subtle'));
 
     const pEl = this.contentRoot.parentNode;
 
@@ -442,15 +442,11 @@ export default class TextAnnotation {
 
     // Use an arrow function so 'this' still points to your class instance
     offcanvasElement.addEventListener('hide.bs.offcanvas', () => {
-      console.log('Offcanvas is starting to close');
-      newAnno.destroy();
       pEl.appendChild(this.contentRoot);
       this.anno.setVisible(true);
-    });
+    }, { once: true });
 
     offcanvasInstance.show();
-
-
 
   }
 
