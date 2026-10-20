@@ -448,6 +448,11 @@ export default class TextAnnotation {
 
     offcanvasInstance.show();
 
+    offcanvasElement.addEventListener('shown.bs.offcanvas', () => {
+      const firstHighlight = this.contentRoot.querySelector(`[data-answer-id="${_targetId}"]`);
+      firstHighlight?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, { once: true });
+
   }
 
   setAnnotatingEnabled(_editable) {
