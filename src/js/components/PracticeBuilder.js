@@ -170,6 +170,11 @@ export default class PracticeBuilder {
       // Clear existing content before building the practice UI.
       contentRoot.replaceChildren();
 
+      const pm = new PracticeMaker(contentRoot, this._settings);
+      await pm.ready; // QuestionLoader fetches and prepares the question data
+      // For in-memory data: await pm.setQuestions(questionsArray);
+  
+
       console.log("Practice Settings:", this._settings);
 
       // Add your practice UI creation logic here.
