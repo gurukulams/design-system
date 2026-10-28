@@ -29,9 +29,9 @@ export default class PracticeBuilder {
       this._initFormValues();
       this._manageSettings();
 
-      if (this._settings.mode) {
-          this._buildInstance();
-      }
+    if (this._settings.mode) {
+        void this._buildInstance().catch(console.error);
+    }
   }
 
   _loadSettingsFromStorage() {
@@ -102,13 +102,18 @@ export default class PracticeBuilder {
       closeSettingsBtn?.addEventListener("click", closeOverlay);
       cancelSettingsBtn?.addEventListener("click", closeOverlay);
 
-      applySettingsBtn?.addEventListener("click", (event) => {
-          event.preventDefault();
-
-          this._updateSettings();
-          closeOverlay();
-          this._buildInstance();
-      });
+      applySettingsBtn?.addEventListener("click", async (event) => {
+        event.preventDefault();
+    
+        this._updateSettings();
+        closeOverlay();
+    
+        try {
+            await this._buildInstance();
+        } catch (error) {
+            console.error("Failed to initialize PracticeMaker:", error);
+        }
+    });
   }
 
   _updateSettings() {
@@ -159,7 +164,7 @@ export default class PracticeBuilder {
       }
   }
 
-  _buildInstance() {
+  async _buildInstance() {
       const { contentRoot } = this._elements;
 
       if (!contentRoot) {
