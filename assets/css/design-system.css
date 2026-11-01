@@ -292,16 +292,24 @@ path.open.svelte-1w0132l {
   cursor: nw-resize;
 }
 
-.a9s-handle.a9s-corner-handle-topright {
+[data-flipped=true] .a9s-handle.a9s-corner-handle-topleft, .a9s-handle.a9s-corner-handle-topright {
   cursor: ne-resize;
+}
+
+[data-flipped=true] .a9s-handle.a9s-corner-handle-topright {
+  cursor: nw-resize;
 }
 
 .a9s-handle.a9s-corner-handle-bottomright {
   cursor: se-resize;
 }
 
-.a9s-handle.a9s-corner-handle-bottomleft {
+[data-flipped=true] .a9s-handle.a9s-corner-handle-bottomright, .a9s-handle.a9s-corner-handle-bottomleft {
   cursor: sw-resize;
+}
+
+[data-flipped=true] .a9s-handle.a9s-corner-handle-bottomleft {
+  cursor: se-resize;
 }
 
 .a9s-annotationlayer .a9s-outer, div[data-theme=dark] .a9s-annotationlayer .a9s-outer {
@@ -658,16 +666,24 @@ path.open.svelte-1w0132l {
   cursor: nw-resize;
 }
 
-.a9s-handle.a9s-corner-handle-topright {
+[data-flipped=true] .a9s-handle.a9s-corner-handle-topleft, .a9s-handle.a9s-corner-handle-topright {
   cursor: ne-resize;
+}
+
+[data-flipped=true] .a9s-handle.a9s-corner-handle-topright {
+  cursor: nw-resize;
 }
 
 .a9s-handle.a9s-corner-handle-bottomright {
   cursor: se-resize;
 }
 
-.a9s-handle.a9s-corner-handle-bottomleft {
+[data-flipped=true] .a9s-handle.a9s-corner-handle-bottomright, .a9s-handle.a9s-corner-handle-bottomleft {
   cursor: sw-resize;
+}
+
+[data-flipped=true] .a9s-handle.a9s-corner-handle-bottomleft {
+  cursor: se-resize;
 }
 
 .a9s-annotationlayer .a9s-outer, div[data-theme=dark] .a9s-annotationlayer .a9s-outer {
