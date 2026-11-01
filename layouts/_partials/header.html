@@ -81,8 +81,11 @@
         
             {{ $partialPath := printf "header/menu-%s" .Type }} 
             {{ partial $partialPath . }} 
-
+      {{ else if .IsHome }}
+        {{ partial "header/menu-home" . }}      
       {{ end }}
+
+      
 
          
   </div>
