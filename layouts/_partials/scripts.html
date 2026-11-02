@@ -11,24 +11,7 @@
   </script>
 {{ end }}
 
-<!-- Load Content Type Specific Scripts -->
-{{ with .Type }}
-  {{ $partialPath := printf "scripts/scripts-%s" . }}
 
-  {{ if templates.Exists (printf "_partials/%s.html" $partialPath) }}
-    {{ partial $partialPath $ }}
-  {{ end }}
-{{ end }}
-
-
-{{ if .IsHome }}
-  {{ $homejs := resources.Get "js/home-bundle.js" }}
-  {{ if $homejs }}
-    {{/* Minify and fingerprint for production caching */}}
-    {{ $secureJS := $homejs | resources.Minify | resources.Fingerprint }}
-    <script src="{{ $secureJS.RelPermalink }}" integrity="{{ $secureJS.Data.Integrity }}"></script>
-  {{ end }}
-{{ end }}
 
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="referencepanel"
 aria-labelledby="referencepanelLabel">
@@ -397,3 +380,23 @@ document.addEventListener('webkitfullscreenchange', cleanUpExitBtn);
 
 
 </script>
+
+
+<!-- Load Content Type Specific Scripts -->
+{{ with .Type }}
+  {{ $partialPath := printf "scripts/scripts-%s" . }}
+
+  {{ if templates.Exists (printf "_partials/%s.html" $partialPath) }}
+    {{ partial $partialPath $ }}
+  {{ end }}
+{{ end }}
+
+
+{{ if .IsHome }}
+  {{ $homejs := resources.Get "js/home-bundle.js" }}
+  {{ if $homejs }}
+    {{/* Minify and fingerprint for production caching */}}
+    {{ $secureJS := $homejs | resources.Minify | resources.Fingerprint }}
+    <script src="{{ $secureJS.RelPermalink }}" integrity="{{ $secureJS.Data.Integrity }}"></script>
+  {{ end }}
+{{ end }}

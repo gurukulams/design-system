@@ -1,7 +1,11 @@
+import PracticeBuilder from "./components/PracticeBuilder";
+
 class HomeScreen {
     constructor() {
       this.STORAGE_KEY = 'selectedtopictags';
       this.tagContainer = document.getElementById('tags-cloud');
+
+      new PracticeBuilder();
       
       if (!this.tagContainer) return;
   
