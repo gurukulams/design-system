@@ -40178,6 +40178,8 @@ const remoteQuestionsCache = new Map();
  * Sample Usage
  * const qL = new QuestionLoader({ baseUrl: "https://www.example.com" });
  * qL.repoUrl = "maths/algebra";
+ * // Multiple repos can be loaded and merged together:
+ * qL.repoUrl = ["maths/algebra", "science/physics"];
  * qL.languageCode = "ta";
  * qL.maxQuestions = 5;
  * qL.shuffleQuestions = true;
@@ -40254,7 +40256,7 @@ class QuestionLoader {
     const questions =
       this._questions !== null
         ? this._questions
-        : this._repoUrl
+        : this._normalizeRepoUrls().length > 0
           ? await this.getQuestions()
           : [];
     const allQuestions = this._includeUserQuestions
@@ -40281,10 +40283,37 @@ class QuestionLoader {
     return this.#filterQuestions(await this.loadSourceQuestions(), options);
   }
 
+  /**
+   * Normalize `repoUrl` (a single path string or an array of path strings)
+   * into a clean array of trimmed, non-empty paths.
+   */
+  _normalizeRepoUrls() {
+    const raw = Array.isArray(this._repoUrl) ? this._repoUrl : [this._repoUrl];
+    return raw
+      .filter((path) => typeof path === "string" && path.trim().length > 0)
+      .map((path) => path.replace(/^\/+|\/+$/g, ""));
+  }
+
   async getQuestions() {
     const baseUrl = this._baseUrl.replace(/\/+$/, "");
-    const repoPath = this._repoUrl.replace(/^\/+|\/+$/g, "");
     const dataRootUrl = `${baseUrl}/data`;
+    const repoPaths = this._normalizeRepoUrls();
+
+    const results = await Promise.all(
+      repoPaths.map((repoPath) =>
+        this._getQuestionsForPath(repoPath, dataRootUrl)
+      )
+    );
+
+    const seenIds = new Set();
+    return results.flat().filter((question) => {
+      if (seenIds.has(question.id)) return false;
+      seenIds.add(question.id);
+      return true;
+    });
+  }
+
+  async _getQuestionsForPath(repoPath, dataRootUrl) {
     const cacheKey = `${dataRootUrl}\0${repoPath}\0${this._languageCode || ""}`;
 
     if (remoteQuestionsCache.has(cacheKey)) {
@@ -40548,6 +40577,11 @@ class QuestionLoader {
   }
 }
 
+// `repoUrl` can be a single path string or an array of paths; an empty
+// array is truthy in JS, so callers must use this instead of `Boolean(value)`.
+const hasRepoUrl = (value) =>
+  Array.isArray(value) ? value.length > 0 : Boolean(value);
+
 class PracticeMaker {
   constructor(_contentRoot, _options) {
     this._options = this._normalizeOptions(_options);
@@ -40737,7 +40771,7 @@ class PracticeMaker {
 
     this._resetUI();
     this.ready =
-      this._options.repoUrl ||
+      hasRepoUrl(this._options.repoUrl) ||
       Array.isArray(this._options.questions) ||
       this._options.includeUserQuestions
       ? this.loadQuestions()
@@ -40761,8 +40795,8 @@ class PracticeMaker {
       shuffleQuestions: merged.shuffleQuestions ?? merged.shuffle ?? true,
       includeUserQuestions: options.includeUserQuestions ??
         (modeChanged
-          ? Boolean(repoUrl || mode === 'EDIT')
-          : merged.includeUserQuestions ?? Boolean(repoUrl || mode === 'EDIT')),
+          ? Boolean(hasRepoUrl(repoUrl) || mode === 'EDIT')
+          : merged.includeUserQuestions ?? Boolean(hasRepoUrl(repoUrl) || mode === 'EDIT')),
       source: options.source ??
         (modeChanged
           ? (mode === 'EDIT' ? 'user' : 'all')
