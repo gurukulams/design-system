@@ -69,8 +69,11 @@ class HomeScreen {
     filterCols(selectedTags) {
       // Normalize selected tags to lowercase for comparison
       const normalizedSelected = selectedTags.map(t => t.trim().toLowerCase());
+
+      const categories = [];
   
       this.cols.forEach(col => {
+        
         if (normalizedSelected.length === 0) {
           col.style.display = '';
           return;
@@ -82,9 +85,21 @@ class HomeScreen {
   
         // Check if card contains ANY of the selected tags (OR condition)
         const hasMatch = normalizedSelected.some(selected => colTags.includes(selected));
+
+         // Collect practice categories
+        const practiceCategory = col.getAttribute('data-practice-category');
+
+        if(hasMatch) {
+          if (practiceCategory && !categories.includes(practiceCategory)) {
+            categories.push(practiceCategory);
+          }
+        }
   
         col.style.display = hasMatch ? '' : 'none';
       });
+
+      
+      console.log(categories);
     }
   
     // 5. Synchronize tag UI and filter results
