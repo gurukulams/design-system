@@ -26,6 +26,13 @@ In GitHub Actions no PAT is needed — pass `NODE_AUTH_TOKEN: ${{ secrets.GITHUB
 
 You can open the brower with `http://localhost:1234/design-system`
 
+## Release
+
+```sh
+npm version minor
+git push --follow-tags
+```
+
 ## Dependency automation
 
 `@gurukulams/practice-js` updates flow in without manual intervention:
