@@ -54,7 +54,7 @@ jobs:
           HUGO_ENVIRONMENT: production
           HUGO_PARAMS_GITHUBORG: ${{ github.repository_owner }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DESIGN_SYSTEM_VERSION: 1.4.0
+          DESIGN_SYSTEM_VERSION: v1.4.0
         run: |
           REPO_NAME="/${GITHUB_REPOSITORY##*/}"
           echo ${REPO_NAME}_questions
