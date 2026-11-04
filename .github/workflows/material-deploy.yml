@@ -57,7 +57,7 @@ jobs:
         run: |
           REPO_NAME="/${GITHUB_REPOSITORY##*/}"
           echo ${REPO_NAME}_questions
-          curl -fsSL https://raw.githubusercontent.com/gurukulams/design-system/main/scripts/get-theme.sh | bash
+          curl -fsSL https://github.com/gurukulams/design-system/raw/refs/heads/main/scripts/get-theme.sh | bash
           HUGO_PARAMS_QUESTIONREPOSITORY="${REPO_NAME}_questions" hugo \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
