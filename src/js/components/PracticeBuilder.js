@@ -27,6 +27,11 @@ export default class PracticeBuilder {
             repoAvatar: document.getElementById("repoSelectedAvatar")
         };
 
+        modeSelect.addEventListener("change", (event) => {
+            this._updateSettings();
+            this._applySettings() ;
+        });
+
         this._settings = this._loadSettingsFromStorage();
 
         this._initFormValues();
