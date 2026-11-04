@@ -32,6 +32,7 @@ jobs:
           tar -czf dist/design-system.tar.gz \
             layouts assets i18n static archetypes \
             theme.toml hugo.toml go.mod LICENSE VERSION
+          cp scripts/get-theme.sh dist/get-theme.sh
 
       - name: Publish release
         env:
@@ -39,5 +40,6 @@ jobs:
         run: |
           flags=""
           [[ "$GITHUB_REF_NAME" == *-* ]] && flags="--prerelease"
-          gh release create "$GITHUB_REF_NAME" dist/design-system.tar.gz \
+          gh release create "$GITHUB_REF_NAME" \
+            dist/design-system.tar.gz dist/get-theme.sh \
             --generate-notes $flags
