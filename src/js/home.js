@@ -5,7 +5,11 @@ class HomeScreen {
       this.STORAGE_KEY = 'selectedtopictags';
       this.tagContainer = document.getElementById('tags-cloud');
 
-      new PracticeBuilder();
+      this.practiceBuilder = new PracticeBuilder();
+
+
+      this.defaultCategory = document.getElementById("practice-container")
+      .dataset.practiceCategory;
       
       if (!this.tagContainer) return;
   
@@ -98,6 +102,7 @@ class HomeScreen {
         col.style.display = hasMatch ? '' : 'none';
       });
 
+      this.practiceBuilder.categories = categories.length === 0 ? [this.defaultCategory] : categories;
       
       console.log(categories);
     }

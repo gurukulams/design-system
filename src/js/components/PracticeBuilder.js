@@ -44,6 +44,8 @@ export default class PracticeBuilder {
         void this._initializePractice().catch(console.error);
     }
 
+
+
     /**
      * Restore settings from session storage.
      */
@@ -172,8 +174,7 @@ export default class PracticeBuilder {
         const timer =
             timerInput?.value.trim() || null;
 
-        const repoUrl =
-            contentRoot?.dataset.practiceCategory || null;
+        const repoUrl = this.getCategory(contentRoot);
 
         const languageCode =
             contentRoot?.dataset.practiceLang || null;
@@ -212,6 +213,23 @@ export default class PracticeBuilder {
                 error
             );
         }
+    }
+
+    set categories(categories) {
+        const {
+            contentRoot
+        } = this._elements;
+        contentRoot.dataset.practiceCategory = Array.isArray(categories) 
+        ? categories.map(item => item.trim()).filter(Boolean).join(',') 
+        : '';
+        this._updateSettings();
+        this._applySettings() ;
+    }
+
+    getCategory(contentRoot) {
+        return contentRoot?.dataset.practiceCategory
+            ? contentRoot.dataset.practiceCategory.split(',').map(item => item.trim())
+            : [];
     }
 
     /**
