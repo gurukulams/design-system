@@ -1,88 +1,143 @@
 ---
 title: "Choose the Best"
 weight: 1
+categories:
+  - choose-the-best
 ---
 
+> Choose the Best is a question format where learners select the correct answer from the given options. Use this format to test their understanding of a concept, fact, or solution.
 
-The **Choose the Best** (Multiple Choice) format is a primary tool in our assessment strategy. It focuses on identifying the most accurate statement among several plausible alternatives. This method is highly effective for testing a learner's grasp of nuanced rules within the **Gurukulams Design System**, such as typography hierarchies or specific Markdown syntax.
+## Syntax
 
-## What is "Choose the Best"?
+A Choose the Best question uses two YAML fields:
 
-Unlike standard quizzes that might have multiple correct answers, "Choose the Best" challenges the learner to evaluate all options and select the single most technically sound statement. 
+- `choices`: Lists the available options.
+- `answers`: Specifies the correct answer. The **answer does not need to be repeated** in the choices.
 
-### Key Components:
-1.  **Metadata Block:** Defined in the header (YAML), it lists the `choices` and the correct `answers`.
-2.  **The Question:** A clear, concise heading or sentence using the `##` format.
-3.  **The Rationale:** A follow-up explanation (often in a code block or formatted text) that explains *why* the answer is correct and why others were incorrect.
-
----
-
-## Usage Examples
-
-Below are examples of how to format these questions based on the **Documentation Module** standards we have established.
-
-### Example 1: Typography Hierarchy
-This example tests the creator's understanding of structural standards.
+The question can be written using any supported Markdown content.
 
 ```markdown
 ---
 choices:
-  - "You can skip from # Heading 1 to ### Heading 3 for sub-sections."
-  - "Heading 1 (#) should only be used once as the page title."
-  - "All headings should be written in ALL CAPS for better visibility."
+  - "Choice 1"
+  - "Choice 2"
+  - "Choice 3"
 answers:
-  - "Heading 1 (#) should only be used once as the page title."
+  - "Choice 4"
 ---
 
-## Which statement regarding heading hierarchy is correct?
+Write your question here?
+
+Additional Markdown content can be added here.
 
 ---
 
-#### In our design system, # Heading 1 is reserved for the primary page title to ensure a clear structure. Skipping levels (like H1 to H3) breaks accessibility, and ALL CAPS is avoided to maintain readability.
+Explanation of the correct answer.
 ```
 
-### Example 2: Mathematical Expressions
-This example tests the technical syntax for rendering math.
+## Usage Example
+
+The following example uses a question about heading hierarchy.
 
 ```markdown
 ---
 choices:
-  - "Use single dollar signs ($) to center a formula on its own line."
-  - "Use double dollar signs ($$) for inline math within a sentence."
-  - "Double dollar signs ($$) are used for centered 'Display' expressions."
+  - "You can skip from Heading 1 to Heading 3."
+  - "All headings should be written in capital letters."
 answers:
-  - "Double dollar signs ($$) are used for centered 'Display' expressions."
+  - "Heading 1 should only be used once as the page title."
 ---
 
-## How should you format a complex, standalone equation?
+Which statement about heading hierarchy is correct?
+
 ---
 
-#### While single dollar signs are for inline math, double dollar signs ($$) trigger 'Display Mode,' which centers the equation and provides necessary vertical spacing for complex formulas.
+Heading 1 is used for the main page title. Other headings should follow a proper hierarchy using Heading 2, Heading 3, and so on.
 ```
 
-### Example 3: Image Accessibility
-This example focuses on the functional purpose of Alt Text.
+## Special Aspects
+
+- **Correct answer:** Specify the correct answer in `answers`. It does not need to be included in `choices`.
+- **Explanation:** Add an explanation after the horizontal separator (`---`) to help learners understand the answer.
+- **Markdown support:** The question and explanation can contain Markdown formatting.
+
+### Maths Support
+
+Mathematical expressions can be included in questions and choices using LaTeX syntax.
+
+**Inline mathematics:** Use `$...$` to include an expression within a sentence.
 
 ```markdown
 ---
 choices:
-  - "Alt text is used to set the width and height of an image."
-  - "Alt text provides a description for screen readers and fallback text."
-  - "Alt text is the URL where the image is stored."
+  - "$2 + 3 = 6$"
+  - "$2 + 3 = 7$"
 answers:
-  - "Alt text provides a description for screen readers and fallback text."
+  - "$2 + 3 = 5$"
 ---
 
-## What is the primary role of Alt Text in an image tag?
+Which expression is correct?
 
 ---
 
-#### Alt text (the text in brackets `[...]`) is an accessibility requirement. It describes the image to visually impaired users and appears if the image file fails to load.
+The sum of 2 and 3 is 5.
 ```
 
+**Display mathematics:** Use `$$...$$` for expressions displayed on a separate line.
+
+```markdown
+---
+choices:
+  - "$$x^2 + 1 = (x+1)^2$$"
+answers:
+  - "$$x^2 + 2x + 1 = (x+1)^2$$"
 ---
 
-## Best Practices for Content Creators
-* **Avoid "None of the Above":** Try to make the correct answer a positive statement of fact.
-* **Keep Choices Balanced:** Ensure all choices are roughly the same length so the correct answer doesn't stand out just by being longer.
-* **Provide a Strong Rationale:** The explanation at the end is where the real learning happens. Always clarify the logic behind the correct choice.
+Which mathematical identity is correct?
+
+---
+
+Expanding $(x+1)^2$ gives $x^2 + 2x + 1$.
+```
+
+### Image Support
+
+Images can be included in questions and choices using standard Markdown image syntax.
+
+**Image in a question:**
+
+```markdown
+---
+choices:
+  - "Square"
+  - "Circle"
+answers:
+  - "Triangle"
+---
+
+Identify the shape shown below.
+
+![A triangle](triangle.png)
+
+---
+
+A triangle is a polygon with three sides.
+```
+
+**Images in choices:**
+
+```markdown
+---
+choices:
+  - "![Square](square.png)"
+  - "![Circle](circle.png)"
+answers:
+  - "![Triangle](triangle.png)"
+---
+
+Which shape has three sides?
+
+---
+
+A triangle has three sides and three angles.
+```

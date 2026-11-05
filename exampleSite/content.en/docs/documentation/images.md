@@ -50,7 +50,7 @@ You don't need to worry about images being too wide for mobile screens. The desi
 
 To keep your documentation clean, it is best to follow a standard folder structure. Usually, images are stored in a central `images` or `static` folder.
 
-* **Local Images:** `![Sample](/images/photo.png)` (Refers to a file within your project).
+* **Local Images:** `![Sample](photo.png)` (Refers to a file within your project).
 * **External Images:** `![Sample](https://example.com/photo.png)` (Refers to an image hosted on another website).
 
 ---

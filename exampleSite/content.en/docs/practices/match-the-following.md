@@ -1,77 +1,65 @@
 ---
 title: "Match the Following"
 weight: 3
+categories:
+    - match-the-following
 ---
 
-The **Match the Following** format is a dynamic assessment tool used to test a learner's ability to identify relationships between different concepts, patterns, or components. In our technical modules, it is frequently used to map specific tools to their underlying architectural patterns or to connect terms with their definitions.
+> Match the Following is a dynamic assessment tool used to test a learner’s ability to identify relationships between different concepts, patterns, or components. Use this format to map specific tools to their underlying architectural patterns or to connect terms with their definitions.
 
----
+## Syntax
 
-## What is "Match the Following"?
+A Match the Following question uses two YAML fields:
 
-In this format, the learner is presented with two lists. The goal is to pair each item from the **Choices** list with its corresponding partner in the **Matches** list. It is an excellent way to evaluate categorical knowledge and relational logic.
+* `choices`: Lists the items to be matched (the premises or source terms).
+* `matches`: Lists the corresponding targets or definitions. **The number of items in `matches` can be equal to or greater than the number of items in `choices**`, allowing you to include extra distractor options.
 
-### Key Components:
-1.  **Metadata Block:**
-    * `choices`: The primary items to be matched.
-    * `matches`: The potential target items (these are often shuffled by the system).
-2.  **The Question:** A clear instruction using the `##` heading.
-3.  **The Rationale:** A detailed explanation that clarifies the logic for every pair, ensuring the learner understands the "why" behind each connection.
-
----
-
-## Usage Example: Software Patterns
-
-This example, based on your sample, tests the learner's ability to recognize **Design Patterns** within standard Java/Programming components.
+The question can be written using any supported Markdown content.
 
 ```markdown
 ---
 choices:
-  - Collection Streams API
-  - Buffered Reader
-  - Container
+- "Choice 1"
+- "Choice 2"
 matches:
-  - Builder
-  - Decorator
-  - Composite
+- "Match 1"
+- "Match 2"
+- "Extra Distractor"
 ---
 
-## Match the Following: Programming Components to Design Patterns
+Write your question here?
+
+Additional Markdown content can be added here.
+
 ---
-#### Logic and Rationale:
-* **Collection Streams API** maps to **Builder**: The Streams API uses a builder-like pattern to construct a sequence of operations (filter, map, etc.) before executing them.
-* **Buffered Reader** maps to **Decorator**: In Java I/O, `BufferedReader` "decorates" an existing Reader to add buffering capabilities without changing its interface.
-* **Container** maps to **Composite**: UI Containers (like those in AWT/Swing or generic component trees) treat individual elements and groups of elements uniformly, which is the core of the Composite pattern.
+
+Explanation of the correct relationships and matches.
+
 ```
 
----
+## Usage Example
 
-## Practice Example: Documentation Module
-Testing the relationship between Markdown symbols and their output.
+The following example maps Java components and APIs to their corresponding design patterns, including an additional distractor in the matches list.
 
 ```markdown
 ---
 choices:
-  - #
-  - >
-  - ![]()
+- "Collection Streams API"
+- "Buffered Reader"
+- "Container"
 matches:
-  - Heading
-  - Blockquote
-  - Image
+- "Builder"
+- "Decorator"
+- "Composite"
+- "Singleton"
 ---
 
-## Match the Markdown Symbols to their Visual Elements
+Match each Java component or API to its corresponding design pattern.
+
 ---
-#### Logic and Rationale:
-* **#** maps to **Heading**: This symbol defines the structural title levels of the document.
-* **>** maps to **Blockquote**: Used to create callouts, notes, or tips that stand out from the body text.
-* **![]()** maps to **Image**: The exclamation mark combined with brackets and parentheses is the standard syntax for embedding visual media.
+
+- **Collection Streams API** maps to **Builder** (enables fluent composition and configuration of pipeline operations).
+- **Buffered Reader** maps to **Decorator** (wraps an underlying reader stream to add buffering behavior).
+- **Container** maps to **Composite** (allows individual items and nested component structures to be treated uniformly).
+
 ```
-
----
-
-## Best Practices for Content Creators
-* **Balanced Pairs:** While the system allows for more matches than choices (to act as distractors), keep the lists concise to avoid overwhelming the learner.
-* **Consistent Categories:** Ensure that all items in a single matching set belong to the same logical domain (e.g., all patterns, all file extensions, or all math symbols).
-* **Clear Explanations:** Since matching questions cover multiple points, use a bulleted list in your rationale to explain each pair clearly.

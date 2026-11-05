@@ -2,6 +2,8 @@
 title: "பயிற்சிகள்"
 summary: "மாணவர்களுக்கான ஊடாடும் மதிப்பீட்டு முறைகள்."
 weight: 3
+categories:
+  - practices
 tags:
   - traceablity
 ---

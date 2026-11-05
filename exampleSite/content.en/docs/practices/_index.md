@@ -1,5 +1,7 @@
 ---
 title: "Practices"
+categories:
+  - practices
 tags:
   - traceablity
 summary: "Interactive assessment types for student engagement."
