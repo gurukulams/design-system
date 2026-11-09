@@ -1,3 +1,21 @@
+/* Display math ($$ ... $$) scrolls sideways inside its own box */
+.katex-display {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 4px;              /* room for the scrollbar */
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Wide tables (several pages have math inside tables) scroll by themselves */
+  article table,
+  main table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+
 
 /* Target the display-mode (block) equations */
 @media (max-width: 600px) {

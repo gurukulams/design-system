@@ -34,6 +34,14 @@ body > nav > .container {
   position: relative;
 }
 
+main,
+article,
+.col,
+[class*="col-"] {
+  min-width: 0;
+  max-width: 100%;
+}
+
 .scroll-indicator {
   position: absolute;
   padding-top: 5px;
