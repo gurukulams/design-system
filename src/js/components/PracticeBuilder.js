@@ -68,7 +68,7 @@ export default class PracticeBuilder {
             complexity: null,
             timer: null,
             maxQ: null,
-            repoUrl: null,
+            categories: null,
             languageCode: null,
             baseUrl: null
         };
@@ -174,7 +174,7 @@ export default class PracticeBuilder {
         const timer =
             timerInput?.value.trim() || null;
 
-        const repoUrl = this.getCategory(contentRoot);
+        const categories = this.getCategory(contentRoot);
 
         const languageCode =
             contentRoot?.dataset.practiceLang || null;
@@ -197,7 +197,7 @@ export default class PracticeBuilder {
             complexity,
             timer: timer ? Number(timer) : null,
             maxQ: maxQ ? Number(maxQ) : null,
-            repoUrl,
+            categories,
             languageCode,
             baseUrl
         };
@@ -279,7 +279,7 @@ export default class PracticeBuilder {
             complexity: this._settings.complexity,
             timer: this._settings.timer,
             maxQ: this._settings.maxQ,
-            repoUrl: this._settings.repoUrl,
+            categories: this._settings.categories,
             baseUrl: this._settings.baseUrl
         };
 

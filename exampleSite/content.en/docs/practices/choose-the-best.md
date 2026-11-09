@@ -14,7 +14,7 @@ A Choose the Best question uses two YAML fields:
 - `choices`: Lists the available options.
 - `answers`: Specifies the correct answer. The **answer does not need to be repeated** in the choices.
 
-The question can be written using any supported Markdown content.
+Add an explanation after the horizontal separator (`---`) to help learners understand the answer. The question and explanation can contain Markdown formatting.
 
 ```markdown
 ---
@@ -56,10 +56,6 @@ Heading 1 is used for the main page title. Other headings should follow a proper
 ```
 
 ## Special Aspects
-
-- **Correct answer:** Specify the correct answer in `answers`. It does not need to be included in `choices`.
-- **Explanation:** Add an explanation after the horizontal separator (`---`) to help learners understand the answer.
-- **Markdown support:** The question and explanation can contain Markdown formatting.
 
 ### Maths Support
 
